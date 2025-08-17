@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chizhu - 我的世界生存服务器</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.unsplash.com/photo-1607513746994-51f730a44832');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+        }
+        h1 {
+            color: #55ff55;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .logo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            background-color: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: #55ff55;
+            margin-bottom: 20px;
+        }
+        .server-info {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .version-box {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+        .version {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            width: 45%;
+            min-width: 300px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #55ff55;
+            color: #000;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background-color: #33cc33;
+            transform: scale(1.05);
+        }
+        .btn-forum {
+            background-color: #ff6600;
+        }
+        .btn-forum:hover {
+            background-color: #cc5500;
+        }
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 30px 0;
+        }
+        .feature {
+            width: 30%;
+            min-width: 250px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 1px solid #333;
+        }
+        @media (max-width: 768px) {
+            .version {
+                width: 100%;
+            }
+            .feature {
+                width: 100%;
+            }
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">chizhu</div>
+            <h1>chizhu我的世界生存服务器</h1>
+            <p>一个含有季节插件而有趣的生存世界，等你来探索！</p>
+        </header>
+
+        <div class="server-info">
+            <h2>服务器信息</h2>
+            <p>我们提供多版本支持，Java版和基岩版玩家都可以加入！服务器24小时开放，稳定不卡顿，小屁孩腐竹一点也不专业负责。</p>
+            
+            <div class="version-box">
+                <div class="version">
+                    <h3>Java版服务器</h3>
+                    <p>版本: 1.12~1.21.x</p>
+                    <p>地址: <strong>s1.wimc.cc:26078</strong></p>
+                </div>
+                
+                <div class="version">
+                    <h3>基岩版服务器</h3>
+                    <p>版本: 1.15+</p>
+                    <p>地址: <strong>s1.wimc.cc</strong></p>
+                    <p>端口: <strong>5212</strong></p>
+                    <a href="#" class="btn" onclick="alert('请在基岩版游戏中手动添加服务器\n地址: s1.wimc.cc\n端口: 5212')">加入教程(基岩版)</a>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <a href="https://minepay.top/#/shop?id=7659" class="btn" style="background-color: #ffaa00;">前往充值商店</a>
+                <a href="https://www.wdsjfwq.com/server-1578.html" class="btn btn-forum">苦力怕论坛宣传</a>
+            </div>
+        </div>
+
+        <h2>服务器特色</h2>
+        <div class="features">
+            <div class="feature">
+                <h3>季节插件</h3>
+                <p>独特的季节系统，春夏秋冬各有特色，带来不同的生存体验。</p>
+            </div>
+            <div class="feature">
+                <h3>经济系统</h3>
+                <p>完善的商店和经济系统，玩家可以自由交易。</p>
+            </div>
+            <div class="feature">
+                <h3>领地保护</h3>
+                <p>领地系统保护你的建筑和物品，防止被破坏。</p>
+            </div>
+            <div class="feature">
+                <h3>活跃社区</h3>
+                <p>友好的玩家社区，定期举办建筑比赛等活动。</p>
+            </div>
+            <div class="feature">
+                <h3>多版本支持</h3>
+                <p>同时支持Java版和基岩版玩家加入。</p>
+            </div>
+            <div class="feature">
+                <h3>稳定运行</h3>
+                <p>高性能服务器，24小时稳定运行，低延迟。</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2025 chizhu Minecraft服务器 | QQ群: 907670859 | 邮箱: 看啥这个不告诉你</p>
+        </footer>
+    </div>
+</body>
+</html>
