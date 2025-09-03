@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>游戏服务器更新日志</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #2b5876, #4e4376);
+            color: #f0f0f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(13, 17, 33, 0.85);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            padding: 30px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #6c8cff;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #aaa;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 更新日志卡片样式 */
+        .update-card {
+            background: rgba(20, 25, 45, 0.7);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-left: 4px solid #6c8cff;
+        }
+        
+        .update-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .version {
+            font-size: 1.5rem;
+            color: #6c8cff;
+            font-weight: bold;
+        }
+        
+        .date {
+            color: #aaa;
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        .update-content {
+            color: #e0e0e0;
+        }
+        
+        .update-content h3 {
+            color: #6c8cff;
+            margin: 15px 0 10px;
+            font-size: 1.2rem;
+            padding-bottom: 5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .update-content ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .update-content li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        /* 时间线样式 */
+        .timeline {
+            position: relative;
+            margin-left: 10px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: #6c8cff;
+        }
+        
+        .update-card::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 30px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #6c8cff;
+            z-index: 1;
+        }
+        
+        /* 分类标签 */
+        .category {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-right: 8px;
+            margin-top: 8px;
+        }
+        
+        .category-new {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+        }
+        
+        .category-fix {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+        }
+        
+        .category-improve {
+            background: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .update-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .date {
+                margin-top: 10px;
+            }
+            
+            .timeline::before {
+                left: -15px;
+            }
+            
+            .update-card::before {
+                left: -21px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>游戏服务器更新日志</h1>
+            <p>在这里查看游戏服务器的最新更新和维护历史记录</p>
+        </div>
+        
+        <div class="timeline">
+            <!-- 更新日志条目模板 -->
+            <!-- 复制从这里开始 -->
+            <div class="update-card">
+                <div class="update-header">
+                    <span class="version">alpha-v0.18</span>
+                    <span class="date">2025年8月5日</span>
+                </div>
+                <div class="update-content">
+                    <span class="category category-improve">优化</span>
+                    
+                    <h3>新增内容</h3>
+                    <ul>
+                        <li>增加nocheatplus反作弊</li>
+                    </ul>
+                    
+             </div>
+            </div>
+            <!-- 复制到这里结束 -->
+            <!-- 复制从这里开始 -->
+            <div class="update-card">
+                <div class="update-header">
+                    <span class="version">alpha-v0.1</span>
+                    <span class="date">2025年7月23日</span>
+                </div>
+                <div class="update-content">
+                    <span class="category category-new">新内容</span>
+                    <span class="category category-improve">优化</span>
+                    
+                    <h3>新增内容</h3>
+                    <ul>
+                        <li>服务器正式开始运营</li>
+                        <li>增加了基岩版玩家进入方式</li>
+                        <li>添加充值,称号等一系列消费娱乐</li>
+                    </ul>
+                    
+                    <h3>平衡性调整</h3>
+                    <ul>
+                        <li>调整商品价格</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 复制到这里结束 -->
+            <!-- 可以继续添加更多更新日志 -->
+        </div>
+    </div>
+
+    <script>
+        // 这个模板不需要JavaScript功能
+    </script>
+</body>
+</html>
