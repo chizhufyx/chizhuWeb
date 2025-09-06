@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>chizhu - 我的世界生存服务器</title>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #55ff55;
+            --primary-dark: #33cc33;
+            --primary-glow: rgba(85, 255, 85, 0.3);
+            --secondary: #ff6600;
+            --secondary-dark: #cc5500;
+            --secondary-glow: rgba(255, 102, 0, 0.3);
+            --accent: #ffaa00;
+            --accent-dark: #e69900;
+            --accent-glow: rgba(255, 170, 0, 0.3);
+            --dark-bg: #121212;
+            --card-bg: rgba(25, 25, 25, 0.85);
+            --border-radius: 12px;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+            background-color: var(--dark-bg);
+            color: #f0f0f0;
+            background-image: url('https://images.unsplash.com/photo-1607513746994-51f730a44832');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            line-height: 1.6;
+            padding: 20px 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(8px);
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .logo {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #333, #1a1a1a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            color: var(--primary);
+            box-shadow: 0 0 20px var(--primary-glow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to right,
+                rgba(85, 255, 85, 0) 0%,
+                rgba(85, 255, 85, 0.1) 50%,
+                rgba(85, 255, 85, 0) 100%
+            );
+            transform: rotate(30deg);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: rotate(30deg) translateX(-100%); }
+            100% { transform: rotate(30deg) translateX(100%); }
+        }
+        
+        h1 {
+            color: var(--primary);
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px var(--primary-glow);
+        }
+        
+        header p {
+            font-size: 1.2em;
+            color: #ddd;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .server-info h2, .features-section h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(85, 255, 85, 0.2);
+            font-size: 2em;
+        }
+        
+        .version-box {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin: 35px 0;
+        }
+        
+        .version {
+            background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            width: 45%;
+            min-width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .version::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary);
+        }
+        
+        .version:nth-child(2)::before {
+            background-color: #ff4444;
+        }
+        
+        .version h3 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .version p {
+            margin: 10px 0;
+            color: #ddd;
+        }
+        
+        .version strong {
+            color: var(--primary);
+        }
+        
+        .version:nth-child(2) strong {
+            color: #ff6666;
+        }
+        
+        /* 改进的快捷链接样式 */
+        .quick-links {
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.8), rgba(15, 15, 15, 0.8));
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .quick-links h3 {
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+            text-shadow: 0 0 8px var(--primary-glow);
+        }
+        
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        
+        .link-item {
+            background: rgba(40, 40, 40, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(85, 255, 85, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .link-item:hover {
+            transform: translateY(-8px);
+            background: rgba(45, 45, 45, 0.8);
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px var(--primary-glow);
+        }
+        
+        .link-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(85, 255, 85, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+        
+        .link-item:hover .link-icon {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        .link-icon i {
+            font-size: 1.5em;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .link-item:hover .link-icon i {
+            color: #000;
+            transform: rotate(10deg);
+        }
+        
+        .link-item a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .link-item:hover a {
+            color: var(--primary);
+        }
+        
+        .link-item p {
+            font-size: 0.9em;
+            color: #aaa;
+            margin-top: 8px;
+        }
+        
+        /* 按钮样式保持但优化 */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary);
+            color: #000;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--primary-glow);
+        }
+        
+        .btn-forum {
+            background-color: var(--secondary);
+        }
+        
+        .btn-forum:hover {
+            background-color: var(--secondary-dark);
+            box-shadow: 0 5px 15px var(--secondary-glow);
+        }
+        
+        .btn-accent {
+            background-color: var(--accent);
+        }
+        
+        .btn-accent:hover {
+            background-color: var(--accent-dark);
+            box-shadow: 0 5px 15px var(--accent-glow);
+        }
+        
+        .features-section {
+            margin-top: 40px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 35px 0;
+        }
+        
+        .feature {
+            background: linear-gradient(145deg, #2a2a2a, #1e1e1e);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+        
+        .feature:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .feature h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .feature p {
+            color: #ddd;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-top: 1px solid #333;
+            color: #aaa;
+        }
+        
+        footer p {
+            margin-bottom: 10px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            color: #aaa;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        
+        @media (max-width: 768px) {
+            .version {
+                width: 100%;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .logo {
+                width: 150px;
+                height: 150px;
+                font-size: 3em;
+            }
+            
+            .features, .link-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .link-item {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <header>
+                <div class="logo">chizhu</div>
+                <h1>chizhu我的世界生存服务器</h1>
+                <p>一个含有季节插件而有趣的生存世界，等你来探索！</p>
+            </header>
+
+            <div class="server-info">
+                <h2>服务器信息</h2>
+                <p>我们提供多版本支持，Java版和基岩版玩家都可以加入！服务器24小时开放，稳定不卡顿，小屁孩腐竹一点也不专业负责。</p>
+                
+                <div class="version-box">
+                    <div class="version">
+                        <h3>Java版服务器</h3>
+                        <p>版本: 1.12~1.21.x</p>
+                        <p>地址: <strong>s1.wimc.cc:26078</strong></p>
+                    </div>
+                    
+                    <div class="version">
+                        <h3>基岩版服务器（不再提供保障）</h3>
+                        <p>版本: 1.15+</p>
+                        <p>地址: <strong>s1.wimc.cc</strong></p>
+                        <p>端口: <strong>5212</strong></p>
+                        <button class="btn" onclick="alert('请在基岩版游戏中手动添加服务器\n地址: s1.wimc.cc\n端口: 5212')">加入教程(基岩版)</button>
+                    </div>
+                </div>
+                
+                <!-- 优化后的快捷链接区域 -->
+                <div class="quick-links">
+                    <h3>快捷导航</h3>
+                    <div class="link-grid">
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-shopping-cart"></i>
+                            </div>
+                            <a href="https://minepay.top/#/shop?id=7659">充值商店</a>
+                            <p>服务器道具购买</p>
+                        </div>
+                        
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-comments"></i>
+                            </div>
+                            <a href="https://www.wdsjfwq.com/server-1578.html">苦力怕论坛</a>
+                            <p>服务器宣传页面</p>
+                        </div>
+                        
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-music"></i>
+                            </div>
+                            <a href="https://www.douyin.com/user/MS4wLjABAAAA-CrDPDUX-s6oxsmNrtBP07qfmrKGd5iK5KV3WKVlejWNyd52lPK8KhIriDwwYbp8?from_tab_name=main">抖音账号</a>
+                            <p>关注获取动态</p>
+                        </div>
+                        
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-download"></i>
+                            </div>
+                            <a href="https://www.123684.com/s/8sySjv-tq2c">PCL启动器</a>
+                            <p>电脑版下载</p>
+                        </div>
+                        
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-mobile"></i>
+                            </div>
+                            <a href="https://foldcraftlauncher.cn">FCL启动器</a>
+                            <p>手机版下载</p>
+                        </div>
+                        
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-history"></i>
+                            </div>
+                            <a href="https://chizhufyx.github.io/chizhuWeb/wiki.html">更新日志</a>
+                            <p>查看最新更新</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section">
+                <h2>服务器特色</h2>
+                <div class="features">
+                    <div class="feature">
+                        <h3>季节插件</h3>
+                        <p>独特的季节系统，春夏秋冬各有特色，带来不同的生存体验。</p>
+                    </div>
+                    <div class="feature">
+                        <h3>经济系统</h3>
+                        <p>不完善的商店和经济系统，玩家可以自由交易。</p>
+                    </div>
+                    <div class="feature">
+                        <h3>领地保护</h3>
+                        <p>领地系统保护你的建筑和物品，防止被破坏。</p>
+                    </div>
+                    <div class="feature">
+                        <h3>活跃社区</h3>
+                        <p>不友好的玩家社区，不可能定期举办建筑比赛等活动。</p>
+                    </div>
+                    <div class="feature">
+                        <h3>多版本支持</h3>
+                        <p>同时支持不同版本进入。</p>
+                    </div>
+                    <div class="feature">
+                        <h3>不稳定运行</h3>
+                        <p>低性能服务器，24小时不稳定运行，超级高延迟。</p>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <p>© 2025 chizhu Minecraft服务器</p>
+                <p>QQ群: 907670859 | 邮箱: chizhulove@qq.com</p>
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
+    
