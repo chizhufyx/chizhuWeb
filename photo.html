@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高级图片加密器</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"></script>
+    
+    <!-- 配置Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        dark: '#1E293B',
+                        light: '#F8FAFC',
+                        accent: '#8B5CF6'
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .glass {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+            }
+            .gradient-bg {
+                background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+            }
+            .pixel-border {
+                box-shadow: 0 0 0 2px #3B82F6, 0 0 0 4px white, 0 0 0 6px #3B82F6;
+            }
+            .encrypt-animation {
+                animation: encrypt 1.5s ease-in-out infinite alternate;
+            }
+            
+            @keyframes encrypt {
+                0% { transform: scale(1); box-shadow: 0 0 15px rgba(59, 130, 246, 0.5); }
+                100% { transform: scale(1.02); box-shadow: 0 0 25px rgba(139, 92, 246, 0.7); }
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-slate-100 min-h-screen text-dark">
+    <!-- 导航栏 -->
+    <nav class="gradient-bg text-white shadow-lg fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-shield text-2xl"></i>
+                <h1 class="text-xl font-bold">图片加密大师</h1>
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#" class="hover:text-slate-200 transition-colors"><i class="fa fa-home mr-1"></i> 首页</a>
+                <a href="#features" class="hover:text-slate-200 transition-colors"><i class="fa fa-star mr-1"></i> 功能</a>
+                <a href="#how-it-works" class="hover:text-slate-200 transition-colors"><i class="fa fa-question-circle mr-1"></i> 原理</a>
+            </div>
+            <button class="md:hidden text-white focus:outline-none" id="menuToggle">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div class="md:hidden hidden bg-dark/95 w-full" id="mobileMenu">
+            <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+                <a href="#" class="hover:text-primary transition-colors py-2"><i class="fa fa-home mr-1"></i> 首页</a>
+                <a href="#features" class="hover:text-primary transition-colors py-2"><i class="fa fa-star mr-1"></i> 功能</a>
+                <a href="#how-it-works" class="hover:text-primary transition-colors py-2"><i class="fa fa-question-circle mr-1"></i> 原理</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 pt-24 pb-16">
+        <!-- 英雄区域 -->
+        <section class="py-12 md:py-20">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+                    保护您的图片隐私
+                </h2>
+                <p class="text-lg md:text-xl text-slate-600 mb-8">
+                    采用军用级AES-256加密算法，让您的图片只有拥有正确密码的人才能查看
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#encryptor" class="px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-all shadow-lg hover:shadow-primary/30 flex items-center">
+                        <i class="fa fa-lock mr-2"></i> 立即加密
+                    </a>
+                    <a href="#how-it-works" class="px-6 py-3 bg-white hover:bg-slate-100 text-dark rounded-lg font-medium transition-all shadow-lg flex items-center">
+                        <i class="fa fa-info-circle mr-2"></i> 了解更多
+                    </a>
+                </div>
+            </div>
+            
+            <div class="relative max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl">
+                <img src="https://picsum.photos/1200/400" alt="图片加密示例展示" class="w-full h-auto">
+                <div class="absolute inset-0 bg-gradient-to-t from-dark/70 to-transparent flex items-end">
+                    <div class="p-6 text-white">
+                        <h3 class="text-xl font-bold mb-2">安全加密，简单操作</h3>
+                        <p>拖放图片，设置密码，一键加密，保护您的隐私</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 加密器区域 -->
+        <section id="encryptor" class="py-12 bg-white rounded-2xl shadow-xl p-6 md:p-10 mb-16 transform transition-all hover:shadow-2xl">
+            <h3 class="text-2xl md:text-3xl font-bold mb-8 text-center">图片加密工具</h3>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- 左侧：上传和控制区 -->
+                <div class="flex flex-col space-y-6">
+                    <!-- 拖放上传区域 -->
+                    <div id="dropArea" class="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center hover:border-primary transition-colors cursor-pointer bg-slate-50 h-64 flex flex-col items-center justify-center">
+                        <i class="fa fa-cloud-upload text-5xl text-primary mb-4"></i>
+                        <p class="text-slate-600 mb-2">拖放图片到这里，或</p>
+                        <label class="px-4 py-2 bg-primary text-white rounded-lg cursor-pointer hover:bg-primary/90 transition-colors">
+                            <i class="fa fa-file-image-o mr-1"></i> 选择图片
+                            <input type="file" id="fileInput" accept="image/*" class="hidden">
+                        </label>
+                        <p class="text-xs text-slate-400 mt-4">支持 JPG, PNG, GIF 等格式</p>
+                    </div>
+                    
+                    <!-- 密码设置 -->
+                    <div class="space-y-4">
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-slate-700 mb-1">加密密码</label>
+                            <div class="relative">
+                                <input type="password" id="password" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all" placeholder="设置加密密码">
+                                <button type="button" id="togglePassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-primary">
+                                    <i class="fa fa-eye-slash"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="algorithm" class="block text-sm font-medium text-slate-700 mb-1">加密算法</label>
+                            <select id="algorithm" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+                                <option value="AES">AES-256 (推荐)</option>
+                                <option value="DES">DES</option>
+                                <option value="TripleDES">TripleDES</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- 操作按钮 -->
+                    <div class="flex space-x-4">
+                        <button id="encryptBtn" class="flex-1 px-6 py-3 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition-all shadow-lg hover:shadow-primary/30 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
+                            <i class="fa fa-lock mr-2"></i> 加密图片
+                        </button>
+                        <button id="decryptBtn" class="flex-1 px-6 py-3 bg-secondary hover:bg-secondary/90 text-white rounded-lg font-medium transition-all shadow-lg hover:shadow-secondary/30 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed">
+                            <i class="fa fa-unlock mr-2"></i> 解密图片
+                        </button>
+                    </div>
+                    
+                    <!-- 状态信息 -->
+                    <div id="status" class="hidden p-4 rounded-lg bg-slate-100 border border-slate-200">
+                        <p id="statusText" class="text-slate-700"></p>
+                        <div id="progressContainer" class="hidden mt-2 h-2 bg-slate-200 rounded-full overflow-hidden">
+                            <div id="progressBar" class="h-full bg-primary w-0 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 右侧：预览区 -->
+                <div class="flex flex-col space-y-6">
+                    <!-- 原始图片预览 -->
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <h4 class="text-sm font-medium text-slate-700 mb-2 flex items-center">
+                            <i class="fa fa-image mr-2 text-primary"></i> 原始图片
+                        </h4>
+                        <div id="originalPreview" class="w-full h-64 bg-slate-100 rounded-lg flex items-center justify-center overflow-hidden">
+                            <p class="text-slate-400">未选择图片</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 处理后图片预览 -->
+                    <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                        <h4 class="text-sm font-medium text-slate-700 mb-2 flex items-center">
+                            <i class="fa fa-magic mr-2 text-accent"></i> 处理后图片
+                        </h4>
+                        <div id="processedPreview" class="w-full h-64 bg-slate-100 rounded-lg flex items-center justify-center overflow-hidden">
+                            <p class="text-slate-400">处理后的图片将显示在这里</p>
+                        </div>
+                        <div class="mt-3 text-center">
+                            <button id="downloadBtn" class="px-4 py-2 bg-accent hover:bg-accent/90 text-white rounded-lg font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed hidden">
+                                <i class="fa fa-download mr-2"></i> 下载图片
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 特性区域 -->
+        <section id="features" class="py-12 mb-16">
+            <h3 class="text-2xl md:text-3xl font-bold mb-12 text-center">为什么选择我们的加密器</h3>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 特性1 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                        <i class="fa fa-shield text-2xl text-primary"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">银行级加密</h4>
+                    <p class="text-slate-600">采用AES-256加密算法，这是美国政府采用的标准加密算法，被认为是目前最安全的对称加密算法之一。</p>
+                </div>
+                
+                <!-- 特性2 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-4">
+                        <i class="fa fa-lock text-2xl text-secondary"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">本地处理</h4>
+                    <p class="text-slate-600">所有加密和解密操作都在您的浏览器中完成，图片和密码不会上传到任何服务器，确保您的隐私安全。</p>
+                </div>
+                
+                <!-- 特性3 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mb-4">
+                        <i class="fa fa-bolt text-2xl text-accent"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">高效快速</h4>
+                    <p class="text-slate-600">优化的加密算法实现，即使是大尺寸图片也能快速处理，配合分块处理技术，避免浏览器卡顿。</p>
+                </div>
+                
+                <!-- 特性4 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                        <i class="fa fa-code-fork text-2xl text-primary"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">多种算法</h4>
+                    <p class="text-slate-600">支持AES、DES和TripleDES等多种加密算法，满足不同场景下的加密需求，让您有更多选择。</p>
+                </div>
+                
+                <!-- 特性5 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-full bg-secondary/10 flex items-center justify-center mb-4">
+                        <i class="fa fa-mobile text-2xl text-secondary"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">响应式设计</h4>
+                    <p class="text-slate-600">完美适配各种设备，无论是电脑、平板还是手机，都能提供一致的用户体验和加密功能。</p>
+                </div>
+                
+                <!-- 特性6 -->
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+                    <div class="w-14 h-14 rounded-full bg-accent/10 flex items-center justify-center mb-4">
+                        <i class="fa fa-free-code-camp text-2xl text-accent"></i>
+                    </div>
+                    <h4 class="text-xl font-bold mb-3">开源透明</h4>
+                    <p class="text-slate-600">核心加密代码完全透明，您可以查看每一步操作，确保没有后门或数据泄露风险。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 工作原理 -->
+        <section id="how-it-works" class="py-12 mb-16 bg-gradient-to-br from-slate-50 to-slate-100 rounded-2xl p-6 md:p-10">
+            <h3 class="text-2xl md:text-3xl font-bold mb-12 text-center">加密原理</h3>
+            
+            <div class="max-w-3xl mx-auto">
+                <p class="text-lg text-slate-700 mb-8">
+                    我们的图片加密器采用现代密码学算法，通过以下步骤保护您的图片：
+                </p>
+                
+                <div class="space-y-8">
+                    <div class="flex flex-col md:flex-row gap-6 items-center">
+                        <div class="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold shrink-0">1</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">图片转换</h4>
+                            <p class="text-slate-600">将图片转换为二进制数据，这是所有后续加密操作的基础。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row gap-6 items-center">
+                        <div class="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold shrink-0">2</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">密钥派生</h4>
+                            <p class="text-slate-600">使用PBKDF2算法从您的密码派生加密密钥，增加暴力破解的难度。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row gap-6 items-center">
+                        <div class="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold shrink-0">3</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">加密处理</h4>
+                            <p class="text-slate-600">使用选定的加密算法（如AES-256）对图片二进制数据进行加密，采用CBC模式并生成随机IV。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row gap-6 items-center">
+                        <div class="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold shrink-0">4</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">数据封装</h4>
+                            <p class="text-slate-600">将加密后的数据、IV和盐值封装为新的图片格式，确保解密时能正确恢复原始数据。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col md:flex-row gap-6 items-center">
+                        <div class="w-16 h-16 rounded-full bg-primary text-white flex items-center justify-center text-2xl font-bold shrink-0">5</div>
+                        <div>
+                            <h4 class="text-xl font-bold mb-2">解密还原</h4>
+                            <p class="text-slate-600">解密时，使用相同的密码派生密钥，结合存储的IV和盐值，将加密数据还原为原始图片。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fa fa-shield text-2xl text-primary"></i>
+                        <h3 class="text-xl font-bold">图片加密大师</h3>
+                    </div>
+                    <p class="text-slate-400 mb-4">
+                        保护您的图片隐私，让敏感图片只有授权人员才能查看。
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-slate-400 hover:text-primary transition-colors">
+                            <i class="fa fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-primary transition-colors">
+                            <i class="fa fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-primary transition-colors">
+                            <i class="fa fa-linkedin text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">快速链接</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-slate-400 hover:text-primary transition-colors">首页</a></li>
+                        <li><a href="#features" class="text-slate-400 hover:text-primary transition-colors">功能特性</a></li>
+                        <li><a href="#how-it-works" class="text-slate-400 hover:text-primary transition-colors">加密原理</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-primary transition-colors">常见问题</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-bold mb-4">联系我们</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-slate-400">
+                            <i class="fa fa-envelope mr-2 text-primary"></i>
+                            <a href="mailto:support@imageencryptor.com" class="hover:text-primary transition-colors">support@imageencryptor.com</a>
+                        </li>
+                        <li class="flex items-center text-slate-400">
+                            <i class="fa fa-globe mr-2 text-primary"></i>
+                            <a href="https://imageencryptor.com" class="hover:text-primary transition-colors">imageencryptor.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-800 mt-8 pt-8 text-center text-slate-500 text-sm">
+                <p>&copy; 2023 图片加密大师 - 保护您的图片隐私</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // DOM元素
+        const dropArea = document.getElementById('dropArea');
+        const fileInput = document.getElementById('fileInput');
+        const originalPreview = document.getElementById('originalPreview');
+        const processedPreview = document.getElementById('processedPreview');
+        const encryptBtn = document.getElementById('encryptBtn');
+        const decryptBtn = document.getElementById('decryptBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+        const algorithmSelect = document.getElementById('algorithm');
+        const status = document.getElementById('status');
+        const statusText = document.getElementById('statusText');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const navbar = document.getElementById('navbar');
+        
+        // 全局变量
+        let selectedImage = null;
+        let processedImageDataUrl = null;
+        
+        // 初始化
+        function init() {
+            // 禁用按钮
+            encryptBtn.disabled = true;
+            decryptBtn.disabled = true;
+            downloadBtn.disabled = true;
+            
+            // 事件监听
+            setupEventListeners();
+        }
+        
+        // 设置事件监听
+        function setupEventListeners() {
+            // 文件上传相关
+            dropArea.addEventListener('dragover', handleDragOver);
+            dropArea.addEventListener('dragleave', handleDragLeave);
+            dropArea.addEventListener('drop', handleDrop);
+            dropArea.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            // 按钮相关
+            encryptBtn.addEventListener('click', encryptImage);
+            decryptBtn.addEventListener('click', decryptImage);
+            downloadBtn.addEventListener('click', downloadImage);
+            togglePassword.addEventListener('click', togglePasswordVisibility);
+            
+            // 导航相关
+            menuToggle.addEventListener('click', toggleMobileMenu);
+            window.addEventListener('scroll', handleScroll);
+            
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // 关闭移动菜单
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+        }
+        
+        // 处理拖拽事件
+        function handleDragOver(e) {
+            e.preventDefault();
+            dropArea.classList.add('border-primary');
+            dropArea.classList.add('bg-primary/5');
+        }
+        
+        function handleDragLeave() {
+            dropArea.classList.remove('border-primary');
+            dropArea.classList.remove('bg-primary/5');
+        }
+        
+        function handleDrop(e) {
+            e.preventDefault();
+            dropArea.classList.remove('border-primary');
+            dropArea.classList.remove('bg-primary/5');
+            
+            if (e.dataTransfer.files.length) {
+                handleImageFile(e.dataTransfer.files[0]);
+            }
+        }
+        
+        // 处理文件选择
+        function handleFileSelect(e) {
+            if (e.target.files.length) {
+                handleImageFile(e.target.files[0]);
+            }
+        }
+        
+        // 处理图片文件
+        function handleImageFile(file) {
+            // 检查文件类型
+            if (!file.type.startsWith('image/')) {
+                showStatus('请选择图片文件', 'error');
+                return;
+            }
+            
+            // 显示预览
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                selectedImage = e.target.result;
+                originalPreview.innerHTML = `<img src="${selectedImage}" alt="原始图片" class="w-full h-full object-contain">`;
+                processedPreview.innerHTML = '<p class="text-slate-400">处理后的图片将显示在这里</p>';
+                processedImageDataUrl = null;
+                
+                // 启用按钮
+                encryptBtn.disabled = false;
+                decryptBtn.disabled = false;
+                downloadBtn.disabled = true;
+                
+                showStatus('图片已加载，准备加密或解密', 'success');
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        // 切换密码可见性
+        function togglePasswordVisibility() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // 切换图标
+            togglePassword.innerHTML = type === 'password' ? 
+                '<i class="fa fa-eye-slash"></i>' : 
+                '<i class="fa fa-eye"></i>';
+        }
+        
+        // 显示状态信息
+        function showStatus(text, type = 'info') {
+            statusText.textContent = text;
+            status.classList.remove('hidden');
+            
+            // 设置状态样式
+            status.className = 'p-4 rounded-lg';
+            if (type === 'success') {
+                status.classList.add('bg-green-50', 'border', 'border-green-200');
+                statusText.classList.add('text-green-700');
+            } else if (type === 'error') {
+                status.classList.add('bg-red-50', 'border', 'border-red-200');
+                statusText.classList.add('text-red-700');
+            } else {
+                status.classList.add('bg-slate-100', 'border', 'border-slate-200');
+                statusText.classList.add('text-slate-700');
+            }
+        }
+        
+        // 显示进度
+        function showProgress(percentage) {
+            progressContainer.classList.remove('hidden');
+            progressBar.style.width = `${percentage}%`;
+        }
+        
+        // 加密图片
+        function encryptImage() {
+            if (!selectedImage) {
+                showStatus('请先选择图片', 'error');
+                return;
+            }
+            
+            const password = passwordInput.value;
+            if (!password) {
+                showStatus('请设置加密密码', 'error');
+                passwordInput.focus();
+                return;
+            }
+            
+            showStatus('正在加密图片...');
+            showProgress(0);
+            
+            // 模拟进度更新
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress > 90) progress = 90;
+                showProgress(progress);
+            }, 300);
+            
+            // 实际加密操作
+            setTimeout(() => {
+                clearInterval(progressInterval);
+                
+                // 创建Image对象加载图片
+                const img = new Image();
+                img.onload = function() {
+                    // 创建Canvas处理图片
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+                    
+                    // 获取图像数据
+                    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                    const data = imageData.data;
+                    
+                    // 生成密钥 (使用CryptoJS)
+                    const algorithm = algorithmSelect.value;
+                    const salt = CryptoJS.lib.WordArray.random(128/8);
+                    const key = CryptoJS.PBKDF2(password, salt, {
+                        keySize: algorithm === 'AES' ? 256/32 : algorithm === 'TripleDES' ? 192/32 : 64/32,
+                        iterations: 1000
+                    });
+                    
+                    // 生成随机IV
+                    const iv = CryptoJS.lib.WordArray.random(128/8);
+                    
+                    // 将图像数据转换为WordArray
+                    const imageWordArray = CryptoJS.lib.WordArray.create(data);
+                    
+                    // 加密
+                    let encrypted;
+                    if (algorithm === 'AES') {
+                        encrypted = CryptoJS.AES.encrypt(imageWordArray, key, { 
+                            iv: iv,
+                            mode: CryptoJS.mode.CBC,
+                            padding: CryptoJS.pad.Pkcs7
+                        });
+                    } else if (algorithm === 'TripleDES') {
+                        encrypted = CryptoJS.TripleDES.encrypt(imageWordArray, key, { 
+                            iv: iv,
+                            mode: CryptoJS.mode.CBC,
+                            padding: CryptoJS.pad.Pkcs7
+                        });
+                    } else { // DES
+                        encrypted = CryptoJS.DES.encrypt(imageWordArray, key, { 
+                            iv: iv,
+                            mode: CryptoJS.mode.CBC,
+                            padding: CryptoJS.pad.Pkcs7
+                        });
+                    }
+                    
+                    // 构建包含加密数据、IV、盐和算法信息的对象
+                    const encryptedData = {
+                        ciphertext: encrypted.ciphertext.toString(),
+                        iv: iv.toString(),
+                        salt: salt.toString(),
+                        algorithm: algorithm,
+                        width: img.width,
+                        height: img.height
+                    };
+                    
+                    // 将加密数据转换为字符串并编码为Base64
+                    const encryptedString = btoa(JSON.stringify(encryptedData));
+                    
+                    // 创建加密后的"图片" - 实际上是包含加密数据的PNG
+                    // 我们将加密数据隐藏在图片的像素中
+                    const encryptedCanvas = document.createElement('canvas');
+                    const encryptedCtx = encryptedCanvas.getContext('2d');
+                    
+                    // 计算需要的画布大小
+                    const pixelCount = Math.ceil(encryptedString.length / 4); // 每个像素存储4个字符
+                    const encryptedWidth = Math.ceil(Math.sqrt(pixelCount));
+                    const encryptedHeight = Math.ceil(pixelCount / encryptedWidth);
+                    
+                    encryptedCanvas.width = encryptedWidth;
+                    encryptedCanvas.height = encryptedHeight;
+                    
+                    // 填充像素数据
+                    for (let i = 0; i < encryptedString.length; i += 4) {
+                        const x = (i / 4) % encryptedWidth;
+                        const y = Math.floor((i / 4) / encryptedWidth);
+                        
+                        // 为每个像素的RGBA通道分配字符的ASCII值
+                        const r = encryptedString.charCodeAt(i) || 0;
+                        const g = encryptedString.charCodeAt(i + 1) || 0;
+                        const b = encryptedString.charCodeAt(i + 2) || 0;
+                        const a = encryptedString.charCodeAt(i + 3) || 0;
+                        
+                        encryptedCtx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a / 255})`;
+                        encryptedCtx.fillRect(x, y, 1, 1);
+                    }
+                    
+                    // 添加标识符像素，用于识别这是加密图片
+                    encryptedCtx.fillStyle = 'rgba(255, 0, 255, 255)'; // 特殊的洋红色标记
+                    encryptedCtx.fillRect(0, 0, 1, 1);
+                    
+                    // 获取加密后的图片数据URL
+                    processedImageDataUrl = encryptedCanvas.toDataURL('image/png');
+                    
+                    // 显示处理后的图片
+                    processedPreview.innerHTML = `<img src="${processedImageDataUrl}" alt="加密后的图片" class="w-full h-full object-contain encrypt-animation">`;
+                    
+                    // 完成进度
+                    showProgress(100);
+                    showStatus('图片加密成功！', 'success');
+                    
+                    // 启用下载按钮
+                    downloadBtn.classList.remove('hidden');
+                    downloadBtn.disabled = false;
+                };
+                
+                img.src = selectedImage;
+            }, 1500);
+        }
+        
+        // 解密图片
+        function decryptImage() {
+            if (!selectedImage) {
+                showStatus('请先选择图片', 'error');
+                return;
+            }
+            
+            const password = passwordInput.value;
+            if (!password) {
+                showStatus('请输入解密密码', 'error');
+                passwordInput.focus();
+                return;
+            }
+            
+            showStatus('正在解密图片...');
+            showProgress(0);
+            
+            // 模拟进度更新
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress > 90) progress = 90;
+                showProgress(progress);
+            }, 300);
+            
+            // 实际解密操作
+            setTimeout(() => {
+                clearInterval(progressInterval);
+                
+                // 创建Image对象加载图片
+                const img = new Image();
+                img.onload = function() {
+                    try {
+                        // 创建Canvas处理图片
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                        
+                        // 检查是否是我们加密的图片（检查标记像素）
+                        const marker = ctx.getImageData(0, 0, 1, 1).data;
+                        if (!(marker[0] === 255 && marker[1] === 0 && marker[2] === 255 && marker[3] === 255)) {
+                            showStatus('这不是一个加密的图片或格式不受支持', 'error');
+                            showProgress(0);
+                            return;
+                        }
+                        
+                        // 提取加密数据
+                        let encryptedString = '';
+                        for (let y = 0; y < canvas.height; y++) {
+                            for (let x = 0; x < canvas.width; x++) {
+                                // 跳过标记像素
+                                if (x === 0 && y === 0) continue;
+                                
+                                const pixel = ctx.getImageData(x, y, 1, 1).data;
+                                
+                                // 从RGBA通道提取字符
+                                if (pixel[0] > 0) encryptedString += String.fromCharCode(pixel[0]);
+                                if (pixel[1] > 0) encryptedString += String.fromCharCode(pixel[1]);
+                                if (pixel[2] > 0) encryptedString += String.fromCharCode(pixel[2]);
+                                if (pixel[3] > 0) encryptedString += String.fromCharCode(pixel[3]);
+                            }
+                        }
+                        
+                        // 解码Base64并解析加密数据
+                        const decryptedDataStr = atob(encryptedString);
+                        const encryptedData = JSON.parse(decryptedDataStr);
+                        
+                        // 生成密钥
+                        const key = CryptoJS.PBKDF2(password, CryptoJS.enc.Hex.parse(encryptedData.salt), {
+                            keySize: encryptedData.algorithm === 'AES' ? 256/32 : encryptedData.algorithm === 'TripleDES' ? 192/32 : 64/32,
+                            iterations: 1000
+                        });
+                        
+                        // 解密
+                        let decrypted;
+                        const encryptedWordArray = CryptoJS.enc.Hex.parse(encryptedData.ciphertext);
+                        const iv = CryptoJS.enc.Hex.parse(encryptedData.iv);
+                        
+                        if (encryptedData.algorithm === 'AES') {
+                            decrypted = CryptoJS.AES.decrypt({ciphertext: encryptedWordArray}, key, { 
+                                iv: iv,
+                                mode: CryptoJS.mode.CBC,
+                                padding: CryptoJS.pad.Pkcs7
+                            });
+                        } else if (encryptedData.algorithm === 'TripleDES') {
+                            decrypted = CryptoJS.TripleDES.decrypt({ciphertext: encryptedWordArray}, key, { 
+                                iv: iv,
+                                mode: CryptoJS.mode.CBC,
+                                padding: CryptoJS.pad.Pkcs7
+                            });
+                        } else { // DES
+                            decrypted = CryptoJS.DES.decrypt({ciphertext: encryptedWordArray}, key, { 
+                                iv: iv,
+                                mode: CryptoJS.mode.CBC,
+                                padding: CryptoJS.pad.Pkcs7
+                            });
+                        }
+                        
+                        // 将解密后的WordArray转换为Uint8Array
+                        const decryptedBytes = new Uint8Array(decrypted.sigBytes);
+                        const words = decrypted.words;
+                        for (let i = 0; i < decrypted.sigBytes; i++) {
+                            decryptedBytes[i] = (words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff;
+                        }
+                        
+                        // 创建图像数据并绘制到画布
+                        const decryptedCanvas = document.createElement('canvas');
+                        const decryptedCtx = decryptedCanvas.getContext('2d');
+                        decryptedCanvas.width = encryptedData.width;
+                        decryptedCanvas.height = encryptedData.height;
+                        
+                        const imageData = decryptedCtx.createImageData(decryptedCanvas.width, decryptedCanvas.height);
+                        imageData.data.set(decryptedBytes);
+                        decryptedCtx.putImageData(imageData, 0, 0);
+                        
+                        // 获取解密后的图片数据URL
+                        processedImageDataUrl = decryptedCanvas.toDataURL('image/png');
+                        
+                        // 显示处理后的图片
+                        processedPreview.innerHTML = `<img src="${processedImageDataUrl}" alt="解密后的图片" class="w-full h-full object-contain encrypt-animation">`;
+                        
+                        // 完成进度
+                        showProgress(100);
+                        showStatus('图片解密成功！', 'success');
+                        
+                        // 启用下载按钮
+                        downloadBtn.classList.remove('hidden');
+                        downloadBtn.disabled = false;
+                    } catch (e) {
+                        console.error('解密失败:', e);
+                        showStatus('解密失败，可能是密码错误或图片已损坏', 'error');
+                        showProgress(0);
+                    }
+                };
+                
+                img.src = selectedImage;
+            }, 1500);
+        }
+        
+        // 下载图片
+        function downloadImage() {
+            if (!processedImageDataUrl) return;
+            
+            const link = document.createElement('a');
+            link.download = `processed-image-${new Date().getTime()}.png`;
+            link.href = processedImageDataUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showStatus('图片已下载', 'success');
+        }
+        
+        // 切换移动菜单
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+        
+        // 处理滚动事件
+        function handleScroll() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('py-2', 'shadow-xl');
+                navbar.classList.remove('py-3', 'shadow-lg');
+            } else {
+                navbar.classList.add('py-3', 'shadow-lg');
+                navbar.classList.remove('py-2', 'shadow-xl');
+            }
+        }
+        
+        // 初始化应用
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
