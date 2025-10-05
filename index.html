@@ -17,16 +17,46 @@
             --accent-dark: #e69900;
             --accent-glow: rgba(255, 170, 0, 0.3);
             --dark-bg: #121212;
-            --card-bg: rgba(25, 25, 25, 0.85);
+            --card-bg: rgba(25, 25, 25, 0.9);
             --border-radius: 12px;
             --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            --transition: all 0.3s ease;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+        
+        /* 页面加载动画 */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loader-icon {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(85, 255, 85, 0.2);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
         
         body {
@@ -39,6 +69,11 @@
             background-position: center;
             line-height: 1.6;
             padding: 20px 0;
+            opacity: 0;
+            transition: opacity 0.5s ease 0.3s;
+        }
+        body.loaded {
+            opacity: 1;
         }
         
         .container {
@@ -53,18 +88,21 @@
             padding: 30px;
             margin-bottom: 30px;
             box-shadow: var(--shadow);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(12px);
             transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            border-color: rgba(85, 255, 85, 0.1);
         }
         
         header {
             text-align: center;
             padding: 40px 0;
+            position: relative;
         }
         
         .logo {
@@ -81,6 +119,12 @@
             box-shadow: 0 0 20px var(--primary-glow);
             position: relative;
             overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--primary-glow);
         }
         
         .logo::after {
@@ -110,6 +154,11 @@
             font-size: 3em;
             margin-bottom: 15px;
             text-shadow: 0 0 10px var(--primary-glow);
+            transition: var(--transition);
+        }
+        
+        h1:hover {
+            text-shadow: 0 0 15px var(--primary-glow);
         }
         
         header p {
@@ -117,6 +166,7 @@
             color: #ddd;
             max-width: 700px;
             margin: 0 auto;
+            line-height: 1.8;
         }
         
         .server-info h2, .features-section h2 {
@@ -125,6 +175,38 @@
             padding-bottom: 10px;
             border-bottom: 2px solid rgba(85, 255, 85, 0.2);
             font-size: 2em;
+            position: relative;
+        }
+        
+        .server-info h2::after, .features-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 60px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        /* 电脑端强制横版布局 */
+        @media (min-width: 1024px) {
+            .version-box {
+                display: flex;
+                justify-content: center;
+                gap: 25px;
+                flex-wrap: nowrap; /* 禁止换行，保持横版 */
+                margin: 35px 0;
+            }
+            
+            .version {
+                width: 48%; /* 均分宽度，保持横版排列 */
+                min-width: 350px;
+            }
+            
+            .features, .link-grid {
+                grid-template-columns: repeat(3, 1fr); /* 电脑端3列横版布局 */
+                gap: 25px;
+            }
         }
         
         .version-box {
@@ -145,6 +227,12 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             position: relative;
             overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .version:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
         
         .version::before {
@@ -170,6 +258,7 @@
         .version p {
             margin: 10px 0;
             color: #ddd;
+            line-height: 1.7;
         }
         
         .version strong {
@@ -180,13 +269,14 @@
             color: #ff6666;
         }
         
-        /* 改进的快捷链接样式 */
+        /* 快捷链接样式优化 */
         .quick-links {
             background: linear-gradient(145deg, rgba(30, 30, 30, 0.8), rgba(15, 15, 15, 0.8));
             border-radius: var(--border-radius);
             padding: 30px;
             margin: 40px 0;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .quick-links h3 {
@@ -214,6 +304,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
         }
         
         .link-item:hover {
@@ -268,7 +359,7 @@
             margin-top: 8px;
         }
         
-        /* 按钮样式保持但优化 */
+        /* 按钮样式优化 */
         .btn {
             display: inline-block;
             padding: 12px 24px;
@@ -328,11 +419,13 @@
             transition: var(--transition);
             position: relative;
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
         
         .feature:hover {
             transform: translateY(-8px);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(85, 255, 85, 0.1);
         }
         
         .feature::before {
@@ -359,6 +452,7 @@
         
         .feature p {
             color: #ddd;
+            line-height: 1.7;
         }
         
         footer {
@@ -367,6 +461,12 @@
             margin-top: 50px;
             border-top: 1px solid #333;
             color: #aaa;
+            transition: var(--transition);
+        }
+        
+        footer:hover {
+            color: #eee;
+            border-top-color: rgba(85, 255, 85, 0.2);
         }
         
         footer p {
@@ -383,12 +483,15 @@
         .social-links a {
             color: #aaa;
             transition: var(--transition);
+            font-size: 1.2em;
         }
         
         .social-links a:hover {
             color: var(--primary);
+            transform: translateY(-2px);
         }
         
+        /* 移动端适配 */
         @media (max-width: 768px) {
             .version {
                 width: 100%;
@@ -415,6 +518,11 @@
     </style>
 </head>
 <body>
+    <!-- 页面加载动画 -->
+    <div class="loader">
+        <div class="loader-icon"></div>
+    </div>
+
     <div class="container">
         <div class="card">
             <header>
@@ -443,7 +551,7 @@
                     </div>
                 </div>
                 
-                <!-- 优化后的快捷链接区域 -->
+                <!-- 快捷导航区域（新增地图入口） -->
                 <div class="quick-links">
                     <h3>快捷导航</h3>
                     <div class="link-grid">
@@ -451,7 +559,7 @@
                             <div class="link-icon">
                                 <i class="fa fa-shopping-cart"></i>
                             </div>
-                            <a href="https://mp.minepay.top/#/shop?id=7659">充值商店</a>
+                            <a href="https://mp.minepay.top/#/shop?id=7659" target="_blank">充值商店</a>
                             <p>服务器道具购买</p>
                         </div>
                         
@@ -459,7 +567,7 @@
                             <div class="link-icon">
                                 <i class="fa fa-comments"></i>
                             </div>
-                            <a href="https://www.wdsjfwq.com/server-1578.html">苦力怕论坛</a>
+                            <a href="https://www.wdsjfwq.com/server-1578.html" target="_blank">苦力怕论坛</a>
                             <p>服务器宣传页面</p>
                         </div>
                         
@@ -467,7 +575,7 @@
                             <div class="link-icon">
                                 <i class="fa fa-music"></i>
                             </div>
-                            <a href="https://www.douyin.com/user/MS4wLjABAAAA-CrDPDUX-s6oxsmNrtBP07qfmrKGd5iK5KV3WKVlejWNyd52lPK8KhIriDwwYbp8?from_tab_name=main">抖音账号</a>
+                            <a href="https://www.douyin.com/user/MS4wLjABAAAA-CrDPDUX-s6oxsmNrtBP07qfmrKGd5iK5KV3WKVlejWNyd52lPK8KhIriDwwYbp8?from_tab_name=main" target="_blank">抖音账号</a>
                             <p>关注获取动态</p>
                         </div>
                         
@@ -475,7 +583,7 @@
                             <div class="link-icon">
                                 <i class="fa fa-download"></i>
                             </div>
-                            <a href="https://www.123684.com/s/8sySjv-tq2c">PCL启动器</a>
+                            <a href="https://www.123684.com/s/8sySjv-tq2c" target="_blank">PCL启动器</a>
                             <p>电脑版下载</p>
                         </div>
                         
@@ -483,7 +591,7 @@
                             <div class="link-icon">
                                 <i class="fa fa-mobile"></i>
                             </div>
-                            <a href="https://foldcraftlauncher.cn">FCL启动器</a>
+                            <a href="https://foldcraftlauncher.cn" target="_blank">FCL启动器</a>
                             <p>手机版下载</p>
                         </div>
                         
@@ -491,8 +599,17 @@
                             <div class="link-icon">
                                 <i class="fa fa-history"></i>
                             </div>
-                            <a href="https://chizhufyx.github.io/chizhuWeb/wiki.html">更新日志</a>
+                            <a href="https://chizhufyx.github.io/chizhuWeb/wiki.html" target="_blank">更新日志</a>
                             <p>查看最新更新</p>
+                        </div>
+
+                        <!-- 新增：服务器地图入口 -->
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-map"></i>
+                            </div>
+                            <a href="http://210.16.168.53:5201/" target="_blank">服务器地图</a>
+                            <p>查看服务器地图</p>
                         </div>
                     </div>
                 </div>
@@ -531,9 +648,27 @@
             <footer>
                 <p>© 2025 chizhu Minecraft服务器</p>
                 <p>QQ群:915281565 | 邮箱: chizhulove@qq.com</p>
+                <div class="social-links">
+                    <a href="https://jq.qq.com/?_wv=1027&k=XXXXX" target="_blank"><i class="fa fa-qq"></i></a>
+                    <a href="mailto:chizhulove@qq.com" target="_blank"><i class="fa fa-envelope"></i></a>
+                </div>
             </footer>
         </div>
     </div>
+
+    <!-- 页面加载脚本 -->
+    <script>
+        // 页面加载完成后显示内容
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+            document.querySelector('.loader').classList.add('hidden');
+            
+            // 电脑端（宽度≥1024px）强制横版布局提示（可选）
+            if (window.innerWidth >= 1024) {
+                console.log('已自动适配电脑横版布局');
+            }
+        });
+    </script>
 </body>
 </html>
-    
+
