@@ -67,8 +67,8 @@
             to { transform: rotate(360deg); }
         }
         
-        .container {
-            display: flex;
+        /* 页面容器 */
+        .page-container {
             max-width: 1400px;
             margin: 0 auto;
             background-color: var(--bg-light);
@@ -76,92 +76,64 @@
             box-shadow: var(--shadow);
         }
         
-        /* 侧边栏样式 */
-        .sidebar {
-            width: 280px;
+        /* 顶部导航栏 */
+        .top-nav {
             background-color: var(--bg-light);
-            border-right: 1px solid var(--border-light);
-            padding: 20px 0;
+            border-bottom: 1px solid var(--border-light);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             position: sticky;
             top: 0;
-            height: 100vh;
-            overflow-y: auto;
+            z-index: 100;
         }
         
         .logo {
-            text-align: center;
-            padding: 20px 0;
-            border-bottom: 1px solid var(--border-light);
-            margin-bottom: 20px;
-        }
-        
-        .logo h1 {
-            color: var(--primary);
-            font-size: 1.8rem;
-            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
         
         .logo-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto;
+            width: 50px;
+            height: 50px;
             background-color: var(--primary-light);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: white;
         }
         
-        .nav-section {
-            margin-bottom: 30px;
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.5rem;
         }
         
-        .nav-title {
-            padding: 0 20px 10px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            color: var(--text-light);
-            letter-spacing: 1px;
-            border-bottom: 1px solid var(--border-light);
-            margin-bottom: 10px;
+        .main-nav {
+            display: flex;
+            gap: 20px;
         }
         
-        .nav-links {
-            list-style: none;
-        }
-        
-        .nav-links li {
-            margin: 5px 0;
-        }
-        
-        .nav-links a {
-            display: block;
-            padding: 10px 20px;
+        .main-nav a {
             color: var(--text-dark);
             text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
             transition: var(--transition);
+            font-weight: 500;
         }
         
-        .nav-links a:hover, .nav-links a.active {
-            background-color: var(--bg-gray);
-            color: var(--primary);
-            border-left: 3px solid var(--primary);
+        .main-nav a:hover, .main-nav a.active {
+            background-color: var(--primary);
+            color: white;
         }
         
-        .nav-links i {
-            margin-right: 10px;
-            width: 20px;
-            text-align: center;
-        }
-        
-        /* 主内容区域 */
-        .main-content {
-            flex: 1;
+        /* 页面内容区域 */
+        .page-content {
             padding: 40px;
-            overflow-y: auto;
-            max-height: 100vh;
         }
         
         .page-title {
@@ -193,10 +165,6 @@
         }
         
         /* 服务器信息样式 */
-        .server-info p {
-            margin-bottom: 15px;
-        }
-        
         .version-box {
             display: flex;
             gap: 20px;
@@ -344,7 +312,7 @@
             flex-wrap: wrap;
         }
         
-        .version {
+        .update-version {
             font-weight: bold;
             color: var(--primary-dark);
         }
@@ -425,31 +393,118 @@
             background-color: var(--secondary-dark);
         }
         
+        /* QQ群页面样式 */
+        .qq-group-card {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .qq-group-icon {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
+        }
+        
+        .qq-group-info {
+            margin-bottom: 30px;
+        }
+        
+        .qq-group-info p {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+        
+        /* 傻瓜教学样式 */
+        .tutorial-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .tutorial-card {
+            background-color: var(--bg-gray);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            border-top: 3px solid var(--primary);
+        }
+        
+        .tutorial-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tutorial-card h3 i {
+            font-size: 1.5rem;
+        }
+        
+        .tutorial-step {
+            margin-bottom: 20px;
+        }
+        
+        .tutorial-step h4 {
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .tutorial-note {
+            background-color: rgba(255, 152, 0, 0.1);
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .tutorial-note p {
+            margin: 0;
+            color: #d35400;
+        }
+        
+        /* 页面容器样式 */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
         /* 响应式设计 */
-        @media (max-width: 992px) {
-            .container {
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
                 flex-direction: column;
-            }
-            
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: static;
-                border-right: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background-color: var(--bg-light);
                 border-bottom: 1px solid var(--border-light);
+                padding: 15px;
+                gap: 10px;
             }
             
-            .main-content {
-                max-height: none;
-                padding: 20px;
+            .menu-toggle {
+                display: block;
+                font-size: 1.5rem;
+                cursor: pointer;
             }
             
             .version-box {
                 flex-direction: column;
             }
-        }
-        
-        @media (max-width: 768px) {
+            
             .features {
                 grid-template-columns: 1fr;
             }
@@ -466,6 +521,14 @@
             .date {
                 margin-top: 5px;
             }
+            
+            .tutorial-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .menu-toggle {
+            display: none;
         }
     </style>
 </head>
@@ -475,9 +538,9 @@
         <div class="loader-icon"></div>
     </div>
 
-    <div class="container">
-        <!-- 侧边栏导航 -->
-        <div class="sidebar">
+    <div class="page-container">
+        <!-- 顶部导航栏 -->
+        <div class="top-nav">
             <div class="logo">
                 <div class="logo-icon">
                     <i class="fa fa-cube"></i>
@@ -485,317 +548,453 @@
                 <h1>chizhu 服务器</h1>
             </div>
             
-            <div class="nav-section">
-                <div class="nav-title">服务器信息</div>
-                <ul class="nav-links">
-                    <li><a href="#home" class="active"><i class="fa fa-home"></i> 首页</a></li>
-                    <li><a href="#info"><i class="fa fa-server"></i> 服务器信息</a></li>
-                    <li><a href="#features"><i class="fa fa-star"></i> 服务器特色</a></li>
-                    <li><a href="#links"><i class="fa fa-link"></i> 快捷链接</a></li>
-                </ul>
+            <div class="menu-toggle">
+                <i class="fa fa-bars"></i>
             </div>
             
-            <div class="nav-section">
-                <div class="nav-title">更新日志</div>
-                <ul class="nav-links">
-                    <li><a href="#updates"><i class="fa fa-history"></i> 所有更新</a></li>
-                    <li><a href="#latest"><i class="fa fa-clock-o"></i> 最新版本</a></li>
-                </ul>
-            </div>
-            
-            <div class="nav-section">
-                <div class="nav-title">社区</div>
-                <ul class="nav-links">
-                    <li><a href="#contact"><i class="fa fa-envelope"></i> 联系我们</a></li>
-                    <li><a href="https://jq.qq.com/?_wv=1027&k=XXXXX" target="_blank"><i class="fa fa-comments"></i> QQ群</a></li>
-                </ul>
+            <div class="main-nav">
+                <a href="#" data-page="home" class="active">首页</a>
+                <a href="#" data-page="server-info">服务器信息</a>
+                <a href="#" data-page="features">服务器特色</a>
+                <a href="#" data-page="tutorial">傻瓜教学</a>
+                <a href="#" data-page="links">快捷链接</a>
+                <a href="#" data-page="updates">更新日志</a>
+                <a href="#" data-page="qq-group">QQ群</a>
             </div>
         </div>
         
-        <!-- 主内容区域 -->
-        <div class="main-content">
-            <div id="home" class="page-title">
-                <h2>欢迎来到 chizhu 我的世界服务器</h2>
-            </div>
-            
-            <div class="card">
-                <p>欢迎加入我们的服务器！这是一个含有季节插件而有趣的生存世界，等你来探索！我们提供多版本支持，Java版和基岩版玩家都可以加入！服务器24小时开放，稳定不卡顿。</p>
-            </div>
-            
-            <div id="info" class="card">
-                <h3 class="section-title">服务器信息</h3>
-                <div class="version-box">
-                    <div class="version">
-                        <h3>Java版服务器</h3>
-                        <p>版本: 1.12~1.21.x</p>
-                        <p>地址: <strong>chizhudream.top</strong></p>
-                        <p>网卡加速地址: <strong>chizhu.asia</strong></p>
-                    </div>
-                    
-                    <div class="version">
-                        <h3>基岩版服务器（不再提供保障）</h3>
-                        <p>版本: 1.21+</p>
-                        <p>地址: <strong>be.chizhudream.top</strong></p>
-                        <p>端口: <strong>5212</strong></p>
-                        <button class="btn" onclick="alert('请在基岩版游戏中手动添加服务器\n地址: be.chizhudream.top\n端口: 5212')">加入教程(基岩版)</button>
-                    </div>
+        <!-- 首页 -->
+        <div id="home" class="page active">
+            <div class="page-content">
+                <div class="page-title">
+                    <h2>欢迎来到 chizhu 我的世界服务器</h2>
                 </div>
-            </div>
-            
-            <div id="links" class="card">
-                <h3 class="section-title">快捷导航</h3>
-                <div class="link-grid">
-                    <div class="link-item">
-                        <div class="link-icon">
-                            <i class="fa fa-shopping-cart"></i>
-                        </div>
-                        <a href="https://mp.minepay.top/#/shop?id=7659" target="_blank">充值商店</a>
-                        <p>服务器道具购买</p>
-                    </div>
-                    
-                    <div class="link-item">
-                        <div class="link-icon">
-                            <i class="fa fa-comments"></i>
-                        </div>
-                        <a href="https://www.wdsjfwq.com/server-1578.html" target="_blank">苦力怕论坛</a>
-                        <p>服务器宣传页面</p>
-                    </div>
-                    
-                    <div class="link-item">
-                        <div class="link-icon">
-                            <i class="fa fa-music"></i>
-                        </div>
-                        <a href="https://www.douyin.com/user/MS4wLjABAAAA-CrDPDUX-s6oxsmNrtBP07qfmrKGd5iK5KV3WKVlejWNyd52lPK8KhIriDwwYbp8?from_tab_name=main" target="_blank">抖音账号</a>
-                        <p>关注获取动态</p>
-                    </div>
-                    
-                    <div class="link-item">
-                        <div class="link-icon">
-                            <i class="fa fa-download"></i>
-                        </div>
-                        <a href="https://www.123684.com/s/8sySjv-tq2c" target="_blank">PCL启动器</a>
-                        <p>电脑版下载</p>
-                    </div>
-                    
-                    <div class="link-item">
-                        <div class="link-icon">
-                            <i class="fa fa-mobile"></i>
-                        </div>
-                        <a href="https://foldcraftlauncher.cn" target="_blank">FCL启动器</a>
-                        <p>手机版下载</p>
-                    </div>
-                    
-                    <div class="link-item">
-                        <div class="link-icon">
-                            <i class="fa fa-map"></i>
-                        </div>
-                        <a href="http://210.16.168.53:5201/" target="_blank">服务器地图</a>
-                        <p>查看服务器地图</p>
-                    </div>
+                
+                <div class="card">
+                    <p>欢迎加入我们的服务器！这是一个含有季节插件而有趣的生存世界，等你来探索！我们提供多版本支持，Java版玩家可直接加入！服务器24小时开放，稳定不卡顿。</p>
                 </div>
-            </div>
-            
-            <div id="features" class="card">
-                <h3 class="section-title">服务器特色</h3>
-                <div class="features">
-                    <div class="feature">
-                        <h3>季节插件</h3>
-                        <p>独特的季节系统，春夏秋冬各有特色，带来不同的生存体验。</p>
-                    </div>
-                    <div class="feature">
-                        <h3>经济系统</h3>
-                        <p>不完善的商店和经济系统，玩家可以自由交易。</p>
-                    </div>
-                    <div class="feature">
-                        <h3>领地保护</h3>
-                        <p>领地系统保护你的建筑和物品，防止被破坏。</p>
-                    </div>
-                    <div class="feature">
-                        <h3>活跃社区</h3>
-                        <p>不友好的玩家社区，不可能定期举办建筑比赛等活动。</p>
-                    </div>
-                    <div class="feature">
-                        <h3>多版本支持</h3>
-                        <p>同时支持不同版本进入。</p>
-                    </div>
-                    <div class="feature">
-                        <h3>不稳定运行</h3>
-                        <p>低性能服务器，24小时不稳定运行，超级高延迟。</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="updates" class="card">
-                <h3 class="section-title">更新日志</h3>
-                <div class="timeline">
-                    <div id="latest" class="update-card">
-                        <div class="update-header">
-                            <span class="version">Release-v1.0.4</span>
-                            <span class="date">2025年11月16日</span>
+                
+                <div class="card">
+                    <h3 class="section-title">快速导航</h3>
+                    <div class="link-grid">
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-server"></i>
+                            </div>
+                            <a href="#" data-page="server-info">服务器信息</a>
+                            <p>连接地址与版本信息</p>
                         </div>
-                        <div class="update-content">
-                            <span class="category category-improve">优化</span>
-                            
-                            <h3>优化</h3>
-                            <ul>
-                                <li>修复10+杂项问题</li>
-                                <li>修复了飞天bug</li>
-                                <li>增加tnt复制特性（可以做刷石机了）</li>
-                            </ul>
+                        
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <a href="#" data-page="features">服务器特色</a>
+                            <p>独特玩法与系统</p>
                         </div>
-                    </div>
-                    
-                    <div class="update-card">
-                        <div class="update-header">
-                            <span class="version">Release-v1.0.3</span>
-                            <span class="date">2025年10月5日</span>
+                        
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-graduation-cap"></i>
+                            </div>
+                            <a href="#" data-page="tutorial">傻瓜教学</a>
+                            <p>新手入门指南</p>
                         </div>
-                        <div class="update-content">
-                            <span class="category category-new">新内容</span>
-                            <span class="category category-improve">优化</span>
-                            
-                            <h3>新增内容</h3>
-                            <ul>
-                                <li>将res领地插件修改为dom简化版</li>
-                                <li>尝试增加活动</li>
-                                <li>修改反作弊增加容错</li>
-                                <li>优化官网并增加了网页地图</li>
-                            </ul>
-                            
-                            <h3>优化</h3>
-                            <ul>
-                                <li>修复了领地插件无法生效bug</li>
-                                <li>增加了加速地址chizhu.asia</li>
-                                <li>优化反作弊</li>
-                            </ul>
+                        
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-history"></i>
+                            </div>
+                            <a href="#" data-page="updates">更新日志</a>
+                            <p>版本更新与修复</p>
                         </div>
-                    </div>
-                    
-                    <div class="update-card">
-                        <div class="update-header">
-                            <span class="version">Release-v1.0.2-a</span>
-                            <span class="date">2025年9月17日</span>
-                        </div>
-                        <div class="update-content">
-                            <h3>新内容</h3>
-                            <ul>
-                                <li>增加菜单</li>
-                                <li>增加玩家pvp玩家商店等区域</li>
-                                <li>暂停新玩法加大宣传</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="update-card">
-                        <div class="update-header">
-                            <span class="version">beta-v1.03-A</span>
-                            <span class="date">2025年9月10日</span>
-                        </div>
-                        <div class="update-content">
-                            <span class="category category-fix">修复</span>
-                            
-                            <h3>修复</h3>
-                            <ul>
-                                <li>暂时ban掉了蘑菇由于末地全是蘑菇导致服务器卡顿</li>
-                                <li>调整商店价格大幅降低铁价格从6➡️3.5</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="update-card">
-                        <div class="update-header">
-                            <span class="version">beta-v1.03</span>
-                            <span class="date">2025年9月6日</span>
-                        </div>
-                        <div class="update-content">
-                            <span class="category category-improve">优化</span>
-                            
-                            <h3>平衡性调整</h3>
-                            <ul>
-                                <li>怪物强度大加强</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="update-card">
-                        <div class="update-header">
-                            <span class="version">beta-v1.0</span>
-                            <span class="date">2025年8月23日</span>
-                        </div>
-                        <div class="update-content">
-                           <span class="category category-new">大更新</span>
-                            
-                            <h3>内容</h3>
-                            <ul>
-                                <li>修复服务器玩家延时极高问题</li>
-                                <li>增加区块预加载</li>
-                                <li>强制修改玩家渲染距离来优化服务器性能内存</li>
-                                <li>彻底清除服务器地图插件并关闭快速挖掘判定增加兼容性</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="update-card">
-                        <div class="update-header">
-                            <span class="version">beta-v0.21</span>
-                            <span class="date">2025年8月16日</span>
-                        </div>
-                        <div class="update-content">
-                           <span class="category category-new">新内容</span>
-                            
-                            <h3>内容</h3>
-                            <ul>
-                                <li>增加每日签到</li>
-                                <li>由于快捷显示玩家退出会导致服务器卡顿删除</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="update-card">
-                        <div class="update-header">
-                            <span class="version">alpha-v0.18</span>
-                            <span class="date">2025年8月5日</span>
-                        </div>
-                        <div class="update-content">
-                            <span class="category category-improve">优化</span>
-                            
-                            <h3>新增内容</h3>
-                            <ul>
-                                <li>增加nocheatplus反作弊</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="update-card">
-                        <div class="update-header">
-                            <span class="version">alpha-v0.1</span>
-                            <span class="date">2025年7月23日</span>
-                        </div>
-                        <div class="update-content">
-                            <span class="category category-new">新内容</span>
-                            <span class="category category-improve">优化</span>
-                            
-                            <h3>新增内容</h3>
-                            <ul>
-                                <li>服务器正式开始运营</li>
-                                <li>增加了基岩版玩家进入方式</li>
-                                <li>添加充值,称号等一系列消费娱乐</li>
-                            </ul>
-                            
-                            <h3>平衡性调整</h3>
-                            <ul>
-                                <li>调整商品价格</li>
-                            </ul>
+                        
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-comments"></i>
+                            </div>
+                            <a href="#" data-page="qq-group">加入QQ群</a>
+                            <p>社区交流与支持</p>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <div id="contact" class="card">
-                <h3 class="section-title">联系我们</h3>
-                <p>QQ群: 915281565</p>
-                <p>邮箱: chizhulove@qq.com</p>
-                <a href="https://jq.qq.com/?_wv=1027&k=XXXXX" target="_blank" class="btn btn-forum">加入QQ群</a>
+        </div>
+        
+        <!-- 服务器信息页 -->
+        <div id="server-info" class="page">
+            <div class="page-content">
+                <div class="page-title">
+                    <h2>服务器信息</h2>
+                </div>
+                
+                <div class="card">
+                    <div class="version-box">
+                        <div class="version">
+                            <h3>Java版服务器</h3>
+                            <p>版本: 1.12~1.21.x</p>
+                            <p>地址: <strong>s1.wimc.cc:26078</strong></p>
+                            <p>支持正版与离线模式</p>
+                            <a href="#" data-page="tutorial" class="btn">查看加入教程</a>
+                        </div>
+                        
+                        <div class="version">
+                            <h3>基岩版服务器（不再提供保障）</h3>
+                            <p>版本: 1.15+</p>
+                            <p>地址: <strong>s1.wimc.cc</strong></p>
+                            <p>端口: <strong>5212</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 服务器特色页 -->
+        <div id="features" class="page">
+            <div class="page-content">
+                <div class="page-title">
+                    <h2>服务器特色</h2>
+                </div>
+                
+                <div class="card">
+                    <div class="features">
+                        <div class="feature">
+                            <h3>季节插件</h3>
+                            <p>独特的季节系统，春夏秋冬各有特色，带来不同的生存体验。</p>
+                        </div>
+                        <div class="feature">
+                            <h3>经济系统</h3>
+                            <p>不完善的商店和经济系统，玩家可以自由交易。</p>
+                        </div>
+                        <div class="feature">
+                            <h3>领地保护</h3>
+                            <p>领地系统保护你的建筑和物品，防止被破坏。</p>
+                        </div>
+                        <div class="feature">
+                            <h3>活跃社区</h3>
+                            <p>不友好的玩家社区，不可能定期举办建筑比赛等活动。</p>
+                        </div>
+                        <div class="feature">
+                            <h3>多版本支持</h3>
+                            <p>同时支持不同版本进入。</p>
+                        </div>
+                        <div class="feature">
+                            <h3>不稳定运行</h3>
+                            <p>低性能服务器，24小时不稳定运行，超级高延迟。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 傻瓜教学页 -->
+        <div id="tutorial" class="page">
+            <div class="page-content">
+                <div class="page-title">
+                    <h2>傻瓜教学：Java版加入教程</h2>
+                </div>
+                
+                <div class="card">
+                    <p>本教程专为新手设计，详细讲解电脑端和手机端如何安装Java版并加入服务器，一步一步跟着做就能成功！</p>
+                    
+                    <div class="tutorial-container">
+                        <!-- 电脑端教程 -->
+                        <div class="tutorial-card">
+                            <h3><i class="fa fa-desktop"></i> 电脑端（Windows/Mac/Linux）</h3>
+                            
+                            <div class="tutorial-step">
+                                <h4>第一步：下载Java版启动器</h4>
+                                <p>1. 推荐使用PCL启动器（简单易用）</p>
+                                <p>2. 下载地址：<a href="https://www.123684.com/s/8sySjv-tq2c" target="_blank">点击下载PCL启动器</a></p>
+                                <p>3. 下载完成后安装，打开启动器</p>
+                            </div>
+                            
+                            <div class="tutorial-step">
+                                <h4>第二步：安装游戏版本</h4>
+                                <p>1. 打开PCL启动器，点击左侧「版本列表」</p>
+                                <p>2. 选择1.12~1.21之间的任意版本（推荐1.20.1）</p>
+                                <p>3. 点击「安装」，等待下载完成（需联网）</p>
+                            </div>
+                            
+                            <div class="tutorial-step">
+                                <h4>第三步：添加服务器</h4>
+                                <p>1. 启动游戏，进入主菜单</p>
+                                <p>2. 点击「多人游戏」→「添加服务器」</p>
+                                <p>3. 服务器名称随便填（比如「chizhu服务器」）</p>
+                                <p>4. 服务器地址填写：<strong>chizhudream.top</strong></p>
+                                <p>5. 点击「完成」，服务器就添加好了</p>
+                            </div>
+                            
+                            <div class="tutorial-step">
+                                <h4>第四步：进入服务器</h4>
+                                <p>1. 在服务器列表中找到刚刚添加的服务器</p>
+                                <p>2. 点击「加入服务器」，等待连接成功</p>
+                                <p>3. 连接成功后即可开始游戏！</p>
+                            </div>
+                            
+                            <div class="tutorial-note">
+                                <p>💡 提示：如果连接失败，检查网络是否正常，或尝试更换游戏版本</p>
+                            </div>
+                        </div>
+                        
+                        <!-- 手机端教程 -->
+                        <div class="tutorial-card">
+                            <h3><i class="fa fa-mobile"></i> 手机端（Android/iOS）</h3>
+                            
+                            <div class="tutorial-step">
+                                <h4>第一步：下载Java版启动器</h4>
+                                <p>1. 推荐使用FCL启动器（支持手机运行Java版）</p>
+                                <p>2. 下载地址：<a href="https://foldcraftlauncher.cn" target="_blank">点击下载FCL启动器</a></p>
+                                <p>3. Android直接安装APK</p>
+                            </div>
+                            
+                            <div class="tutorial-step">
+                                <h4>第二步：安装游戏核心</h4>
+                                <p>1. 打开FCL启动器，同意用户协议</p>
+                                <p>2. 点击「版本管理」→「下载版本」</p>
+                                <p>3. 选择1.12~1.21之间的版本（推荐1.20.1，兼容性好）</p>
+                                <p>4. 等待下载完成（手机需有足够存储空间）</p>
+                            </div>
+                            
+                            <div class="tutorial-step">
+                                <h4>第三步：配置并启动游戏</h4>
+                                <p>1. 回到启动页，选择已下载的版本</p>
+                                <p>2. 点击「启动游戏」，首次启动会下载必要文件</p>
+                                <p>3. 游戏启动后，点击「多人游戏」→「添加服务器」</p>
+                            </div>
+                            
+                            <div class="tutorial-step">
+                                <h4>第四步：加入服务器</h4>
+                                <p>1. 服务器地址填写：<strong>chizhudream.top</strong></p>
+                                <p>2. 名称随意填写，点击「保存」</p>
+                                <p>3. 点击服务器名称，等待连接成功即可</p>
+                            </div>
+                            
+                            <div class="tutorial-note">
+                                <p>💡 提示：手机配置较低可能会卡顿，建议关闭高画质设置</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tutorial-note" style="margin-top: 30px;">
+                        <p>❓ 常见问题：如果连接超时/无法加入，可尝试以下方法</p>
+                        <p>1. 检查网络是否正常，关闭VPN或代理</p>
+                        <p>2. 更换游戏版本（推荐1.19.x系列）</p>
+                        <p>3. 或者切换加速地址chizhu.asia</p>
+                        <p>4. 加入QQ群（915281565）寻求帮助</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 快捷链接页 -->
+        <div id="links" class="page">
+            <div class="page-content">
+                <div class="page-title">
+                    <h2>快捷导航</h2>
+                </div>
+                
+                <div class="card">
+                    <div class="link-grid">
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-shopping-cart"></i>
+                            </div>
+                            <a href="https://mp.minepay.top/#/shop?id=7659" target="_blank">充值商店</a>
+                            <p>服务器道具购买</p>
+                        </div>
+                        
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-comments"></i>
+                            </div>
+                            <a href="https://www.wdsjfwq.com/server-1578.html" target="_blank">苦力怕论坛</a>
+                            <p>服务器宣传页面</p>
+                        </div>
+                        
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-music"></i>
+                            </div>
+                            <a href="https://www.douyin.com/user/MS4wLjABAAAA-CrDPDUX-s6oxsmNrtBP07qfmrKGd5iK5KV3WKVlejWNyd52lPK8KhIriDwwYbp8?from_tab_name=main" target="_blank">抖音账号</a>
+                            <p>关注获取动态</p>
+                        </div>
+                        
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-download"></i>
+                            </div>
+                            <a href="https://www.123684.com/s/8sySjv-tq2c" target="_blank">PCL启动器</a>
+                            <p>电脑版下载</p>
+                        </div>
+                        
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-mobile"></i>
+                            </div>
+                            <a href="https://foldcraftlauncher.cn" target="_blank">FCL启动器</a>
+                            <p>手机版下载</p>
+                        </div>
+                        
+                        <div class="link-item">
+                            <div class="link-icon">
+                                <i class="fa fa-map"></i>
+                            </div>
+                            <a href="http://210.16.168.53:5201/" target="_blank">服务器地图</a>
+                            <p>查看服务器地图</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 更新日志页 -->
+        <div id="updates" class="page">
+            <div class="page-content">
+                <div class="page-title">
+                    <h2>更新日志</h2>
+                </div>
+                
+                <div class="card">
+                    <div class="timeline">
+                        <div class="update-card">
+                            <div class="update-header">
+                                <span class="update-version">Release-v1.0.4</span>
+                                <span class="date">2025年11月16日</span>
+                            </div>
+                            <div class="update-content">
+                                <span class="category category-improve">优化</span>
+                                
+                                <h3>优化</h3>
+                                <ul>
+                                    <li>修复10+杂项问题</li>
+                                    <li>修复了飞天bug</li>
+                                    <li>增加tnt复制特性（可以做刷石机了）</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="update-card">
+                            <div class="update-header">
+                                <span class="update-version">Release-v1.0.3</span>
+                                <span class="date">2025年10月5日</span>
+                            </div>
+                            <div class="update-content">
+                                <span class="category category-new">新内容</span>
+                                <span class="category category-improve">优化</span>
+                                
+                                <h3>新增内容</h3>
+                                <ul>
+                                    <li>将res领地插件修改为dom简化版</li>
+                                    <li>尝试增加活动</li>
+                                    <li>修改反作弊增加容错</li>
+                                    <li>优化官网并增加了网页地图</li>
+                                </ul>
+                                
+                                <h3>优化</h3>
+                                <ul>
+                                    <li>修复了领地插件无法生效bug</li>
+                                    <li>增加了加速地址chizhu.asia</li>
+                                    <li>优化反作弊</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="update-card">
+                            <div class="update-header">
+                                <span class="update-version">Release-v1.0.2-a</span>
+                                <span class="date">2025年9月17日</span>
+                            </div>
+                            <div class="update-content">
+                                <h3>新内容</h3>
+                                <ul>
+                                    <li>增加菜单</li>
+                                    <li>增加玩家pvp玩家商店等区域</li>
+                                    <li>暂停新玩法加大宣传</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="update-card">
+                            <div class="update-header">
+                                <span class="update-version">beta-v1.03-A</span>
+                                <span class="date">2025年9月10日</span>
+                            </div>
+                            <div class="update-content">
+                                <span class="category category-fix">修复</span>
+                                
+                                <h3>修复</h3>
+                                <ul>
+                                    <li>暂时ban掉了蘑菇由于末地全是蘑菇导致服务器卡顿</li>
+                                    <li>调整商店价格大幅降低铁价格从6➡️3.5</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="update-card">
+                            <div class="update-header">
+                                <span class="update-version">beta-v1.0</span>
+                                <span class="date">2025年8月23日</span>
+                            </div>
+                            <div class="update-content">
+                               <span class="category category-new">大更新</span>
+                                
+                                <h3>内容</h3>
+                                <ul>
+                                    <li>修复服务器玩家延时极高问题</li>
+                                    <li>增加区块预加载</li>
+                                    <li>强制修改玩家渲染距离来优化服务器性能内存</li>
+                                    <li>彻底清除服务器地图插件并关闭快速挖掘判定增加兼容性</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="update-card">
+                            <div class="update-header">
+                                <span class="update-version">alpha-v0.1</span>
+                                <span class="date">2025年7月23日</span>
+                            </div>
+                            <div class="update-content">
+                                <span class="category category-new">新内容</span>
+                                <span class="category category-improve">优化</span>
+                                
+                                <h3>新增内容</h3>
+                                <ul>
+                                    <li>服务器正式开始运营</li>
+                                    <li>增加了基岩版玩家进入方式</li>
+                                    <li>添加充值,称号等一系列消费娱乐</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- QQ群页面 -->
+        <div id="qq-group" class="page">
+            <div class="page-content">
+                <div class="page-title">
+                    <h2>加入我们的QQ群</h2>
+                </div>
+                
+                <div class="card">
+                    <div class="qq-group-card">
+                        <div class="qq-group-icon">
+                            <i class="fa fa-qq"></i>
+                        </div>
+                        <div class="qq-group-info">
+                            <h3>服务器官方交流群</h3>
+                            <p>群号: 915281565</p>
+                            <p>加入群聊获取最新资讯、寻求帮助和认识其他玩家</p>
+                        </div>
+                        <a href="https://jq.qq.com/?_wv=1027&k=XXXXX" target="_blank" class="btn btn-forum">立即加入</a>
+                    </div>
+                    
+                    <div class="section-title">联系方式</div>
+                    <p>邮箱: chizhulove@qq.com</p>
+                    <p>有任何问题或建议，欢迎通过以上方式联系我们</p>
+                </div>
             </div>
         </div>
     </div>
@@ -803,34 +1002,53 @@
     <script>
         // 页面加载完成后显示内容
         window.addEventListener('load', function() {
-            document.body.classList.add('loaded');
             setTimeout(() => {
                 document.querySelector('.loader').classList.add('hidden');
             }, 500);
         });
         
-        // 导航链接激活状态
-        const navLinks = document.querySelectorAll('.nav-links a');
+        // 页面切换功能
+        const navLinks = document.querySelectorAll('.main-nav a, .link-item a, .btn');
+        const pages = document.querySelectorAll('.page');
+        
         navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navLinks.forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 获取目标页面ID
+                const targetPage = this.getAttribute('data-page');
+                
+                if (targetPage) {
+                    // 移除所有活跃状态
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    pages.forEach(page => page.classList.remove('active'));
+                    
+                    // 添加活跃状态到当前链接和目标页面
+                    this.classList.add('active');
+                    document.getElementById(targetPage).classList.add('active');
+                    
+                    // 移动端菜单自动关闭
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.main-nav').style.display = 'none';
+                    }
+                }
             });
         });
         
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
+        // 移动端菜单切换
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            const mainNav = document.querySelector('.main-nav');
+            mainNav.style.display = mainNav.style.display === 'flex' ? 'none' : 'flex';
+        });
+        
+        // 窗口大小变化时处理菜单显示
+        window.addEventListener('resize', function() {
+            const mainNav = document.querySelector('.main-nav');
+            if (window.innerWidth > 768) {
+                mainNav.style.display = 'flex';
+            } else {
+                mainNav.style.display = 'none';
+            }
         });
     </script>
 </body>
