@@ -26,15 +26,13 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
         }
         
         body {
             background-color: var(--bg-gray);
             color: var(--text-dark);
             line-height: 1.6;
-            padding: 0;
-            margin: 0;
         }
         
         /* 页面加载动画 */
@@ -51,10 +49,7 @@
             z-index: 9999;
             transition: opacity 0.5s ease;
         }
-        .loader.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+        .loader.hidden { opacity: 0; pointer-events: none; }
         .loader-icon {
             width: 60px;
             height: 60px;
@@ -63,36 +58,36 @@
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        @keyframes spin { to { transform: rotate(360deg); } }
         
-        /* 页面容器 */
-        .page-container {
+        /* 布局容器 - 优先电脑端体验 */
+        .container {
+            display: flex;
             max-width: 1400px;
             margin: 0 auto;
-            background-color: var(--bg-light);
             min-height: 100vh;
-            box-shadow: var(--shadow);
         }
         
-        /* 顶部导航栏 */
-        .top-nav {
+        /* 左侧导航 - 电脑端固定 */
+        .sidebar {
+            width: 240px;
             background-color: var(--bg-light);
-            border-bottom: 1px solid var(--border-light);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            border-right: 1px solid var(--border-light);
+            padding: 20px 0;
+            height: 100vh;
             position: sticky;
             top: 0;
-            z-index: 100;
+            overflow-y: auto;
+            flex-shrink: 0;
         }
         
         .logo {
             display: flex;
             align-items: center;
             gap: 15px;
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--border-light);
+            margin-bottom: 20px;
         }
         
         .logo-icon {
@@ -109,21 +104,21 @@
         
         .logo h1 {
             color: var(--primary);
-            font-size: 1.5rem;
+            font-size: 1.2rem;
         }
         
         .main-nav {
-            display: flex;
-            gap: 20px;
+            padding: 0 10px;
         }
         
         .main-nav a {
+            display: block;
             color: var(--text-dark);
             text-decoration: none;
-            padding: 8px 15px;
+            padding: 10px 15px;
             border-radius: 4px;
             transition: var(--transition);
-            font-weight: 500;
+            margin-bottom: 5px;
         }
         
         .main-nav a:hover, .main-nav a.active {
@@ -131,8 +126,33 @@
             color: white;
         }
         
-        /* 页面内容区域 */
-        .page-content {
+        /* 移动端顶部导航 */
+        .mobile-header {
+            display: none;
+            background-color: var(--bg-light);
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .mobile-header .logo {
+            border-bottom: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* 主内容区域 */
+        .main-content {
+            flex: 1;
+            background-color: var(--bg-light);
             padding: 40px;
         }
         
@@ -169,41 +189,27 @@
             display: flex;
             gap: 20px;
             margin: 30px 0;
+            flex-wrap: wrap;
         }
         
         .version {
             flex: 1;
+            min-width: 280px;
             background-color: var(--bg-gray);
             padding: 20px;
             border-radius: var(--border-radius);
             border-top: 3px solid var(--primary);
         }
         
-        .version:nth-child(2) {
-            border-top-color: #F44336;
-        }
-        
-        .version h3 {
-            margin-bottom: 15px;
-            color: var(--text-dark);
-        }
-        
-        .version p {
-            margin: 8px 0;
-        }
-        
-        .version strong {
-            color: var(--primary);
-        }
-        
-        .version:nth-child(2) strong {
-            color: #F44336;
-        }
+        .version:nth-child(2) { border-top-color: #F44336; }
+        .version h3 { margin-bottom: 15px; }
+        .version strong { color: var(--primary); }
+        .version:nth-child(2) strong { color: #F44336; }
         
         /* 快捷链接样式 */
         .link-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
@@ -250,7 +256,7 @@
         /* 特色内容样式 */
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
             margin-top: 20px;
         }
@@ -312,15 +318,8 @@
             flex-wrap: wrap;
         }
         
-        .update-version {
-            font-weight: bold;
-            color: var(--primary-dark);
-        }
-        
-        .date {
-            color: var(--text-light);
-            font-size: 0.9rem;
-        }
+        .update-version { font-weight: bold; color: var(--primary-dark); }
+        .date { color: var(--text-light); font-size: 0.9rem; }
         
         .update-content h3 {
             color: var(--primary);
@@ -331,10 +330,6 @@
         .update-content ul {
             padding-left: 20px;
             margin-bottom: 10px;
-        }
-        
-        .update-content li {
-            margin-bottom: 5px;
         }
         
         /* 分类标签 */
@@ -376,55 +371,16 @@
             font-weight: bold;
             margin-top: 10px;
             transition: var(--transition);
-            border: none;
-            cursor: pointer;
-            font-size: 0.9rem;
         }
         
-        .btn:hover {
-            background-color: var(--primary-dark);
-        }
+        .btn:hover { background-color: var(--primary-dark); }
+        .btn-forum { background-color: var(--secondary); }
+        .btn-forum:hover { background-color: var(--secondary-dark); }
         
-        .btn-forum {
-            background-color: var(--secondary);
-        }
-        
-        .btn-forum:hover {
-            background-color: var(--secondary-dark);
-        }
-        
-        /* QQ群页面样式 */
-        .qq-group-card {
-            text-align: center;
-            padding: 40px 20px;
-        }
-        
-        .qq-group-icon {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px;
-            background-color: var(--primary-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 5rem;
-            color: white;
-        }
-        
-        .qq-group-info {
-            margin-bottom: 30px;
-        }
-        
-        .qq-group-info p {
-            font-size: 1.2rem;
-            margin: 10px 0;
-        }
-        
-        /* 傻瓜教学样式 */
+        /* 教程样式 */
         .tutorial-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-top: 20px;
         }
@@ -444,19 +400,8 @@
             gap: 10px;
         }
         
-        .tutorial-card h3 i {
-            font-size: 1.5rem;
-        }
-        
-        .tutorial-step {
-            margin-bottom: 20px;
-        }
-        
-        .tutorial-step h4 {
-            color: var(--text-dark);
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-        }
+        .tutorial-step { margin-bottom: 20px; }
+        .tutorial-step h4 { margin-bottom: 8px; }
         
         .tutorial-note {
             background-color: rgba(255, 152, 0, 0.1);
@@ -466,69 +411,59 @@
             border-left: 3px solid var(--secondary);
         }
         
-        .tutorial-note p {
-            margin: 0;
-            color: #d35400;
+        /* QQ群样式 */
+        .qq-group-card {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .qq-group-icon {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            background-color: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            color: white;
         }
         
         /* 页面容器样式 */
-        .page {
-            display: none;
-        }
+        .page { display: none; }
+        .page.active { display: block; }
         
-        .page.active {
-            display: block;
-        }
-        
-        /* 响应式设计 */
+        /* 响应式设计 - 手机端适配 */
         @media (max-width: 768px) {
-            .main-nav {
+            .container { flex-direction: column; }
+            
+            /* 隐藏左侧导航，显示顶部导航 */
+            .sidebar {
                 display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background-color: var(--bg-light);
-                border-bottom: 1px solid var(--border-light);
-                padding: 15px;
-                gap: 10px;
+                position: fixed;
+                z-index: 1000;
+                width: 80%;
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
             }
             
-            .menu-toggle {
-                display: block;
-                font-size: 1.5rem;
-                cursor: pointer;
+            .sidebar.active { transform: translateX(0); }
+            
+            .mobile-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
             }
             
-            .version-box {
-                flex-direction: column;
-            }
+            .menu-toggle { display: block; }
             
-            .features {
+            .main-content { padding: 20px; }
+            
+            /* 调整内容区域为竖版 */
+            .version-box, .features, .tutorial-container {
                 grid-template-columns: 1fr;
             }
-            
-            .link-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-            
-            .update-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .date {
-                margin-top: 5px;
-            }
-            
-            .tutorial-container {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        .menu-toggle {
-            display: none;
         }
     </style>
 </head>
@@ -538,18 +473,14 @@
         <div class="loader-icon"></div>
     </div>
 
-    <div class="page-container">
-        <!-- 顶部导航栏 -->
-        <div class="top-nav">
+    <div class="container">
+        <!-- 左侧导航栏（电脑端） -->
+        <div class="sidebar">
             <div class="logo">
                 <div class="logo-icon">
                     <i class="fa fa-cube"></i>
                 </div>
                 <h1>chizhu 服务器</h1>
-            </div>
-            
-            <div class="menu-toggle">
-                <i class="fa fa-bars"></i>
             </div>
             
             <div class="main-nav">
@@ -563,9 +494,23 @@
             </div>
         </div>
         
-        <!-- 首页 -->
-        <div id="home" class="page active">
-            <div class="page-content">
+        <!-- 移动端顶部导航 -->
+        <div class="mobile-header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fa fa-cube"></i>
+                </div>
+                <h1>chizhu 服务器</h1>
+            </div>
+            <div class="menu-toggle">
+                <i class="fa fa-bars"></i>
+            </div>
+        </div>
+        
+        <!-- 主内容区域 -->
+        <div class="main-content">
+            <!-- 首页 -->
+            <div id="home" class="page active">
                 <div class="page-title">
                     <h2>欢迎来到 chizhu 我的世界服务器</h2>
                 </div>
@@ -578,56 +523,37 @@
                     <h3 class="section-title">快速导航</h3>
                     <div class="link-grid">
                         <div class="link-item">
-                            <div class="link-icon">
-                                <i class="fa fa-server"></i>
-                            </div>
+                            <div class="link-icon"><i class="fa fa-server"></i></div>
                             <a href="#" data-page="server-info">服务器信息</a>
                             <p>连接地址与版本信息</p>
                         </div>
-                        
                         <div class="link-item">
-                            <div class="link-icon">
-                                <i class="fa fa-star"></i>
-                            </div>
+                            <div class="link-icon"><i class="fa fa-star"></i></div>
                             <a href="#" data-page="features">服务器特色</a>
                             <p>独特玩法与系统</p>
                         </div>
-                        
                         <div class="link-item">
-                            <div class="link-icon">
-                                <i class="fa fa-graduation-cap"></i>
-                            </div>
+                            <div class="link-icon"><i class="fa fa-graduation-cap"></i></div>
                             <a href="#" data-page="tutorial">傻瓜教学</a>
                             <p>新手入门指南</p>
                         </div>
-                        
                         <div class="link-item">
-                            <div class="link-icon">
-                                <i class="fa fa-history"></i>
-                            </div>
+                            <div class="link-icon"><i class="fa fa-history"></i></div>
                             <a href="#" data-page="updates">更新日志</a>
                             <p>版本更新与修复</p>
                         </div>
-                        
                         <div class="link-item">
-                            <div class="link-icon">
-                                <i class="fa fa-comments"></i>
-                            </div>
+                            <div class="link-icon"><i class="fa fa-comments"></i></div>
                             <a href="#" data-page="qq-group">加入QQ群</a>
                             <p>社区交流与支持</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- 服务器信息页 -->
-        <div id="server-info" class="page">
-            <div class="page-content">
-                <div class="page-title">
-                    <h2>服务器信息</h2>
-                </div>
-                
+            
+            <!-- 服务器信息页 -->
+            <div id="server-info" class="page">
+                <div class="page-title"><h2>服务器信息</h2></div>
                 <div class="card">
                     <div class="version-box">
                         <div class="version">
@@ -637,7 +563,6 @@
                             <p>支持正版与离线模式</p>
                             <a href="#" data-page="tutorial" class="btn">查看加入教程</a>
                         </div>
-                        
                         <div class="version">
                             <h3>基岩版服务器（不再提供保障）</h3>
                             <p>版本: 1.15+</p>
@@ -647,15 +572,10 @@
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- 服务器特色页 -->
-        <div id="features" class="page">
-            <div class="page-content">
-                <div class="page-title">
-                    <h2>服务器特色</h2>
-                </div>
-                
+            
+            <!-- 服务器特色页 -->
+            <div id="features" class="page">
+                <div class="page-title"><h2>服务器特色</h2></div>
                 <div class="card">
                     <div class="features">
                         <div class="feature">
@@ -685,37 +605,27 @@
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- 傻瓜教学页 -->
-        <div id="tutorial" class="page">
-            <div class="page-content">
-                <div class="page-title">
-                    <h2>傻瓜教学：Java版加入教程</h2>
-                </div>
-                
+            
+            <!-- 傻瓜教学页 -->
+            <div id="tutorial" class="page">
+                <div class="page-title"><h2>傻瓜教学：Java版加入教程</h2></div>
                 <div class="card">
                     <p>本教程专为新手设计，详细讲解电脑端和手机端如何安装Java版并加入服务器，一步一步跟着做就能成功！</p>
-                    
                     <div class="tutorial-container">
-                        <!-- 电脑端教程 -->
                         <div class="tutorial-card">
                             <h3><i class="fa fa-desktop"></i> 电脑端（Windows/Mac/Linux）</h3>
-                            
                             <div class="tutorial-step">
                                 <h4>第一步：下载Java版启动器</h4>
                                 <p>1. 推荐使用PCL启动器（简单易用）</p>
                                 <p>2. 下载地址：<a href="https://www.123684.com/s/8sySjv-tq2c" target="_blank">点击下载PCL启动器</a></p>
                                 <p>3. 下载完成后安装，打开启动器</p>
                             </div>
-                            
                             <div class="tutorial-step">
                                 <h4>第二步：安装游戏版本</h4>
                                 <p>1. 打开PCL启动器，点击左侧「版本列表」</p>
                                 <p>2. 选择1.12~1.21之间的任意版本（推荐1.20.1）</p>
                                 <p>3. 点击「安装」，等待下载完成（需联网）</p>
                             </div>
-                            
                             <div class="tutorial-step">
                                 <h4>第三步：添加服务器</h4>
                                 <p>1. 启动游戏，进入主菜单</p>
@@ -724,30 +634,24 @@
                                 <p>4. 服务器地址填写：<strong>chizhudream.top</strong></p>
                                 <p>5. 点击「完成」，服务器就添加好了</p>
                             </div>
-                            
                             <div class="tutorial-step">
                                 <h4>第四步：进入服务器</h4>
                                 <p>1. 在服务器列表中找到刚刚添加的服务器</p>
                                 <p>2. 点击「加入服务器」，等待连接成功</p>
                                 <p>3. 连接成功后即可开始游戏！</p>
                             </div>
-                            
                             <div class="tutorial-note">
                                 <p>💡 提示：如果连接失败，检查网络是否正常，或尝试更换游戏版本</p>
                             </div>
                         </div>
-                        
-                        <!-- 手机端教程 -->
                         <div class="tutorial-card">
                             <h3><i class="fa fa-mobile"></i> 手机端（Android/iOS）</h3>
-                            
                             <div class="tutorial-step">
                                 <h4>第一步：下载Java版启动器</h4>
                                 <p>1. 推荐使用FCL启动器（支持手机运行Java版）</p>
                                 <p>2. 下载地址：<a href="https://foldcraftlauncher.cn" target="_blank">点击下载FCL启动器</a></p>
                                 <p>3. Android直接安装APK</p>
                             </div>
-                            
                             <div class="tutorial-step">
                                 <h4>第二步：安装游戏核心</h4>
                                 <p>1. 打开FCL启动器，同意用户协议</p>
@@ -755,27 +659,23 @@
                                 <p>3. 选择1.12~1.21之间的版本（推荐1.20.1，兼容性好）</p>
                                 <p>4. 等待下载完成（手机需有足够存储空间）</p>
                             </div>
-                            
                             <div class="tutorial-step">
                                 <h4>第三步：配置并启动游戏</h4>
                                 <p>1. 回到启动页，选择已下载的版本</p>
                                 <p>2. 点击「启动游戏」，首次启动会下载必要文件</p>
                                 <p>3. 游戏启动后，点击「多人游戏」→「添加服务器」</p>
                             </div>
-                            
                             <div class="tutorial-step">
                                 <h4>第四步：加入服务器</h4>
                                 <p>1. 服务器地址填写：<strong>chizhudream.top</strong></p>
                                 <p>2. 名称随意填写，点击「保存」</p>
                                 <p>3. 点击服务器名称，等待连接成功即可</p>
                             </div>
-                            
                             <div class="tutorial-note">
                                 <p>💡 提示：手机配置较低可能会卡顿，建议关闭高画质设置</p>
                             </div>
                         </div>
                     </div>
-                    
                     <div class="tutorial-note" style="margin-top: 30px;">
                         <p>❓ 常见问题：如果连接超时/无法加入，可尝试以下方法</p>
                         <p>1. 检查网络是否正常，关闭VPN或代理</p>
@@ -785,76 +685,49 @@
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- 快捷链接页 -->
-        <div id="links" class="page">
-            <div class="page-content">
-                <div class="page-title">
-                    <h2>快捷导航</h2>
-                </div>
-                
+            
+            <!-- 快捷链接页 -->
+            <div id="links" class="page">
+                <div class="page-title"><h2>快捷导航</h2></div>
                 <div class="card">
                     <div class="link-grid">
                         <div class="link-item">
-                            <div class="link-icon">
-                                <i class="fa fa-shopping-cart"></i>
-                            </div>
+                            <div class="link-icon"><i class="fa fa-shopping-cart"></i></div>
                             <a href="https://mp.minepay.top/#/shop?id=7659" target="_blank">充值商店</a>
                             <p>服务器道具购买</p>
                         </div>
-                        
                         <div class="link-item">
-                            <div class="link-icon">
-                                <i class="fa fa-comments"></i>
-                            </div>
+                            <div class="link-icon"><i class="fa fa-comments"></i></div>
                             <a href="https://www.wdsjfwq.com/server-1578.html" target="_blank">苦力怕论坛</a>
                             <p>服务器宣传页面</p>
                         </div>
-                        
                         <div class="link-item">
-                            <div class="link-icon">
-                                <i class="fa fa-music"></i>
-                            </div>
+                            <div class="link-icon"><i class="fa fa-music"></i></div>
                             <a href="https://www.douyin.com/user/MS4wLjABAAAA-CrDPDUX-s6oxsmNrtBP07qfmrKGd5iK5KV3WKVlejWNyd52lPK8KhIriDwwYbp8?from_tab_name=main" target="_blank">抖音账号</a>
                             <p>关注获取动态</p>
                         </div>
-                        
                         <div class="link-item">
-                            <div class="link-icon">
-                                <i class="fa fa-download"></i>
-                            </div>
+                            <div class="link-icon"><i class="fa fa-download"></i></div>
                             <a href="https://www.123684.com/s/8sySjv-tq2c" target="_blank">PCL启动器</a>
                             <p>电脑版下载</p>
                         </div>
-                        
                         <div class="link-item">
-                            <div class="link-icon">
-                                <i class="fa fa-mobile"></i>
-                            </div>
+                            <div class="link-icon"><i class="fa fa-mobile"></i></div>
                             <a href="https://foldcraftlauncher.cn" target="_blank">FCL启动器</a>
                             <p>手机版下载</p>
                         </div>
-                        
                         <div class="link-item">
-                            <div class="link-icon">
-                                <i class="fa fa-map"></i>
-                            </div>
+                            <div class="link-icon"><i class="fa fa-map"></i></div>
                             <a href="http://210.16.168.53:5201/" target="_blank">服务器地图</a>
                             <p>查看服务器地图</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- 更新日志页 -->
-        <div id="updates" class="page">
-            <div class="page-content">
-                <div class="page-title">
-                    <h2>更新日志</h2>
-                </div>
-                
+            
+            <!-- 更新日志页 -->
+            <div id="updates" class="page">
+                <div class="page-title"><h2>更新日志</h2></div>
                 <div class="card">
                     <div class="timeline">
                         <div class="update-card">
@@ -864,7 +737,6 @@
                             </div>
                             <div class="update-content">
                                 <span class="category category-improve">优化</span>
-                                
                                 <h3>优化</h3>
                                 <ul>
                                     <li>修复10+杂项问题</li>
@@ -873,7 +745,6 @@
                                 </ul>
                             </div>
                         </div>
-                        
                         <div class="update-card">
                             <div class="update-header">
                                 <span class="update-version">Release-v1.0.3</span>
@@ -882,7 +753,6 @@
                             <div class="update-content">
                                 <span class="category category-new">新内容</span>
                                 <span class="category category-improve">优化</span>
-                                
                                 <h3>新增内容</h3>
                                 <ul>
                                     <li>将res领地插件修改为dom简化版</li>
@@ -890,7 +760,6 @@
                                     <li>修改反作弊增加容错</li>
                                     <li>优化官网并增加了网页地图</li>
                                 </ul>
-                                
                                 <h3>优化</h3>
                                 <ul>
                                     <li>修复了领地插件无法生效bug</li>
@@ -899,7 +768,6 @@
                                 </ul>
                             </div>
                         </div>
-                        
                         <div class="update-card">
                             <div class="update-header">
                                 <span class="update-version">Release-v1.0.2-a</span>
@@ -914,7 +782,6 @@
                                 </ul>
                             </div>
                         </div>
-                        
                         <div class="update-card">
                             <div class="update-header">
                                 <span class="update-version">beta-v1.03-A</span>
@@ -922,7 +789,6 @@
                             </div>
                             <div class="update-content">
                                 <span class="category category-fix">修复</span>
-                                
                                 <h3>修复</h3>
                                 <ul>
                                     <li>暂时ban掉了蘑菇由于末地全是蘑菇导致服务器卡顿</li>
@@ -930,7 +796,6 @@
                                 </ul>
                             </div>
                         </div>
-                        
                         <div class="update-card">
                             <div class="update-header">
                                 <span class="update-version">beta-v1.0</span>
@@ -938,7 +803,6 @@
                             </div>
                             <div class="update-content">
                                <span class="category category-new">大更新</span>
-                                
                                 <h3>内容</h3>
                                 <ul>
                                     <li>修复服务器玩家延时极高问题</li>
@@ -948,7 +812,6 @@
                                 </ul>
                             </div>
                         </div>
-                        
                         <div class="update-card">
                             <div class="update-header">
                                 <span class="update-version">alpha-v0.1</span>
@@ -957,7 +820,6 @@
                             <div class="update-content">
                                 <span class="category category-new">新内容</span>
                                 <span class="category category-improve">优化</span>
-                                
                                 <h3>新增内容</h3>
                                 <ul>
                                     <li>服务器正式开始运营</li>
@@ -969,20 +831,13 @@
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- QQ群页面 -->
-        <div id="qq-group" class="page">
-            <div class="page-content">
-                <div class="page-title">
-                    <h2>加入我们的QQ群</h2>
-                </div>
-                
+            
+            <!-- QQ群页面 -->
+            <div id="qq-group" class="page">
+                <div class="page-title"><h2>加入我们的QQ群</h2></div>
                 <div class="card">
                     <div class="qq-group-card">
-                        <div class="qq-group-icon">
-                            <i class="fa fa-qq"></i>
-                        </div>
+                        <div class="qq-group-icon"><i class="fa fa-qq"></i></div>
                         <div class="qq-group-info">
                             <h3>服务器官方交流群</h3>
                             <p>群号: 915281565</p>
@@ -990,7 +845,6 @@
                         </div>
                         <a href="https://jq.qq.com/?_wv=1027&k=XXXXX" target="_blank" class="btn btn-forum">立即加入</a>
                     </div>
-                    
                     <div class="section-title">联系方式</div>
                     <p>邮箱: chizhulove@qq.com</p>
                     <p>有任何问题或建议，欢迎通过以上方式联系我们</p>
@@ -1000,55 +854,40 @@
     </div>
 
     <script>
-        // 页面加载完成后显示内容
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                document.querySelector('.loader').classList.add('hidden');
-            }, 500);
+        // 页面加载动画
+        window.addEventListener('load', () => {
+            setTimeout(() => document.querySelector('.loader').classList.add('hidden'), 500);
         });
         
         // 页面切换功能
         const navLinks = document.querySelectorAll('.main-nav a, .link-item a, .btn');
         const pages = document.querySelectorAll('.page');
+        const sidebar = document.querySelector('.sidebar');
+        const menuToggle = document.querySelector('.menu-toggle');
         
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                // 获取目标页面ID
                 const targetPage = this.getAttribute('data-page');
                 
                 if (targetPage) {
-                    // 移除所有活跃状态
+                    // 更新活跃状态
                     navLinks.forEach(l => l.classList.remove('active'));
                     pages.forEach(page => page.classList.remove('active'));
-                    
-                    // 添加活跃状态到当前链接和目标页面
                     this.classList.add('active');
                     document.getElementById(targetPage).classList.add('active');
                     
-                    // 移动端菜单自动关闭
+                    // 移动端点击后关闭菜单
                     if (window.innerWidth <= 768) {
-                        document.querySelector('.main-nav').style.display = 'none';
+                        sidebar.classList.remove('active');
                     }
                 }
             });
         });
         
         // 移动端菜单切换
-        document.querySelector('.menu-toggle').addEventListener('click', function() {
-            const mainNav = document.querySelector('.main-nav');
-            mainNav.style.display = mainNav.style.display === 'flex' ? 'none' : 'flex';
-        });
-        
-        // 窗口大小变化时处理菜单显示
-        window.addEventListener('resize', function() {
-            const mainNav = document.querySelector('.main-nav');
-            if (window.innerWidth > 768) {
-                mainNav.style.display = 'flex';
-            } else {
-                mainNav.style.display = 'none';
-            }
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
         });
     </script>
 </body>
