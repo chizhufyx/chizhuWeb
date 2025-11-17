@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- 增强IE兼容性 -->
     <title>chizhu - 我的世界生存服务器 Wiki</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- 关键资源预加载 -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript> <!-- 无JS降级 -->
+    
     <style>
         :root {
             --primary: #4CAF50;
@@ -22,11 +27,12 @@
             --transition: all 0.3s ease;
         }
         
+        /* 基础样式 - 优先加载 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; /* 增加中文字体兼容 */
         }
         
         body {
@@ -35,7 +41,7 @@
             line-height: 1.6;
         }
         
-        /* 页面加载动画 */
+        /* 加载动画 - 极简设计 */
         .loader {
             position: fixed;
             top: 0;
@@ -47,20 +53,24 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
-        .loader.hidden { opacity: 0; pointer-events: none; }
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
         .loader-icon {
-            width: 60px;
-            height: 60px;
-            border: 4px solid rgba(76, 175, 80, 0.2);
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(76, 175, 80, 0.2);
             border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         
-        /* 布局容器 - 优先电脑端体验 */
+        /* 布局容器 */
         .container {
             display: flex;
             max-width: 1400px;
@@ -68,7 +78,7 @@
             min-height: 100vh;
         }
         
-        /* 左侧导航 - 电脑端固定 */
+        /* 导航样式 */
         .sidebar {
             width: 240px;
             background-color: var(--bg-light);
@@ -126,7 +136,7 @@
             color: white;
         }
         
-        /* 移动端顶部导航 */
+        /* 移动端导航 */
         .mobile-header {
             display: none;
             background-color: var(--bg-light);
@@ -210,30 +220,35 @@
         .link-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px;
+            gap: 25px;
             margin-top: 20px;
         }
         
         .link-item {
             background-color: var(--bg-gray);
             border-radius: var(--border-radius);
-            padding: 20px;
+            padding: 25px;
             text-align: center;
             transition: var(--transition);
             border: 1px solid var(--border-light);
+            cursor: pointer;
         }
         
         .link-item:hover {
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border-color: var(--primary-light);
+            background-color: rgba(76, 175, 80, 0.03);
+        }
+        
+        .link-item:active {
+            transform: translateY(2px);
         }
         
         .link-icon {
             width: 50px;
             height: 50px;
-            margin: 0 auto 15px;
-            background-color: var(--primary-light);
+            margin: 0 auto 18px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -245,12 +260,21 @@
             color: var(--text-dark);
             text-decoration: none;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .link-item a:hover {
+            color: var(--primary);
         }
         
         .link-item p {
             font-size: 0.9rem;
             color: var(--text-light);
-            margin-top: 8px;
+            margin-top: 10px;
+            line-height: 1.5;
         }
         
         /* 特色内容样式 */
@@ -371,9 +395,14 @@
             font-weight: bold;
             margin-top: 10px;
             transition: var(--transition);
+            border: none; /* 移除边框避免兼容性问题 */
+            cursor: pointer; /* 增加鼠标指针样式 */
         }
         
-        .btn:hover { background-color: var(--primary-dark); }
+        .btn:hover { 
+            background-color: var(--primary-dark);
+            text-decoration: none; /* 确保hover时无下划线 */
+        }
         .btn-forum { background-color: var(--secondary); }
         .btn-forum:hover { background-color: var(--secondary-dark); }
         
@@ -430,15 +459,22 @@
             color: white;
         }
         
-        /* 页面容器样式 */
-        .page { display: none; }
+        /* 页面容器样式 - 延迟加载优化 */
+        .page { 
+            display: none;
+            contain: layout paint; /* 提升渲染性能 */
+        }
         .page.active { display: block; }
         
-        /* 响应式设计 - 手机端适配 */
+        /* 响应式设计 - 多断点适配 */
+        @media (max-width: 1024px) {
+            .main-content { padding: 30px; }
+            .link-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
         @media (max-width: 768px) {
             .container { flex-direction: column; }
             
-            /* 隐藏左侧导航，显示顶部导航 */
             .sidebar {
                 display: none;
                 position: fixed;
@@ -460,10 +496,16 @@
             
             .main-content { padding: 20px; }
             
-            /* 调整内容区域为竖版 */
-            .version-box, .features, .tutorial-container {
+            .version-box, .features, .tutorial-container, .link-grid {
                 grid-template-columns: 1fr;
             }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title h2 { font-size: 1.5rem; }
+            .section-title { font-size: 1.2rem; }
+            .card { padding: 20px; }
+            .qq-group-icon { width: 120px; height: 120px; font-size: 4rem; }
         }
     </style>
 </head>
@@ -516,34 +558,34 @@
                 </div>
                 
                 <div class="card">
-                    <p>欢迎加入我们的服务器！这是一个含有季节插件而有趣的生存世界，等你来探索！我们提供多版本支持，Java或基岩版玩家可直接加入！服务器24小时开放，稳定不卡顿。</p>
+                    <p>欢迎加入我们的服务器！这是一个含有季节插件而有趣的生存世界，等你来探索！我们提供多版本支持，Java和基岩版玩家可直接加入！服务器24小时开放，不稳定还卡顿。</p>
                 </div>
                 
                 <div class="card">
                     <h3 class="section-title">快速导航</h3>
                     <div class="link-grid">
                         <div class="link-item">
-                            <div class="link-icon"><i class="fa fa-server"></i></div>
+                            <div class="link-icon" style="background-color: #4CAF50;"><i class="fa fa-server"></i></div>
                             <a href="#" data-page="server-info">服务器信息</a>
                             <p>连接地址与版本信息</p>
                         </div>
                         <div class="link-item">
-                            <div class="link-icon"><i class="fa fa-star"></i></div>
+                            <div class="link-icon" style="background-color: #2196F3;"><i class="fa fa-star"></i></div>
                             <a href="#" data-page="features">服务器特色</a>
                             <p>独特玩法与系统</p>
                         </div>
                         <div class="link-item">
-                            <div class="link-icon"><i class="fa fa-graduation-cap"></i></div>
+                            <div class="link-icon" style="background-color: #FF9800;"><i class="fa fa-graduation-cap"></i></div>
                             <a href="#" data-page="tutorial">傻瓜教学</a>
                             <p>新手入门指南</p>
                         </div>
                         <div class="link-item">
-                            <div class="link-icon"><i class="fa fa-history"></i></div>
+                            <div class="link-icon" style="background-color: #f44336;"><i class="fa fa-history"></i></div>
                             <a href="#" data-page="updates">更新日志</a>
                             <p>版本更新与修复</p>
                         </div>
                         <div class="link-item">
-                            <div class="link-icon"><i class="fa fa-comments"></i></div>
+                            <div class="link-icon" style="background-color: #9C27B0;"><i class="fa fa-comments"></i></div>
                             <a href="#" data-page="qq-group">加入QQ群</a>
                             <p>社区交流与支持</p>
                         </div>
@@ -560,14 +602,14 @@
                             <h3>Java版服务器</h3>
                             <p>版本: 1.12~1.21.x</p>
                             <p>地址: <strong>chizhudream.top</strong></p>
-                            <p>网络卡顿专用加速地址: <strong>chizhu.asia</strong></p>
+                            <p>网络卡顿加速地址: <strong>chizhu.asia</strong></p>
                             <p>支持正版与离线模式</p>
                             <a href="#" data-page="tutorial" class="btn">查看加入教程</a>
                         </div>
                         <div class="version">
                             <h3>基岩版服务器（不再提供保障）</h3>
                             <p>版本: 1.21+</p>
-                            <p>地址: <strong>s1.wimc.cc</strong></p>
+                            <p>地址: <strong>be.chizhudream.top</strong></p>
                             <p>端口: <strong>5212</strong></p>
                         </div>
                     </div>
@@ -691,36 +733,76 @@
             <div id="links" class="page">
                 <div class="page-title"><h2>快捷导航</h2></div>
                 <div class="card">
+                    <p style="margin-bottom: 20px; color: var(--text-light);">点击以下链接快速访问相关服务，外部链接将在新窗口打开</p>
                     <div class="link-grid">
                         <div class="link-item">
-                            <div class="link-icon"><i class="fa fa-shopping-cart"></i></div>
-                            <a href="https://mp.minepay.top/#/shop?id=7659" target="_blank">充值商店</a>
-                            <p>服务器道具购买</p>
+                            <div class="link-icon" style="background-color: #42A5F5;"><i class="fa fa-shopping-cart"></i></div>
+                            <a href="https://mp.minepay.top/#/shop?id=7659" target="_blank">
+                                充值商店
+                                <i class="fa fa-external-link" style="font-size: 0.8rem;"></i>
+                            </a>
+                            <p>购买服务器道具、权限等增值服务</p>
                         </div>
                         <div class="link-item">
-                            <div class="link-icon"><i class="fa fa-comments"></i></div>
-                            <a href="https://www.wdsjfwq.com/server-1578.html" target="_blank">苦力怕论坛</a>
-                            <p>服务器宣传页面</p>
+                            <div class="link-icon" style="background-color: #9C27B0;"><i class="fa fa-comments"></i></div>
+                            <a href="https://www.wdsjfwq.com/server-1578.html" target="_blank">
+                                苦力怕论坛
+                                <i class="fa fa-external-link" style="font-size: 0.8rem;"></i>
+                            </a>
+                            <p>服务器官方宣传、玩家交流专区</p>
                         </div>
                         <div class="link-item">
-                            <div class="link-icon"><i class="fa fa-music"></i></div>
-                            <a href="https://www.douyin.com/user/MS4wLjABAAAA-CrDPDUX-s6oxsmNrtBP07qfmrKGd5iK5KV3WKVlejWNyd52lPK8KhIriDwwYbp8?from_tab_name=main" target="_blank">抖音账号</a>
-                            <p>关注获取动态</p>
+                            <div class="link-icon" style="background-color: #FF5722;"><i class="fa fa-music"></i></div>
+                            <a href="https://www.douyin.com/user/MS4wLjABAAAA-CrDPDUX-s6oxsmNrtBP07qfmrKGd5iK5KV3WKVlejWNyd52lPK8KhIriDwwYbp8?from_tab_name=main" target="_blank">
+                                抖音账号
+                                <i class="fa fa-external-link" style="font-size: 0.8rem;"></i>
+                            </a>
+                            <p>关注获取服务器动态、活动预告</p>
                         </div>
                         <div class="link-item">
-                            <div class="link-icon"><i class="fa fa-download"></i></div>
-                            <a href="https://www.123684.com/s/8sySjv-tq2c" target="_blank">PCL启动器</a>
-                            <p>电脑版下载</p>
+                            <div class="link-icon" style="background-color: #26C6DA;"><i class="fa fa-download"></i></div>
+                            <a href="https://www.123684.com/s/8sySjv-tq2c" target="_blank">
+                                PCL启动器
+                                <i class="fa fa-external-link" style="font-size: 0.8rem;"></i>
+                            </a>
+                            <p>电脑端Java版专用启动器，稳定兼容</p>
                         </div>
                         <div class="link-item">
-                            <div class="link-icon"><i class="fa fa-mobile"></i></div>
-                            <a href="https://foldcraftlauncher.cn" target="_blank">FCL启动器</a>
-                            <p>手机版下载</p>
+                            <div class="link-icon" style="background-color: #66BB6A;"><i class="fa fa-mobile"></i></div>
+                            <a href="https://foldcraftlauncher.cn" target="_blank">
+                                FCL启动器
+                                <i class="fa fa-external-link" style="font-size: 0.8rem;"></i>
+                            </a>
+                            <p>手机端Java版启动器，支持多版本</p>
                         </div>
                         <div class="link-item">
-                            <div class="link-icon"><i class="fa fa-map"></i></div>
-                            <a href="http://210.16.168.53:5201/" target="_blank">服务器地图</a>
-                            <p>查看服务器地图</p>
+                            <div class="link-icon" style="background-color: #FFA726;"><i class="fa fa-map"></i></div>
+                            <a href="http://210.16.168.53:5201/" target="_blank">
+                                服务器地图
+                                <i class="fa fa-external-link" style="font-size: 0.8rem;"></i>
+                            </a>
+                            <p>查看服务器全景地图，定位玩家位置</p>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 40px;">
+                        <h3 class="section-title" style="font-size: 1.3rem;">内部快速导航</h3>
+                        <div class="link-grid">
+                            <div class="link-item">
+                                <div class="link-icon" style="background-color: var(--primary);"><i class="fa fa-server"></i></div>
+                                <a href="#" data-page="server-info">服务器信息</a>
+                                <p>查看连接地址与版本要求</p>
+                            </div>
+                            <div class="link-item">
+                                <div class="link-icon" style="background-color: var(--secondary);"><i class="fa fa-graduation-cap"></i></div>
+                                <a href="#" data-page="tutorial">新手教程</a>
+                                <p>快速上手服务器玩法</p>
+                            </div>
+                            <div class="link-item">
+                                <div class="link-icon" style="background-color: #E91E63;"><i class="fa fa-comments"></i></div>
+                                <a href="#" data-page="qq-group">加入QQ群</a>
+                                <p>获取实时支持与玩家交流</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -855,40 +937,69 @@
     </div>
 
     <script>
-        // 页面加载动画
-        window.addEventListener('load', () => {
-            setTimeout(() => document.querySelector('.loader').classList.add('hidden'), 500);
-        });
-        
-        // 页面切换功能
-        const navLinks = document.querySelectorAll('.main-nav a, .link-item a, .btn');
-        const pages = document.querySelectorAll('.page');
-        const sidebar = document.querySelector('.sidebar');
-        const menuToggle = document.querySelector('.menu-toggle');
-        
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetPage = this.getAttribute('data-page');
+        // 性能优化：延迟执行非关键JS
+        window.addEventListener('load', function() {
+            // 加载动画控制
+            (function() {
+                const loader = document.querySelector('.loader');
+                const maxLoadTime = 1000; // 最大加载显示时间1秒
                 
-                if (targetPage) {
-                    // 更新活跃状态
-                    navLinks.forEach(l => l.classList.remove('active'));
-                    pages.forEach(page => page.classList.remove('active'));
-                    this.classList.add('active');
-                    document.getElementById(targetPage).classList.add('active');
+                // 立即隐藏加载动画（DOM已就绪）
+                setTimeout(function() {
+                    loader.classList.add('hidden');
+                }, 300); // 短暂显示后立即隐藏
+                
+                // 强制超时隐藏
+                setTimeout(function() {
+                    loader.classList.add('hidden');
+                }, maxLoadTime);
+            })();
+            
+            // 页面切换功能
+            (function() {
+                const navLinks = document.querySelectorAll('.main-nav a, .link-item a, .btn');
+                const pages = document.querySelectorAll('.page');
+                const sidebar = document.querySelector('.sidebar');
+                const menuToggle = document.querySelector('.menu-toggle');
+                
+                // 事件委托处理导航点击
+                document.addEventListener('click', function(e) {
+                    const link = e.target.closest('a');
+                    if (!link) return;
                     
-                    // 移动端点击后关闭菜单
-                    if (window.innerWidth <= 768) {
+                    const targetPage = link.getAttribute('data-page');
+                    
+                    if (targetPage) {
+                        e.preventDefault();
+                        
+                        // 切换页面
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        pages.forEach(page => page.classList.remove('active'));
+                        link.classList.add('active');
+                        document.getElementById(targetPage).classList.add('active');
+                        
+                        // 移动端关闭菜单
+                        if (window.innerWidth <= 768) {
+                            sidebar.classList.remove('active');
+                        }
+                        
+                        // 滚动到顶部
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+                
+                // 移动端菜单切换
+                menuToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('active');
+                });
+                
+                // 窗口大小变化时处理
+                window.addEventListener('resize', function() {
+                    if (window.innerWidth > 768) {
                         sidebar.classList.remove('active');
                     }
-                }
-            });
-        });
-        
-        // 移动端菜单切换
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('active');
+                });
+            })();
         });
     </script>
 </body>
