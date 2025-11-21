@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- 增强IE兼容性 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>chizhu - 我的世界生存服务器 Wiki</title>
     
     <!-- 关键资源预加载 -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript> <!-- 无JS降级 -->
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
     
     <style>
         :root {
@@ -27,12 +27,12 @@
             --transition: all 0.3s ease;
         }
         
-        /* 基础样式 - 优先加载 */
+        /* 基础样式 */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; /* 增加中文字体兼容 */
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
         
         body {
@@ -41,7 +41,7 @@
             line-height: 1.6;
         }
         
-        /* 加载动画 - 极简设计 */
+        /* 加载动画 */
         .loader {
             position: fixed;
             top: 0;
@@ -78,7 +78,7 @@
             min-height: 100vh;
         }
         
-        /* 导航样式 */
+        /* 电脑端左侧导航栏 */
         .sidebar {
             width: 240px;
             background-color: var(--bg-light);
@@ -89,6 +89,7 @@
             top: 0;
             overflow-y: auto;
             flex-shrink: 0;
+            display: block; /* 电脑端始终显示 */
         }
         
         .logo {
@@ -117,10 +118,6 @@
             font-size: 1.2rem;
         }
         
-        .main-nav {
-            padding: 0 10px;
-        }
-        
         .main-nav a {
             display: block;
             color: var(--text-dark);
@@ -136,27 +133,60 @@
             color: white;
         }
         
-        /* 移动端导航 */
+        /* 移动端顶部导航栏 - 固定在顶部，直接显示完整菜单 */
         .mobile-header {
             display: none;
             background-color: var(--bg-light);
-            padding: 15px 20px;
             border-bottom: 1px solid var(--border-light);
             position: sticky;
             top: 0;
             z-index: 100;
+            width: 100%;
         }
         
-        .mobile-header .logo {
-            border-bottom: none;
-            padding: 0;
-            margin: 0;
+        /* 移动端logo区域 */
+        .mobile-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-light);
         }
         
-        .menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
+        .mobile-logo .logo-icon {
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+        }
+        
+        .mobile-logo h1 {
+            font-size: 1.1rem;
+        }
+        
+        /* 移动端菜单 - 固定在顶部logo下方，直接显示所有选项 */
+        .mobile-menu {
+            display: flex;
+            flex-wrap: wrap; /* 自动换行 */
+            padding: 10px;
+            background-color: var(--bg-light);
+        }
+        
+        .mobile-menu a {
+            flex: 1 1 calc(33.333% - 10px); /* 一行3个选项 */
+            margin: 5px;
+            padding: 8px 5px;
+            text-align: center;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+            white-space: nowrap; /* 防止文字换行 */
+        }
+        
+        .mobile-menu a:hover, .mobile-menu a.active {
+            background-color: var(--primary);
+            color: white;
         }
         
         /* 主内容区域 */
@@ -164,6 +194,7 @@
             flex: 1;
             background-color: var(--bg-light);
             padding: 40px;
+            min-height: 100vh;
         }
         
         .page-title {
@@ -395,13 +426,13 @@
             font-weight: bold;
             margin-top: 10px;
             transition: var(--transition);
-            border: none; /* 移除边框避免兼容性问题 */
-            cursor: pointer; /* 增加鼠标指针样式 */
+            border: none;
+            cursor: pointer;
         }
         
         .btn:hover { 
             background-color: var(--primary-dark);
-            text-decoration: none; /* 确保hover时无下划线 */
+            text-decoration: none;
         }
         .btn-forum { background-color: var(--secondary); }
         .btn-forum:hover { background-color: var(--secondary-dark); }
@@ -459,50 +490,58 @@
             color: white;
         }
         
-        /* 页面容器样式 - 延迟加载优化 */
+        /* 页面容器样式 */
         .page { 
             display: none;
-            contain: layout paint; /* 提升渲染性能 */
+            contain: layout paint;
         }
         .page.active { display: block; }
         
-        /* 响应式设计 - 多断点适配 */
+        /* 响应式设计 - 核心修改 */
         @media (max-width: 1024px) {
             .main-content { padding: 30px; }
             .link-grid { grid-template-columns: repeat(2, 1fr); }
         }
         
         @media (max-width: 768px) {
+            /* 移动端：隐藏左侧侧边栏，显示顶部固定菜单 */
             .container { flex-direction: column; }
             
             .sidebar {
-                display: none;
-                position: fixed;
-                z-index: 1000;
-                width: 80%;
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
+                display: none !important; /* 强制隐藏电脑端侧边栏 */
             }
             
-            .sidebar.active { transform: translateX(0); }
-            
+            /* 显示移动端顶部导航 */
             .mobile-header {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
+                display: block;
             }
             
-            .menu-toggle { display: block; }
+            /* 移动端主内容区域调整 */
+            .main-content {
+                padding: 20px;
+                margin-top: 0;
+            }
             
-            .main-content { padding: 20px; }
+            /* 移动端菜单调整：小屏幕时一行2个选项 */
+            .mobile-menu a {
+                flex: 1 1 calc(50% - 10px);
+            }
             
             .version-box, .features, .tutorial-container, .link-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .page-title h2 { font-size: 1.6rem; }
+            .section-title { font-size: 1.3rem; }
         }
         
         @media (max-width: 480px) {
-            .page-title h2 { font-size: 1.5rem; }
+            .mobile-menu a {
+                font-size: 0.85rem;
+                padding: 6px 3px;
+            }
+            
+            .page-title h2 { font-size: 1.4rem; }
             .section-title { font-size: 1.2rem; }
             .card { padding: 20px; }
             .qq-group-icon { width: 120px; height: 120px; font-size: 4rem; }
@@ -516,7 +555,7 @@
     </div>
 
     <div class="container">
-        <!-- 左侧导航栏（电脑端） -->
+        <!-- 电脑端左侧导航栏（仅电脑端显示） -->
         <div class="sidebar">
             <div class="logo">
                 <div class="logo-icon">
@@ -536,16 +575,25 @@
             </div>
         </div>
         
-        <!-- 移动端顶部导航 -->
+        <!-- 移动端顶部导航（仅移动端显示，固定在顶部） -->
         <div class="mobile-header">
-            <div class="logo">
+            <!-- 移动端logo区域 -->
+            <div class="mobile-logo">
                 <div class="logo-icon">
                     <i class="fa fa-cube"></i>
                 </div>
                 <h1>chizhu 服务器</h1>
             </div>
-            <div class="menu-toggle">
-                <i class="fa fa-bars"></i>
+            
+            <!-- 移动端完整菜单（直接显示，无需点击） -->
+            <div class="mobile-menu">
+                <a href="#" data-page="home" class="active">首页</a>
+                <a href="#" data-page="server-info">服务器信息</a>
+                <a href="#" data-page="features">服务器特色</a>
+                <a href="#" data-page="tutorial">傻瓜教学</a>
+                <a href="#" data-page="links">快捷链接</a>
+                <a href="#" data-page="updates">更新日志</a>
+                <a href="#" data-page="qq-group">QQ群</a>
             </div>
         </div>
         
@@ -656,7 +704,7 @@
                     <p>本教程专为新手设计，详细讲解电脑端和手机端如何安装Java版并加入服务器，一步一步跟着做就能成功！</p>
                     <div class="tutorial-container">
                         <div class="tutorial-card">
-                            <h3><i class="fa fa-desktop"></i> 电脑端（Windows/Mac/Linux）</h3>
+                            <h3><i class="fa fa-desktop"></i> 电脑端（Windows/Mac）</h3>
                             <div class="tutorial-step">
                                 <h4>第一步：下载Java版启动器</h4>
                                 <p>1. 推荐使用PCL启动器（简单易用）</p>
@@ -688,7 +736,7 @@
                             </div>
                         </div>
                         <div class="tutorial-card">
-                            <h3><i class="fa fa-mobile"></i> 手机端（Android/iOS）</h3>
+                            <h3><i class="fa fa-mobile"></i> 手机端（Android）</h3>
                             <div class="tutorial-step">
                                 <h4>第一步：下载Java版启动器</h4>
                                 <p>1. 推荐使用FCL启动器（支持手机运行Java版）</p>
@@ -813,6 +861,24 @@
                 <div class="page-title"><h2>更新日志</h2></div>
                 <div class="card">
                     <div class="timeline">
+                        <div class="update-card">
+                            <div class="update-header">
+                                <span class="update-version">Release-v1.0.4-a1</span>
+                                <span class="date">2025年11月16日</span>
+                            </div>
+                            <div class="update-content">
+                                <span class="category category-improve">优化</span>
+                                <span class="category category-fix">修复</span>
+                                <h3>优化</h3>
+                                <ul>
+                                    <li>修复了刷地毯还能继续刷的问题</li>
+                                    <li>修复了未登录180天就会消除数据的bug</li>
+                                    <li>增加热加载</li>
+                                    <li>优化蘑菇消除机制主世界蘑菇不会被清除了awa</li>
+                                    <li>献祭一位玩家来增加服务器流畅度（bushi）</li>
+                                </ul>
+                            </div>
+                        </div>
                         <div class="update-card">
                             <div class="update-header">
                                 <span class="update-version">Release-v1.0.4</span>
@@ -942,27 +1008,24 @@
             // 加载动画控制
             (function() {
                 const loader = document.querySelector('.loader');
-                const maxLoadTime = 1000; // 最大加载显示时间1秒
+                const maxLoadTime = 1000;
                 
-                // 立即隐藏加载动画（DOM已就绪）
                 setTimeout(function() {
                     loader.classList.add('hidden');
-                }, 300); // 短暂显示后立即隐藏
+                }, 300);
                 
-                // 强制超时隐藏
                 setTimeout(function() {
                     loader.classList.add('hidden');
                 }, maxLoadTime);
             })();
             
-            // 页面切换功能
+            // 页面切换功能 - 同时支持电脑端和移动端菜单
             (function() {
-                const navLinks = document.querySelectorAll('.main-nav a, .link-item a, .btn');
+                // 获取所有导航链接（电脑端和移动端）
+                const navLinks = document.querySelectorAll('.main-nav a, .mobile-menu a, .link-item a, .btn');
                 const pages = document.querySelectorAll('.page');
-                const sidebar = document.querySelector('.sidebar');
-                const menuToggle = document.querySelector('.menu-toggle');
                 
-                // 事件委托处理导航点击
+                // 事件委托处理所有导航点击
                 document.addEventListener('click', function(e) {
                     const link = e.target.closest('a');
                     if (!link) return;
@@ -972,31 +1035,21 @@
                     if (targetPage) {
                         e.preventDefault();
                         
-                        // 切换页面
-                        navLinks.forEach(l => l.classList.remove('active'));
+                        // 切换页面激活状态
                         pages.forEach(page => page.classList.remove('active'));
-                        link.classList.add('active');
                         document.getElementById(targetPage).classList.add('active');
                         
-                        // 移动端关闭菜单
-                        if (window.innerWidth <= 768) {
-                            sidebar.classList.remove('active');
-                        }
+                        // 切换导航链接激活状态（电脑端和移动端同时更新）
+                        navLinks.forEach(l => {
+                            if (l.getAttribute('data-page') === targetPage) {
+                                l.classList.add('active');
+                            } else {
+                                l.classList.remove('active');
+                            }
+                        });
                         
                         // 滚动到顶部
                         window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }
-                });
-                
-                // 移动端菜单切换
-                menuToggle.addEventListener('click', function() {
-                    sidebar.classList.toggle('active');
-                });
-                
-                // 窗口大小变化时处理
-                window.addEventListener('resize', function() {
-                    if (window.innerWidth > 768) {
-                        sidebar.classList.remove('active');
                     }
                 });
             })();
