@@ -553,6 +553,92 @@
             gap: 5px;
         }
         
+        /* 服务器状态监控卡片样式 */
+        .server-status-card {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-light);
+            max-width: 100%;
+        }
+        
+        .server-status-card h3 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .server-status-card h3::before {
+            content: "🟢";
+            margin-right: 10px;
+            animation: blink 2s infinite;
+        }
+        
+        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+        
+        .status-item {
+            color: #4a5568;
+            font-size: 16px;
+            margin: 12px 0;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .status-value {
+            font-weight: 600;
+            color: #2b6cb0;
+        }
+        
+        .status.online { color: #22c55e; font-size: 17px; }
+        .status.offline { color: #ef4444; font-size: 17px; }
+        .status.error { color: #f97316; font-size: 17px; }
+        
+        .player-count { font-size: 20px; color: #eab308; }
+        
+        .ping-low { color: #22c55e; font-weight: 600; }
+        .ping-medium { color: #f97316; font-weight: 600; }
+        .ping-high { color: #ef4444; font-weight: 600; }
+        
+        .domain-tabs {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .domain-tab {
+            padding: 8px 16px;
+            border-radius: 25px;
+            background-color: #f0f4f8;
+            color: #2b6cb0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .domain-tab.active {
+            background-color: #2b6cb0;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(43,108,176,0.3);
+        }
+        
+        .error-tip {
+            margin-top: 15px;
+            color: #9ca3af;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
         /* 响应式设计 */
         @media (max-width: 1024px) {
             .main-content { padding: 30px; }
@@ -585,6 +671,15 @@
             
             .page-title h2 { font-size: 1.6rem; }
             .section-title { font-size: 1.3rem; }
+            
+            .server-status-card {
+                padding: 20px;
+            }
+            
+            .domain-tab {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -655,6 +750,22 @@
             <div id="home" class="page active">
                 <div class="page-title">
                     <h2>欢迎来到 chizhu 我的世界服务器</h2>
+                </div>
+                
+                <!-- 服务器状态监控卡片 -->
+                <div class="server-status-card">
+                    <h3>服务器实时状态</h3>
+                    <!-- 域名切换标签（主用地址优先显示并激活） -->
+                    <div class="domain-tabs">
+                        <div class="domain-tab active" data-domain="chizhudream.top" data-port="25565">chizhudream.top</div>
+                        <div class="domain-tab" data-domain="s1.wimc.cc" data-port="26078">s1.wimc.cc</div>
+                    </div>
+                    <div class="status-item">当前连接：<span class="status-value" id="current-domain">chizhudream.top</span></div>
+                    <div class="status-item">游戏版本：<span class="status-value" id="server-version">查询中...</span></div>
+                    <div class="status-item">在线状态：<span class="status-value" id="server-status" class="status offline">查询中...</span></div>
+                    <div class="status-item">在线人数：<span class="status-value player-count" id="player-online">0</span>/<span class="status-value" id="player-max">0</span></div>
+                    <div class="status-item">服务器延时：<span class="status-value" id="server-ping">计算中</span> ms <span id="ping-tip"></span></div>
+                    <div class="error-tip" id="error-tip"></div>
                 </div>
                 
                 <div class="card">
@@ -1122,7 +1233,7 @@
                         <div class="bug-card bug-minor">
                             <span class="bug-level level-minor">轻微</span>
                             <div class="bug-title">鞘翅飞行时空中换甲会被踢出游戏</div>
-                            <div class="bug-desc">踢出提示“系统检测到异常飞行行为！请遵守规则。”</div>
+                            <div class="bug-desc">踢出提示"系统检测到异常飞行行为！请遵守规则。"</div>
                             <div class="bug-status"><i class="fa fa-minus-circle"></i> 低优先级（暂不修复）</div>
                         </div>
                         <div class="bug-card bug-minor">
@@ -1215,7 +1326,93 @@
                     }
                 });
             })();
+            
+            // 服务器状态监控功能
+            (function() {
+                // 初始化主用地址为 chizhudream.top（端口内部使用，不显示）
+                let currentDomain = "chizhudream.top";
+                let currentPort = 25565;
+                const API_URL_TEMPLATE = "https://api.minetools.eu/ping/{domain}/{port}";
+
+                // 域名切换逻辑
+                document.querySelectorAll(".domain-tab").forEach(tab => {
+                    tab.addEventListener("click", () => {
+                        document.querySelectorAll(".domain-tab").forEach(t => t.classList.remove("active"));
+                        tab.classList.add("active");
+                        currentDomain = tab.dataset.domain;
+                        currentPort = tab.dataset.port;
+                        document.getElementById("current-domain").textContent = currentDomain;
+                        fetchServerStatus();
+                    });
+                });
+
+                // 状态查询 + 延时计算
+                function fetchServerStatus() {
+                    const startTime = Date.now();
+                    const API_URL = API_URL_TEMPLATE.replace("{domain}", currentDomain).replace("{port}", currentPort);
+                    
+                    // 重置显示状态
+                    document.getElementById("server-status").textContent = "查询中...";
+                    document.getElementById("server-status").className = "status offline";
+                    document.getElementById("server-version").textContent = "查询中...";
+                    document.getElementById("server-ping").textContent = "计算中";
+                    document.getElementById("ping-tip").textContent = "";
+                    document.getElementById("error-tip").textContent = "";
+
+                    fetch(API_URL, { timeout: 8000 })
+                        .then(response => {
+                            if (!response.ok) throw new Error(`响应错误: ${response.status}`);
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.error) throw new Error(data.error);
+                            
+                            // 延时计算与分级
+                            const endTime = Date.now();
+                            const requestLatency = endTime - startTime;
+                            const serverLatency = data.latency || requestLatency;
+                            const ping = Math.round(serverLatency);
+                            let pingClass = "ping-low";
+                            let pingTip = "低延时，流畅连接";
+                            if (ping > 100 && ping <= 300) {
+                                pingClass = "ping-medium";
+                                pingTip = "中延时，基本流畅";
+                            } else if (ping > 300) {
+                                pingClass = "ping-high";
+                                pingTip = "高延时，可能卡顿";
+                            }
+
+                            // 更新页面数据
+                            document.getElementById("server-version").textContent = data.version.name || "未知版本";
+                            document.getElementById("server-status").textContent = "✅ 在线";
+                            document.getElementById("server-status").className = "status online";
+                            document.getElementById("player-online").textContent = data.players.online || 0;
+                            document.getElementById("player-max").textContent = data.players.max || 0;
+                            document.getElementById("server-ping").textContent = ping;
+                            document.getElementById("server-ping").className = pingClass;
+                            document.getElementById("ping-tip").textContent = `(${pingTip})`;
+                        })
+                        .catch(error => {
+                            console.error("查询失败:", error);
+                            document.getElementById("server-status").textContent = "❌ 查询失败";
+                            document.getElementById("server-status").className = "status error";
+                            document.getElementById("server-version").textContent = "无法获取";
+                            document.getElementById("server-ping").textContent = "0";
+                            
+                            // 错误提示细分
+                            if (error.message.includes("timeout")) {
+                                document.getElementById("error-tip").textContent = `提示：${currentDomain} 连接超时，请检查服务器是否在线`;
+                            } else {
+                                document.getElementById("error-tip").textContent = `提示：${error.message}`;
+                            }
+                        });
+                }
+
+                // 初始化查询 + 10秒定时刷新
+                fetchServerStatus();
+                setInterval(fetchServerStatus, 10000);
+            })();
         });
     </script>
 </body>
-</html>
+</html>帮我看看
