@@ -7,7 +7,6 @@
     <title>chizhu - 我的世界生存服务器</title>
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
-    <link rel="icon" href="http://210.16.168.53:8080/78.png" type="image/png">
     <style>
         :root {
             --primary: #4CAF50;
@@ -41,16 +40,6 @@
             min-height: 100vh;
         }
         
-        /* 粒子背景 */
-        #particles-js {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            top: 0;
-            left: 0;
-        }
-        
         /* 加载动画 */
         .loader { 
             position: fixed; 
@@ -60,6 +49,7 @@
             height: 100%; 
             background: var(--bg-dark); 
             display: flex; 
+            flex-direction: column;
             align-items: center; 
             justify-content: center; 
             z-index: 9999; 
@@ -73,6 +63,11 @@
             border-top-color: var(--primary); 
             border-radius: 50%; 
             animation: spin 1s linear infinite; 
+            margin-bottom: 20px;
+        }
+        .loader-text {
+            color: var(--text-light);
+            font-size: 1.1rem;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
         
@@ -124,6 +119,11 @@
             background-repeat: no-repeat !important;
             border: 2px solid var(--primary);
             box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+            overflow: hidden;
+        }
+        .logo-icon i {
+            position: absolute;
+            opacity: 0.3;
         }
         .nav-logo h1 { 
             color: white; 
@@ -243,36 +243,15 @@
             50% { transform: translateY(-15px); } 
         }
         
-        .status-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 25px; 
-        }
-        .status-indicator { 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-        }
+        .status-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .status-indicator { display: flex; align-items: center; gap: 10px; }
         .pulse-dot { 
-            width: 12px; 
-            height: 12px; 
-            background: var(--primary); 
-            border-radius: 50%; 
-            position: relative; 
+            width: 12px; height: 12px; background: var(--primary); border-radius: 50%; position: relative; 
             box-shadow: 0 0 10px var(--primary);
         }
         .pulse-dot::before { 
-            content: ''; 
-            position: absolute; 
-            top: 50%; 
-            left: 50%; 
-            transform: translate(-50%, -50%); 
-            width: 20px; 
-            height: 20px; 
-            border-radius: 50%; 
-            background: var(--primary); 
-            opacity: 0.3; 
+            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            width: 20px; height: 20px; border-radius: 50%; background: var(--primary); opacity: 0.3; 
             animation: pulse 2s infinite; 
         }
         @keyframes pulse { 
@@ -281,1130 +260,364 @@
             100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; } 
         }
         
-        .player-count { 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            color: var(--primary); 
-            font-weight: 600; 
-        }
-        .status-details { 
-            margin-bottom: 25px; 
-        }
-        .status-item { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            padding: 12px 0; 
-            border-bottom: 1px solid var(--border-light); 
-        }
-        .status-item:last-child { 
-            border-bottom: none; 
-        }
-        .status-value { 
-            font-weight: 600; 
-            color: var(--primary); 
-        }
+        .player-count { display: flex; align-items: center; gap: 8px; color: var(--primary); font-weight: 600; }
+        .status-details { margin-bottom: 25px; }
+        .status-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-light); }
+        .status-item:last-child { border-bottom: none; }
+        .status-value { font-weight: 600; color: var(--primary); }
         
         /* 首页按钮 */
-        .hero-buttons { 
-            display: flex; 
-            gap: 20px; 
-            justify-content: center; 
-            margin-top: 50px; 
-            flex-wrap: wrap; 
-        }
+        .hero-buttons { display: flex; gap: 20px; justify-content: center; margin-top: 50px; flex-wrap: wrap; }
         .hero-btn { 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 10px; 
-            padding: 15px 35px; 
-            border-radius: 50px; 
-            font-weight: 600; 
-            text-decoration: none; 
-            transition: var(--transition); 
-            font-size: 1.1rem; 
-            border: none;
-            cursor: pointer;
+            display: inline-flex; align-items: center; gap: 10px; padding: 15px 35px; 
+            border-radius: 50px; font-weight: 600; text-decoration: none; transition: var(--transition); 
+            font-size: 1.1rem; border: none; cursor: pointer;
         }
-        .btn-primary { 
-            background: var(--gradient); 
-            color: white; 
-        }
-        .btn-secondary { 
-            background: rgba(255, 255, 255, 0.1); 
-            color: white; 
-            border: 2px solid rgba(255, 255, 255, 0.2); 
-        }
-        .hero-btn:hover { 
-            transform: translateY(-3px); 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); 
-        }
-        .btn-primary:hover { 
-            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4); 
-        }
-        .btn-secondary:hover {
-            border-color: var(--primary);
-            background: rgba(76, 175, 80, 0.1);
-        }
+        .btn-primary { background: var(--gradient); color: white; }
+        .btn-secondary { background: rgba(255, 255, 255, 0.1); color: white; border: 2px solid rgba(255, 255, 255, 0.2); }
+        .hero-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+        .btn-primary:hover { box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4); }
+        .btn-secondary:hover { border-color: var(--primary); background: rgba(76, 175, 80, 0.1); }
         
         /* 首页统计 */
-        .stats-section { 
-            display: flex; 
-            justify-content: center; 
-            gap: 40px; 
-            margin: 70px 0; 
-            flex-wrap: wrap; 
-        }
+        .stats-section { display: flex; justify-content: center; gap: 40px; margin: 70px 0; flex-wrap: wrap; }
         .stat-item { 
-            text-align: center; 
-            padding: 30px 25px; 
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
-            border-radius: var(--border-radius); 
-            min-width: 200px; 
-            box-shadow: var(--shadow); 
-            transition: var(--transition); 
-            border: 1px solid var(--border-light);
-            position: relative;
-            overflow: hidden;
+            text-align: center; padding: 30px 25px; background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
+            border-radius: var(--border-radius); min-width: 200px; box-shadow: var(--shadow); transition: var(--transition); 
+            border: 1px solid var(--border-light); position: relative; overflow: hidden;
         }
-        .stat-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient);
-        }
-        .stat-item:hover { 
-            transform: translateY(-5px); 
-            box-shadow: var(--shadow-lg); 
-            border-color: var(--primary);
-        }
-        .stat-number { 
-            font-size: 3rem; 
-            font-weight: 800; 
-            color: var(--primary); 
-            display: block; 
-            margin-bottom: 10px; 
-            text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
-        }
-        .stat-label { 
-            color: var(--text-light); 
-            font-size: 1rem; 
-        }
+        .stat-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); }
+        .stat-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .stat-number { font-size: 3rem; font-weight: 800; color: var(--primary); display: block; margin-bottom: 10px; text-shadow: 0 0 10px rgba(76, 175, 80, 0.3); }
+        .stat-label { color: var(--text-light); font-size: 1rem; }
         
         /* 首页特色 */
-        .features-section { 
-            padding: 100px 0; 
-        }
+        .features-section { padding: 100px 0; }
         .section-title { 
-            color: white; 
-            font-size: 2.8rem; 
-            margin-bottom: 20px; 
-            text-align: center; 
-            position: relative; 
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
+            color: white; font-size: 2.8rem; margin-bottom: 20px; text-align: center; position: relative; 
+            display: inline-block; left: 50%; transform: translateX(-50%);
         }
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: var(--gradient);
-            border-radius: 2px;
-        }
-        .section-subtitle { 
-            color: var(--text-light); 
-            text-align: center; 
-            margin-bottom: 60px; 
-            font-size: 1.2rem; 
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .features-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 35px; 
-            margin-bottom: 60px; 
-        }
+        .section-title::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 100px; height: 4px; background: var(--gradient); border-radius: 2px; }
+        .section-subtitle { color: var(--text-light); text-align: center; margin-bottom: 60px; font-size: 1.2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 35px; margin-bottom: 60px; }
         .feature-card { 
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
-            border-radius: var(--border-radius); 
-            padding: 35px; 
-            text-align: center; 
-            transition: var(--transition); 
-            box-shadow: var(--shadow); 
-            border: 1px solid var(--border-light);
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); border-radius: var(--border-radius); padding: 35px; 
+            text-align: center; transition: var(--transition); box-shadow: var(--shadow); border: 1px solid var(--border-light); position: relative; overflow: hidden;
         }
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient);
-        }
-        .feature-card:hover { 
-            transform: translateY(-10px); 
-            box-shadow: var(--shadow-lg); 
-            border-color: var(--primary);
-        }
+        .feature-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
         .feature-icon { 
-            width: 80px; 
-            height: 80px; 
-            margin: 0 auto 25px; 
-            background: var(--gradient); 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 2rem; 
-            color: white; 
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            width: 80px; height: 80px; margin: 0 auto 25px; background: var(--gradient); border-radius: 50%; display: flex; 
+            align-items: center; justify-content: center; font-size: 2rem; color: white; border: 2px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
         }
-        .feature-card h3 { 
-            color: white; 
-            margin-bottom: 15px; 
-            font-size: 1.6rem; 
-        }
-        .feature-card p { 
-            color: var(--text-light); 
-            font-size: 1rem; 
-            line-height: 1.7;
-        }
+        .feature-card h3 { color: white; margin-bottom: 15px; font-size: 1.6rem; }
+        .feature-card p { color: var(--text-light); font-size: 1rem; line-height: 1.7; }
         
         /* 首页快速链接 */
-        .quick-links-section { 
-            padding: 100px 0; 
-            background: linear-gradient(to bottom, transparent 0%, rgba(30, 30, 30, 0.5) 100%);
-        }
-        .links-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
-            gap: 30px; 
-            margin-top: 40px; 
-        }
+        .quick-links-section { padding: 100px 0; background: linear-gradient(to bottom, transparent 0%, rgba(30, 30, 30, 0.5) 100%); }
+        .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-top: 40px; }
         .link-card { 
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
-            border-radius: var(--border-radius); 
-            padding: 30px; 
-            text-align: center; 
-            text-decoration: none; 
-            color: inherit; 
-            transition: var(--transition); 
-            box-shadow: var(--shadow); 
-            border: 1px solid var(--border-light);
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); border-radius: var(--border-radius); padding: 30px; 
+            text-align: center; text-decoration: none; color: inherit; transition: var(--transition); box-shadow: var(--shadow); 
+            border: 1px solid var(--border-light); position: relative; overflow: hidden;
         }
-        .link-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient);
-        }
-        .link-card:hover { 
-            transform: translateY(-5px); 
-            box-shadow: var(--shadow-lg); 
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(45, 45, 45, 0.9) 100%);
-            border-color: var(--primary);
-        }
+        .link-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); }
+        .link-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(45, 45, 45, 0.9) 100%); border-color: var(--primary); }
         .link-icon { 
-            width: 70px; 
-            height: 70px; 
-            margin: 0 auto 20px; 
-            background: var(--gradient); 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 1.8rem; 
-            color: white; 
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            width: 70px; height: 70px; margin: 0 auto 20px; background: var(--gradient); border-radius: 50%; display: flex; 
+            align-items: center; justify-content: center; font-size: 1.8rem; color: white; border: 2px solid rgba(255, 255, 255, 0.2);
         }
-        .link-card h3 { 
-            color: white; 
-            margin-bottom: 12px; 
-            font-size: 1.3rem; 
-        }
-        .link-card p { 
-            color: var(--text-light); 
-            font-size: 0.95rem; 
-            line-height: 1.6;
-        }
+        .link-card h3 { color: white; margin-bottom: 12px; font-size: 1.3rem; }
+        .link-card p { color: var(--text-light); font-size: 0.95rem; line-height: 1.6; }
         
         /* 其他页面通用样式 */
-        .page-container { 
-            display: none; 
-            contain: layout paint; 
-            min-height: 80vh; 
-            padding: 60px 0; 
-        }
-        .page-container.active { 
-            display: block; 
-            animation: fadeIn 0.5s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .page-container { display: none; contain: layout paint; min-height: 80vh; padding: 60px 0; }
+        .page-container.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        .page-header { 
-            margin-bottom: 50px; 
-            text-align: center;
-        }
+        .page-header { margin-bottom: 50px; text-align: center; }
         .page-header h2 { 
-            color: white; 
-            font-size: 2.8rem; 
-            margin-bottom: 15px; 
-            background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: inline-block;
+            color: white; font-size: 2.8rem; margin-bottom: 15px; background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; display: inline-block;
         }
-        .page-description { 
-            color: var(--text-light); 
-            font-size: 1.2rem; 
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        .page-description { color: var(--text-light); font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
         
         /* 卡片样式 */
         .card { 
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
-            border-radius: var(--border-radius); 
-            box-shadow: var(--shadow); 
-            padding: 35px; 
-            margin-bottom: 35px; 
-            border: 1px solid var(--border-light);
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); border-radius: var(--border-radius); box-shadow: var(--shadow); 
+            padding: 35px; margin-bottom: 35px; border: 1px solid var(--border-light); position: relative; overflow: hidden;
         }
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient);
-        }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); }
         
         /* 按钮 */
         .btn { 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 10px; 
-            padding: 12px 25px; 
-            background: var(--gradient); 
-            color: white; 
-            text-decoration: none; 
-            border-radius: var(--border-radius-sm); 
-            font-weight: 600; 
-            border: none; 
-            cursor: pointer; 
-            transition: var(--transition); 
-            font-size: 1rem;
+            display: inline-flex; align-items: center; gap: 10px; padding: 12px 25px; background: var(--gradient); color: white; 
+            text-decoration: none; border-radius: var(--border-radius-sm); font-weight: 600; border: none; cursor: pointer; 
+            transition: var(--transition); font-size: 1rem;
         }
-        .btn:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3);
-        }
-        .btn-forum { 
-            background: linear-gradient(135deg, var(--secondary) 0%, #FF5722 100%);
-        }
-        .btn-forum:hover { 
-            box-shadow: 0 8px 25px rgba(255, 152, 0, 0.3);
-        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3); }
+        .btn-forum { background: linear-gradient(135deg, var(--secondary) 0%, #FF5722 100%); }
+        .btn-forum:hover { box-shadow: 0 8px 25px rgba(255, 152, 0, 0.3); }
         
         /* 服务器信息页 */
-        .version-box { 
-            display: flex; 
-            gap: 30px; 
-            margin: 40px 0; 
-            flex-wrap: wrap; 
-        }
+        .version-box { display: flex; gap: 30px; margin: 40px 0; flex-wrap: wrap; }
         .version { 
-            flex: 1; 
-            min-width: 300px; 
-            background: linear-gradient(135deg, rgba(45, 45, 45, 0.8) 0%, rgba(30, 30, 30, 0.8) 100%);
-            padding: 30px; 
-            border-radius: var(--border-radius); 
-            border-top: 4px solid var(--primary);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow);
+            flex: 1; min-width: 300px; background: linear-gradient(135deg, rgba(45, 45, 45, 0.8) 0%, rgba(30, 30, 30, 0.8) 100%);
+            padding: 30px; border-radius: var(--border-radius); border-top: 4px solid var(--primary); border: 1px solid var(--border-light); box-shadow: var(--shadow);
         }
-        .version:nth-child(2) { 
-            border-top-color: #F44336; 
-        }
-        .version h3 { 
-            margin-bottom: 20px; 
-            color: white; 
-            font-size: 1.5rem;
-        }
-        .version p {
-            margin-bottom: 10px;
-            color: var(--text-light);
-        }
-        .version strong { 
-            color: var(--primary); 
-            font-weight: 600;
-        }
-        .version:nth-child(2) strong { 
-            color: #F44336; 
-        }
+        .version:nth-child(2) { border-top-color: #F44336; }
+        .version h3 { margin-bottom: 20px; color: white; font-size: 1.5rem; }
+        .version p { margin-bottom: 10px; color: var(--text-light); }
+        .version strong { color: var(--primary); font-weight: 600; }
+        .version:nth-child(2) strong { color: #F44336; }
         
         /* 特色页 */
-        .features-grid-detail { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-            gap: 30px; 
-            margin-top: 30px; 
-        }
+        .features-grid-detail { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 30px; }
         .feature-item { 
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
-            padding: 25px; 
-            border-radius: var(--border-radius); 
-            border-left: 4px solid var(--primary); 
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); padding: 25px; border-radius: var(--border-radius); 
+            border-left: 4px solid var(--primary); border: 1px solid var(--border-light); box-shadow: var(--shadow); transition: var(--transition);
         }
-        .feature-item:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--primary);
-        }
-        .feature-item h3 { 
-            color: var(--primary); 
-            margin-bottom: 15px; 
-            font-size: 1.4rem;
-        }
-        .feature-item p {
-            color: var(--text-light);
-            line-height: 1.7;
-        }
+        .feature-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .feature-item h3 { color: var(--primary); margin-bottom: 15px; font-size: 1.4rem; }
+        .feature-item p { color: var(--text-light); line-height: 1.7; }
         
         /* 教程页 */
-        .tutorial-container { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 35px; 
-            margin-top: 30px; 
-        }
+        .tutorial-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; margin-top: 30px; }
         .tutorial-card { 
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
-            border-radius: var(--border-radius); 
-            padding: 30px; 
-            border-top: 4px solid var(--primary);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow);
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); border-radius: var(--border-radius); padding: 30px; 
+            border-top: 4px solid var(--primary); border: 1px solid var(--border-light); box-shadow: var(--shadow);
         }
         .tutorial-card h3 { 
-            color: var(--primary-dark); 
-            margin-bottom: 20px; 
-            display: flex; 
-            align-items: center; 
-            gap: 12px; 
-            font-size: 1.5rem;
-            color: white;
+            color: var(--primary-dark); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; 
+            font-size: 1.5rem; color: white;
         }
-        .tutorial-step { 
-            margin-bottom: 25px; 
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border-light);
-        }
-        .tutorial-step:last-child {
-            border-bottom: none;
-        }
-        .tutorial-step h4 { 
-            margin-bottom: 12px; 
-            color: white;
-            font-size: 1.2rem;
-        }
-        .tutorial-step p {
-            color: var(--text-light);
-            margin-bottom: 8px;
-            line-height: 1.7;
-        }
-        .tutorial-step a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-        .tutorial-step a:hover {
-            text-decoration: underline;
-        }
+        .tutorial-step { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border-light); }
+        .tutorial-step:last-child { border-bottom: none; }
+        .tutorial-step h4 { margin-bottom: 12px; color: white; font-size: 1.2rem; }
+        .tutorial-step p { color: var(--text-light); margin-bottom: 8px; line-height: 1.7; }
+        .tutorial-step a { color: var(--primary); text-decoration: none; }
+        .tutorial-step a:hover { text-decoration: underline; }
         .tutorial-note { 
-            background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(45, 45, 45, 0.9) 100%);
-            padding: 20px; 
-            border-radius: var(--border-radius-sm); 
-            margin-top: 25px; 
-            border-left: 4px solid var(--secondary);
-            border: 1px solid rgba(255, 152, 0, 0.2);
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(45, 45, 45, 0.9) 100%); padding: 20px; 
+            border-radius: var(--border-radius-sm); margin-top: 25px; border-left: 4px solid var(--secondary); border: 1px solid rgba(255, 152, 0, 0.2);
         }
         
         /* 更新日志页 */
-        .timeline { 
-            position: relative; 
-            margin-left: 30px; 
-            padding-left: 40px; 
-        }
+        .timeline { position: relative; margin-left: 30px; padding-left: 40px; }
         .timeline::before { 
-            content: ''; 
-            position: absolute; 
-            left: 0; 
-            top: 0; 
-            height: 100%; 
-            width: 2px; 
+            content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 2px; 
             background: linear-gradient(to bottom, var(--primary) 0%, var(--accent) 100%);
         }
         .update-card { 
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
-            border-radius: var(--border-radius); 
-            padding: 25px; 
-            margin-bottom: 30px; 
-            position: relative; 
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); border-radius: var(--border-radius); padding: 25px; 
+            margin-bottom: 30px; position: relative; border: 1px solid var(--border-light); box-shadow: var(--shadow); transition: var(--transition);
         }
-        .update-card:hover {
-            transform: translateX(10px);
-            box-shadow: var(--shadow-lg);
-        }
+        .update-card:hover { transform: translateX(10px); box-shadow: var(--shadow-lg); }
         .update-card::before { 
-            content: ''; 
-            position: absolute; 
-            left: -46px; 
-            top: 30px; 
-            width: 16px; 
-            height: 16px; 
-            border-radius: 50%; 
-            background: var(--primary);
-            border: 3px solid var(--bg-dark);
-            box-shadow: 0 0 10px var(--primary);
+            content: ''; position: absolute; left: -46px; top: 30px; width: 16px; height: 16px; border-radius: 50%; 
+            background: var(--primary); border: 3px solid var(--bg-dark); box-shadow: 0 0 10px var(--primary);
         }
-        .update-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 20px; 
-            flex-wrap: wrap; 
-        }
-        .update-version { 
-            font-weight: bold; 
-            color: var(--primary); 
-            font-size: 1.2rem;
-        }
-        .date { 
-            color: var(--text-light); 
-            font-size: 0.95rem; 
-        }
-        .update-content h3 { 
-            color: var(--primary); 
-            margin: 20px 0 15px; 
-            font-size: 1.2rem; 
-        }
-        .update-content ul { 
-            padding-left: 25px; 
-            margin-bottom: 15px; 
-            color: var(--text-light);
-        }
-        .update-content li {
-            margin-bottom: 8px;
-            line-height: 1.6;
-        }
+        .update-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
+        .update-version { font-weight: bold; color: var(--primary); font-size: 1.2rem; }
+        .date { color: var(--text-light); font-size: 0.95rem; }
+        .update-content h3 { color: var(--primary); margin: 20px 0 15px; font-size: 1.2rem; }
+        .update-content ul { padding-left: 25px; margin-bottom: 15px; color: var(--text-light); }
+        .update-content li { margin-bottom: 8px; line-height: 1.6; }
         .category { 
-            display: inline-block; 
-            padding: 5px 12px; 
-            border-radius: 20px; 
-            font-size: 0.85rem; 
-            margin-right: 10px; 
-            margin-top: 10px; 
-            font-weight: 600;
+            display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; margin-right: 10px; 
+            margin-top: 10px; font-weight: 600;
         }
-        .category-new { 
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
-            color: var(--primary); 
-            border: 1px solid rgba(76, 175, 80, 0.3); 
-        }
-        .category-fix { 
-            background: linear-gradient(135deg, rgba(231, 76, 60, 0.2) 0%, rgba(231, 76, 60, 0.1) 100%);
-            color: #ff6b6b; 
-            border: 1px solid rgba(231, 76, 60, 0.3); 
-        }
-        .category-improve { 
-            background: linear-gradient(135deg, rgba(241, 196, 15, 0.2) 0%, rgba(241, 196, 15, 0.1) 100%);
-            color: #ffd93d; 
-            border: 1px solid rgba(241, 196, 15, 0.3); 
-        }
+        .category-new { background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%); color: var(--primary); border: 1px solid rgba(76, 175, 80, 0.3); }
+        .category-fix { background: linear-gradient(135deg, rgba(231, 76, 60, 0.2) 0%, rgba(231, 76, 60, 0.1) 100%); color: #ff6b6b; border: 1px solid rgba(231, 76, 60, 0.3); }
+        .category-improve { background: linear-gradient(135deg, rgba(241, 196, 15, 0.2) 0%, rgba(241, 196, 15, 0.1) 100%); color: #ffd93d; border: 1px solid rgba(241, 196, 15, 0.3); }
         
         /* Bug列表页 */
-        .bug-list { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 25px; 
-            margin-top: 30px; 
-        }
+        .bug-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 30px; }
         .bug-card { 
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
-            border-radius: var(--border-radius); 
-            padding: 25px; 
-            border-left: 4px solid; 
-            position: relative; 
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); border-radius: var(--border-radius); padding: 25px; 
+            border-left: 4px solid; position: relative; border: 1px solid var(--border-light); box-shadow: var(--shadow); transition: var(--transition);
         }
-        .bug-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
+        .bug-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
         .bug-critical { border-left-color: #E53935; }
         .bug-major { border-left-color: #FF7043; }
         .bug-minor { border-left-color: #FFB74D; }
         .bug-level { 
-            display: inline-block; 
-            padding: 5px 15px; 
-            border-radius: 20px; 
-            font-size: 0.8rem; 
-            font-weight: bold; 
-            color: white; 
-            margin-bottom: 15px; 
+            display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; color: white; margin-bottom: 15px; 
         }
-        .level-critical { 
-            background: linear-gradient(135deg, #E53935 0%, #c62828 100%);
-        }
-        .level-major { 
-            background: linear-gradient(135deg, #FF7043 0%, #f4511e 100%);
-        }
-        .level-minor { 
-            background: linear-gradient(135deg, #FFB74D 0%, #ff9800 100%);
-        }
-        .bug-title { 
-            font-weight: bold; 
-            margin-bottom: 12px; 
-            color: white; 
-            font-size: 1.2rem;
-        }
-        .bug-desc { 
-            font-size: 0.95rem; 
-            color: var(--text-light); 
-            margin-bottom: 15px; 
-            line-height: 1.6;
-        }
-        .bug-status { 
-            font-size: 0.9rem; 
-            color: var(--primary); 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            font-weight: 500;
-        }
+        .level-critical { background: linear-gradient(135deg, #E53935 0%, #c62828 100%); }
+        .level-major { background: linear-gradient(135deg, #FF7043 0%, #f4511e 100%); }
+        .level-minor { background: linear-gradient(135deg, #FFB74D 0%, #ff9800 100%); }
+        .bug-title { font-weight: bold; margin-bottom: 12px; color: white; font-size: 1.2rem; }
+        .bug-desc { font-size: 0.95rem; color: var(--text-light); margin-bottom: 15px; line-height: 1.6; }
+        .bug-status { font-size: 0.9rem; color: var(--primary); display: flex; align-items: center; gap: 8px; font-weight: 500; }
         
         /* QQ群页 */
         .qq-group-card { 
-            text-align: center; 
-            padding: 50px 20px; 
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
-            border-radius: var(--border-radius);
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow);
+            text-align: center; padding: 50px 20px; background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
+            border-radius: var(--border-radius); border: 1px solid var(--border-light); box-shadow: var(--shadow);
         }
         .qq-group-icon { 
-            width: 180px; 
-            height: 180px; 
-            margin: 0 auto 30px; 
-            background: var(--gradient); 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 6rem; 
-            color: white; 
-            border: 4px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 30px rgba(76, 175, 80, 0.4);
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-        }
-        .qq-group-info h3 {
-            color: white;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-        .qq-group-info p {
-            color: var(--text-light);
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-        
-        /* 链接页 */
-        .link-grid-detail { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 30px; 
-            margin-top: 30px; 
-        }
-        .link-item-detail { 
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
-            border-radius: var(--border-radius); 
-            padding: 30px; 
-            text-align: center; 
-            transition: var(--transition); 
-            border: 1px solid var(--border-light); 
-            cursor: pointer; 
-            box-shadow: var(--shadow);
-            position: relative;
+            width: 180px; height: 180px; margin: 0 auto 30px; background: var(--gradient); border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; font-size: 6rem; color: white; 
+            border: 4px solid rgba(255, 255, 255, 0.2); box-shadow: 0 0 30px rgba(76, 175, 80, 0.4);
+            background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important;
             overflow: hidden;
         }
-        .link-item-detail::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient);
+        .qq-group-icon i { position: absolute; opacity: 0.3; }
+        .qq-group-info h3 { color: white; font-size: 1.8rem; margin-bottom: 15px; }
+        .qq-group-info p { color: var(--text-light); margin-bottom: 10px; font-size: 1.1rem; }
+        
+        /* 链接页 */
+        .link-grid-detail { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 30px; }
+        .link-item-detail { 
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); border-radius: var(--border-radius); padding: 30px; 
+            text-align: center; transition: var(--transition); border: 1px solid var(--border-light); cursor: pointer; box-shadow: var(--shadow);
+            position: relative; overflow: hidden;
         }
+        .link-item-detail::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); }
         .link-item-detail:hover { 
-            transform: translateY(-8px); 
-            box-shadow: var(--shadow-lg); 
-            border-color: var(--primary);
+            transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary);
             background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, var(--bg-gray) 100%);
         }
         .link-icon-detail { 
-            width: 60px; 
-            height: 60px; 
-            margin: 0 auto 20px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: white; 
-            font-size: 1.5rem;
-            background: var(--gradient);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            width: 60px; height: 60px; margin: 0 auto 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            color: white; font-size: 1.5rem; background: var(--gradient); border: 2px solid rgba(255, 255, 255, 0.2);
         }
         .link-item-detail a { 
-            color: white; 
-            text-decoration: none; 
-            font-weight: 600; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 10px; 
-            font-size: 1.1rem;
+            color: white; text-decoration: none; font-weight: 600; display: flex; align-items: center; justify-content: center; 
+            gap: 10px; font-size: 1.1rem;
         }
-        .link-item-detail a:hover { 
-            color: var(--primary); 
-        }
-        .link-item-detail p { 
-            font-size: 0.95rem; 
-            color: var(--text-light); 
-            margin-top: 12px; 
-            line-height: 1.6; 
-        }
+        .link-item-detail a:hover { color: var(--primary); }
+        .link-item-detail p { font-size: 0.95rem; color: var(--text-light); margin-top: 12px; line-height: 1.6; }
         
         /* 实时状态 */
         .server-status-detail { 
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
-            border-radius: var(--border-radius); 
-            padding: 30px; 
-            margin-bottom: 40px; 
-            box-shadow: var(--shadow); 
-            border: 1px solid var(--border-light);
-            position: relative;
-            overflow: hidden;
+            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); border-radius: var(--border-radius); padding: 30px; 
+            margin-bottom: 40px; box-shadow: var(--shadow); border: 1px solid var(--border-light); position: relative; overflow: hidden;
         }
-        .server-status-detail::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: var(--gradient);
-        }
+        .server-status-detail::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); }
         .server-status-detail h3 { 
-            color: white; 
-            margin-bottom: 25px; 
-            font-size: 1.8rem; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 12px;
+            color: white; margin-bottom: 25px; font-size: 1.8rem; display: flex; align-items: center; justify-content: center; gap: 12px;
         }
-        .server-status-detail h3::before { 
-            content: "🟢"; 
-            animation: blink 2s infinite; 
-        }
-        @keyframes blink { 
-            0%,100% { opacity: 1; } 
-            50% { opacity: 0.5; } 
-        }
+        .server-status-detail h3::before { content: "🟢"; animation: blink 2s infinite; }
+        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
         
         .status-item-detail { 
-            color: var(--text-light); 
-            font-size: 1.1rem; 
-            margin: 15px 0; 
-            padding: 12px 0; 
-            border-bottom: 1px solid var(--border-light); 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
+            color: var(--text-light); font-size: 1.1rem; margin: 15px 0; padding: 12px 0; border-bottom: 1px solid var(--border-light); 
+            display: flex; justify-content: space-between; align-items: center; 
         }
         .domain-tabs { 
-            margin-bottom: 25px; 
-            display: flex; 
-            justify-content: center; 
-            gap: 15px; 
-            flex-wrap: wrap; 
+            margin-bottom: 25px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; 
         }
         .domain-tab { 
-            padding: 10px 20px; 
-            border-radius: 25px; 
-            background: linear-gradient(135deg, rgba(43, 108, 176, 0.2) 0%, rgba(43, 108, 176, 0.1) 100%);
-            color: #4dabf7; 
-            font-weight: 600; 
-            cursor: pointer; 
-            transition: all 0.3s; 
-            font-size: 0.95rem; 
-            border: 1px solid rgba(43, 108, 176, 0.3);
+            padding: 10px 20px; border-radius: 25px; background: linear-gradient(135deg, rgba(43, 108, 176, 0.2) 0%, rgba(43, 108, 176, 0.1) 100%);
+            color: #4dabf7; font-weight: 600; cursor: pointer; transition: all 0.3s; font-size: 0.95rem; border: 1px solid rgba(43, 108, 176, 0.3);
         }
         .domain-tab.active { 
-            background: linear-gradient(135deg, #2b6cb0 0%, #1e4d8c 100%);
-            color: #fff; 
-            box-shadow: 0 4px 15px rgba(43,108,176,0.4); 
-            border-color: #2b6cb0;
+            background: linear-gradient(135deg, #2b6cb0 0%, #1e4d8c 100%); color: #fff; box-shadow: 0 4px 15px rgba(43,108,176,0.4); border-color: #2b6cb0;
         }
-        .error-tip { 
-            margin-top: 20px; 
-            color: #a0aec0; 
-            font-size: 0.95rem; 
-            line-height: 1.6; 
-            text-align: center;
-        }
+        .error-tip { margin-top: 20px; color: #a0aec0; font-size: 0.95rem; line-height: 1.6; text-align: center; }
         
         .players-list { 
-            margin-top: 20px; 
-            background: linear-gradient(135deg, rgba(45, 45, 45, 0.8) 0%, rgba(30, 30, 30, 0.8) 100%);
-            border-radius: var(--border-radius-sm); 
-            padding: 20px; 
-            border: 1px solid var(--border-light); 
+            margin-top: 20px; background: linear-gradient(135deg, rgba(45, 45, 45, 0.8) 0%, rgba(30, 30, 30, 0.8) 100%); 
+            border-radius: var(--border-radius-sm); padding: 20px; border: 1px solid var(--border-light); 
         }
-        .players-title { 
-            font-weight: 600; 
-            color: var(--text-light); 
-            margin-bottom: 15px; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px; 
-            font-size: 1.1rem;
-        }
-        .players-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); 
-            gap: 10px; 
-        }
+        .players-title { font-weight: 600; color: var(--text-light); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-size: 1.1rem; }
+        .players-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
         .player-item { 
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
-            padding: 10px 12px; 
-            border-radius: var(--border-radius-sm); 
-            border: 1px solid var(--border-light); 
-            font-size: 0.95rem; 
-            text-align: center; 
-            transition: all 0.2s; 
-            color: white;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%); padding: 10px 12px; 
+            border-radius: var(--border-radius-sm); border: 1px solid var(--border-light); font-size: 0.95rem; text-align: center; 
+            transition: all 0.2s; color: white;
         }
         .player-item:hover { 
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%);
-            transform: translateY(-2px); 
-            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%); transform: translateY(-2px); border-color: var(--primary);
         }
-        .no-players { 
-            text-align: center; 
-            color: #a0aec0; 
-            font-style: italic; 
-            padding: 20px; 
-        }
+        .no-players { text-align: center; color: #a0aec0; font-style: italic; padding: 20px; }
         
         /* 页脚 */
         .main-footer { 
-            background: linear-gradient(to top, var(--bg-dark) 0%, #0a0a0a 100%);
-            color: rgba(255, 255, 255, 0.8); 
-            padding: 80px 0 30px; 
-            margin-top: 80px; 
-            border-top: 1px solid var(--border-light);
+            background: linear-gradient(to top, var(--bg-dark) 0%, #0a0a0a 100%); color: rgba(255, 255, 255, 0.8); 
+            padding: 80px 0 30px; margin-top: 80px; border-top: 1px solid var(--border-light);
         }
         .footer-content { 
-            max-width: 1400px; 
-            margin: 0 auto; 
-            padding: 0 20px; 
-            display: grid; 
-            grid-template-columns: 1fr 2fr; 
-            gap: 60px; 
-            margin-bottom: 50px; 
+            max-width: 1400px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 2fr; 
+            gap: 60px; margin-bottom: 50px; 
         }
-        .footer-logo { 
-            display: flex; 
-            align-items: flex-start; 
-            gap: 25px; 
-        }
-        .footer-logo .logo-icon { 
-            width: 60px; 
-            height: 60px; 
-            font-size: 1.8rem; 
-            flex-shrink: 0;
-        }
-        .footer-text h3 { 
-            color: white; 
-            margin-bottom: 15px; 
-            font-size: 1.4rem; 
-        }
-        .footer-text p { 
-            color: rgba(255, 255, 255, 0.6); 
-            line-height: 1.7;
-        }
-        .footer-links { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 40px; 
-        }
-        .footer-column h4 { 
-            color: white; 
-            margin-bottom: 25px; 
-            font-size: 1.2rem; 
-            position: relative;
-            display: inline-block;
-        }
-        .footer-column h4::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--gradient);
-            border-radius: 2px;
-        }
-        .footer-column a { 
-            display: block; 
-            color: rgba(255, 255, 255, 0.6); 
-            text-decoration: none; 
-            margin-bottom: 12px; 
-            transition: var(--transition); 
-            font-size: 0.95rem;
-        }
-        .footer-column a:hover { 
-            color: var(--primary); 
-            transform: translateX(8px); 
-        }
-        .footer-column p {
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-        }
+        .footer-logo { display: flex; align-items: flex-start; gap: 25px; }
+        .footer-logo .logo-icon { width: 60px; height: 60px; font-size: 1.8rem; flex-shrink: 0; }
+        .footer-text h3 { color: white; margin-bottom: 15px; font-size: 1.4rem; }
+        .footer-text p { color: rgba(255, 255, 255, 0.6); line-height: 1.7; }
+        .footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .footer-column h4 { color: white; margin-bottom: 25px; font-size: 1.2rem; position: relative; display: inline-block; }
+        .footer-column h4::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 40px; height: 3px; background: var(--gradient); border-radius: 2px; }
+        .footer-column a { display: block; color: rgba(255, 255, 255, 0.6); text-decoration: none; margin-bottom: 12px; transition: var(--transition); font-size: 0.95rem; }
+        .footer-column a:hover { color: var(--primary); transform: translateX(8px); }
+        .footer-column p { color: rgba(255, 255, 255, 0.6); margin-bottom: 8px; font-size: 0.95rem; }
         .footer-bottom { 
-            text-align: center; 
-            padding-top: 30px; 
-            border-top: 1px solid rgba(255, 255, 255, 0.1); 
-            color: rgba(255, 255, 255, 0.5); 
-            font-size: 0.9rem; 
-            max-width: 1400px;
-            margin: 0 auto;
-            padding-left: 20px;
-            padding-right: 20px;
+            text-align: center; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.5); 
+            font-size: 0.9rem; max-width: 1400px; margin: 0 auto; padding-left: 20px; padding-right: 20px;
         }
-        .footer-bottom a { 
-            color: var(--primary); 
-            text-decoration: none; 
-            transition: var(--transition);
-        }
-        .footer-bottom a:hover {
-            text-decoration: underline;
-        }
-        .footer-bottom p {
-            margin-bottom: 8px;
-        }
+        .footer-bottom a { color: var(--primary); text-decoration: none; transition: var(--transition); }
+        .footer-bottom a:hover { text-decoration: underline; }
+        .footer-bottom p { margin-bottom: 8px; }
         
         /* 响应式设计 */
         @media (max-width: 1200px) {
-            .footer-content { 
-                grid-template-columns: 1fr; 
-                gap: 40px; 
-            }
-            .footer-links { 
-                grid-template-columns: repeat(2, 1fr); 
-            }
+            .footer-content { grid-template-columns: 1fr; gap: 40px; }
+            .footer-links { grid-template-columns: repeat(2, 1fr); }
         }
         
         @media (max-width: 992px) {
-            .hero-title { 
-                font-size: 3rem; 
-            }
-            .section-title {
-                font-size: 2.4rem;
-            }
+            .hero-title { font-size: 3rem; }
+            .section-title { font-size: 2.4rem; }
         }
         
         @media (max-width: 768px) {
-            .mobile-menu-btn { 
-                display: block; 
-            }
+            .mobile-menu-btn { display: block; }
             .nav-links { 
-                display: none; 
-                position: absolute; 
-                top: 70px; 
-                left: 0; 
-                width: 100%; 
-                background: rgba(30, 30, 30, 0.98); 
-                backdrop-filter: blur(10px);
-                flex-direction: column; 
-                padding: 20px; 
-                transform: translateY(-100%); 
-                opacity: 0; 
-                transition: var(--transition); 
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                display: none; position: absolute; top: 70px; left: 0; width: 100%; background: rgba(30, 30, 30, 0.98); 
+                backdrop-filter: blur(10px); flex-direction: column; padding: 20px; transform: translateY(-100%); opacity: 0; 
+                transition: var(--transition); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); border-top: 1px solid rgba(255, 255, 255, 0.1);
             }
-            .nav-links.show { 
-                transform: translateY(0); 
-                opacity: 1; 
-                display: flex; 
-            }
-            .hero-title { 
-                font-size: 2.5rem; 
-            }
-            .hero-subtitle { 
-                font-size: 1.2rem; 
-            }
-            .section-title { 
-                font-size: 2.2rem; 
-            }
-            .section-subtitle {
-                font-size: 1.1rem;
-            }
-            .features-grid, 
-            .features-grid-detail, 
-            .tutorial-container, 
-            .link-grid-detail, 
-            .bug-list,
-            .links-grid { 
-                grid-template-columns: 1fr; 
-            }
-            .footer-links { 
-                grid-template-columns: 1fr; 
-                gap: 30px;
-            }
-            .stats-section { 
-                gap: 25px; 
-            }
-            .stat-item { 
-                min-width: 160px; 
-                padding: 25px; 
-            }
-            .stat-number { 
-                font-size: 2.5rem; 
-            }
-            .version-box {
-                flex-direction: column;
-            }
-            .version {
-                min-width: 100%;
-            }
-            .page-header h2 {
-                font-size: 2.4rem;
-            }
-            .hero-section {
-                padding: 60px 0 30px;
-            }
+            .nav-links.show { transform: translateY(0); opacity: 1; display: flex; }
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.2rem; }
+            .section-title { font-size: 2.2rem; }
+            .section-subtitle { font-size: 1.1rem; }
+            .features-grid, .features-grid-detail, .tutorial-container, .link-grid-detail, .bug-list, .links-grid { grid-template-columns: 1fr; }
+            .footer-links { grid-template-columns: 1fr; gap: 30px; }
+            .stats-section { gap: 25px; }
+            .stat-item { min-width: 160px; padding: 25px; }
+            .stat-number { font-size: 2.5rem; }
+            .version-box { flex-direction: column; }
+            .version { min-width: 100%; }
+            .page-header h2 { font-size: 2.4rem; }
+            .hero-section { padding: 60px 0 30px; }
         }
         
         @media (max-width: 576px) {
-            .hero-title { 
-                font-size: 2rem; 
-            }
-            .hero-subtitle { 
-                font-size: 1rem; 
-            }
-            .section-title { 
-                font-size: 1.8rem; 
-            }
-            .card { 
-                padding: 25px; 
-            }
-            .hero-btn { 
-                padding: 12px 25px; 
-                font-size: 1rem; 
-            }
-            .qq-group-icon { 
-                width: 150px; 
-                height: 150px; 
-                font-size: 5rem; 
-            }
-            .domain-tab {
-                padding: 8px 16px;
-                font-size: 0.9rem;
-            }
-            .footer-content {
-                gap: 30px;
-            }
-            .nav-container {
-                padding: 0 15px;
-            }
-            .home-container {
-                padding: 0 15px;
-            }
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            .hero-btn {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
-            }
-            .stats-section {
-                gap: 15px;
-            }
-            .stat-item {
-                min-width: calc(50% - 15px);
-                padding: 20px;
-            }
-            .stat-number {
-                font-size: 2.2rem;
-            }
+            .hero-title { font-size: 2rem; }
+            .hero-subtitle { font-size: 1rem; }
+            .section-title { font-size: 1.8rem; }
+            .card { padding: 25px; }
+            .hero-btn { padding: 12px 25px; font-size: 1rem; }
+            .qq-group-icon { width: 150px; height: 150px; font-size: 5rem; }
+            .domain-tab { padding: 8px 16px; font-size: 0.9rem; }
+            .footer-content { gap: 30px; }
+            .nav-container { padding: 0 15px; }
+            .home-container { padding: 0 15px; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .hero-btn { width: 100%; max-width: 300px; justify-content: center; }
+            .stats-section { gap: 15px; }
+            .stat-item { min-width: calc(50% - 15px); padding: 20px; }
+            .stat-number { font-size: 2.2rem; }
         }
         
         @media (max-width: 400px) {
-            .hero-title {
-                font-size: 1.8rem;
-            }
-            .stat-item {
-                min-width: 100%;
-            }
-            .qq-group-icon {
-                width: 120px;
-                height: 120px;
-                font-size: 4rem;
-            }
+            .hero-title { font-size: 1.8rem; }
+            .stat-item { min-width: 100%; }
+            .qq-group-icon { width: 120px; height: 120px; font-size: 4rem; }
         }
     </style>
 </head>
@@ -1412,6 +625,7 @@
     <!-- 加载动画 -->
     <div class="loader">
         <div class="loader-icon"></div>
+        <div class="loader-text">正在加载服务器信息...</div>
     </div>
     
     <!-- 导航栏 -->
@@ -1465,7 +679,7 @@
                         欢迎来到<br><span class="gradient-text">Chizhu Minecraft服务器</span>
                     </h1>
                     <p class="hero-subtitle">
-                        一个充满冒险的生存世界，体验独特的生存乐趣！
+                        一个充满季节变化与冒险的生存世界，体验独特的生存乐趣！
                     </p>
                     
                     <!-- 服务器状态卡片 -->
@@ -1488,10 +702,6 @@
                             <div class="status-item">
                                 <span>游戏版本:</span>
                                 <span class="status-value" id="server-version">1.20.1+</span>
-                            </div>
-                            <div class="status-item">
-                                <span>本地延迟:</span>
-                                <span class="status-value" id="server-ping">-- ms</span>
                             </div>
                         </div>
                     </div>
@@ -1534,6 +744,7 @@
                     <h2 class="section-title">服务器核心特色</h2>
                     <p class="section-subtitle">探索我们独特的游戏体验</p>
                     
+                        
                         <div class="feature-card">
                             <div class="feature-icon">
                                 <i class="fa fa-shield-alt"></i>
@@ -1707,12 +918,6 @@
                     <p class="page-description">独特的玩法与系统</p>
                 </div>
                 
-                <div class="card">
-                    <div class="features-grid-detail">
-                        <div class="feature-item">
-                            <h3>季节插件</h3>
-                            <p>独特的季节系统，春夏秋冬各有特色，带来不同的生存体验。</p>
-                        </div>
                         <div class="feature-item">
                             <h3>经济系统</h3>
                             <p>不完善的商店和经济系统，玩家可以自由交易。</p>
@@ -2297,7 +1502,7 @@
         
         <div class="footer-bottom">
             <p>&copy; 2025 Chizhu Minecraft服务器 | 托管于 <a href="https://chizhufyx.github.io/mc" target="_blank">chizhufyx.github.io/mc</a></p>
-            <p>服务器头像来源: <a href="http://210.16.168.53:8080/78.png" target="_blank">210.16.168.53:8080/78.png</a></p>
+            <p>服务器状态查询API: <a href="https://api.minetools.eu" target="_blank">api.minetools.eu</a></p>
         </div>
     </footer>
 
@@ -2306,25 +1511,10 @@
         let currentDomain = "chizhudream.top";
         let currentPort = 25565;
         const API_URL = "https://api.minetools.eu/ping/{domain}/{port}";
-        const SERVER_ICON_URL = "http://210.16.168.53:8080/78.png";
+        let serverIconCache = null;
         
         // 页面加载完成
         window.addEventListener('load', function() {
-            // 加载动画
-            const loader = document.querySelector('.loader');
-            setTimeout(() => loader.classList.add('hidden'), 300);
-            
-            // 设置服务器图标
-            const serverIconUrl = SERVER_ICON_URL;
-            const logoIcons = document.querySelectorAll('.logo-icon, .qq-group-icon');
-            logoIcons.forEach(icon => {
-                icon.style.backgroundImage = `url(${serverIconUrl})`;
-                const fallbackIcon = icon.querySelector('i');
-                if (fallbackIcon) {
-                    fallbackIcon.style.opacity = '0.3';
-                }
-            });
-            
             // 移动端菜单切换
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const navLinks = document.getElementById('navLinks');
@@ -2382,6 +1572,47 @@
                     setTimeout(fetchServerStatusDetail, 100);
                 }
             });
+            
+            // 获取服务器图标
+            async function fetchServerIcon() {
+                if (serverIconCache) return serverIconCache;
+                
+                try {
+                    const url = API_URL.replace('{domain}', 'chizhudream.top').replace('{port}', '25565');
+                    const response = await fetch(url, { 
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    const data = await response.json();
+                    
+                    if (data.favicon) {
+                        serverIconCache = data.favicon;
+                        return data.favicon;
+                    }
+                } catch (error) {
+                    console.error('获取服务器图标失败:', error);
+                }
+                return null;
+            }
+            
+            // 应用服务器图标
+            async function applyServerIcon() {
+                const serverIcon = await fetchServerIcon();
+                if (serverIcon) {
+                    const logoIcons = document.querySelectorAll('.logo-icon, .qq-group-icon');
+                    logoIcons.forEach(icon => {
+                        icon.style.backgroundImage = `url(${serverIcon})`;
+                        const fallbackIcon = icon.querySelector('i');
+                        if (fallbackIcon) {
+                            fallbackIcon.style.opacity = '0.3';
+                        }
+                    });
+                }
+                // 隐藏加载动画
+                const loader = document.querySelector('.loader');
+                setTimeout(() => {
+                    if (loader) loader.classList.add('hidden');
+                }, 500);
+            }
             
             // 服务器状态查询
             async function fetchServerStatusDetail() {
@@ -2442,6 +1673,19 @@
                         }
                     }
                     
+                    // 如果有服务器图标，更新缓存
+                    if (data.favicon) {
+                        serverIconCache = data.favicon;
+                        const logoIcons = document.querySelectorAll('.logo-icon, .qq-group-icon');
+                        logoIcons.forEach(icon => {
+                            icon.style.backgroundImage = `url(${data.favicon})`;
+                            const fallbackIcon = icon.querySelector('i');
+                            if (fallbackIcon) {
+                                fallbackIcon.style.opacity = '0.3';
+                            }
+                        });
+                    }
+                    
                 } catch (error) {
                     console.error('服务器查询失败:', error);
                     if (versionEl) versionEl.textContent = '无法获取';
@@ -2480,6 +1724,19 @@
                         if (maxPlayers) maxPlayers.textContent = data.players?.max || 0;
                         if (serverVersion) serverVersion.textContent = data.version?.name || '1.20.1+';
                         if (serverPing) serverPing.textContent = '50'; // 模拟延迟
+                        
+                        // 如果有服务器图标，更新缓存
+                        if (data.favicon) {
+                            serverIconCache = data.favicon;
+                            const logoIcons = document.querySelectorAll('.logo-icon, .qq-group-icon');
+                            logoIcons.forEach(icon => {
+                                icon.style.backgroundImage = `url(${data.favicon})`;
+                                const fallbackIcon = icon.querySelector('i');
+                                if (fallbackIcon) {
+                                    fallbackIcon.style.opacity = '0.3';
+                                }
+                            });
+                        }
                     } else {
                         // 服务器离线
                         if (statusDot) {
@@ -2494,7 +1751,8 @@
                 }
             }
             
-            // 初始化首页状态
+            // 初始化
+            applyServerIcon();
             updateHomeStatus();
             
             // 域名切换功能
