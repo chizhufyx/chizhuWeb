@@ -17,27 +17,362 @@
             --accent: #2196F3;
             --text-dark: #E0E0E0;
             --text-light: #B0B0B0;
-            --bg-dark: #121212;
-            --bg-card: #1E1E1E;
-            --bg-gray: #2D2D2D;
-            --bg-light: #252525;
-            --border-light: #404040;
+            --bg-dark: #0a0f1a;
+            --bg-card: rgba(18, 25, 40, 0.8);
+            --bg-gray: rgba(30, 35, 50, 0.8);
+            --bg-light: rgba(25, 30, 45, 0.8);
+            --border-light: rgba(255, 255, 255, 0.1);
             --border-radius: 12px;
             --border-radius-sm: 8px;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.7);
             --transition: all 0.3s ease;
             --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
         }
         
-        /* 基础样式 */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif; }
-        body { 
-            background-color: var(--bg-dark); 
-            color: var(--text-dark); 
-            line-height: 1.6; 
+        /* 星空背景动画 - 增加星星密度 */
+        @keyframes moveStars {
+            from { transform: translateY(0); }
+            to { transform: translateY(-2000px); }
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.1; }
+            50% { opacity: 1; }
+            100% { opacity: 0.1; }
+        }
+        
+        @keyframes slowTwinkle {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.3; }
+        }
+        
+        body {
+            background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
             overflow-x: hidden;
             min-height: 100vh;
+            position: relative;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        /* 星空层 - 大幅增加星星数量 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            background-image: 
+                /* 小星星群1 */
+                radial-gradient(1px 1px at 10px 10px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 30px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 50px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 70px 120px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 90px 160px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 110px 200px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 130px 240px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 150px 280px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 170px 320px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 190px 360px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 210px 400px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 230px 440px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 250px 480px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 270px 520px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 290px 560px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 310px 600px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 330px 640px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 350px 680px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 370px 720px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 390px 760px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 410px 800px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 430px 840px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 450px 880px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 470px 920px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 490px 960px, #fff, rgba(0,0,0,0)),
+                /* 中星星群2 */
+                radial-gradient(2px 2px at 520px 20px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 550px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 580px 120px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 610px 170px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 640px 220px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 670px 270px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 700px 320px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 730px 370px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 760px 420px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 790px 470px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 820px 520px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 850px 570px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 880px 620px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 910px 670px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 940px 720px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 970px 770px, #fff, rgba(0,0,0,0)),
+                /* 大星星群3 */
+                radial-gradient(3px 3px at 1000px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 1040px 90px, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 1080px 150px, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 1120px 210px, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 1160px 270px, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 1200px 330px, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 1240px 390px, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 1280px 450px, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 1320px 510px, #fff, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 1360px 570px, #fff, rgba(0,0,0,0)),
+                /* 更多小星星群4 */
+                radial-gradient(1px 1px at 20px 500px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 60px 550px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 100px 600px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 140px 650px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 180px 700px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 220px 750px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 260px 800px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 300px 850px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 340px 900px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 380px 950px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 420px 1000px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 460px 1050px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 500px 1100px, #fff, rgba(0,0,0,0)),
+                /* 彩色星星群5 */
+                radial-gradient(2px 2px at 150px 200px, #ffd700, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 250px 400px, #87cefa, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 350px 600px, #ffa07a, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 450px 800px, #98fb98, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 550px 1000px, #dda0dd, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 650px 1200px, #f0e68c, rgba(0,0,0,0)),
+                /* 更多星星群6 */
+                radial-gradient(1px 1px at 800px 200px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 850px 400px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 900px 600px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 950px 800px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 1000px 1000px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 1050px 1200px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 1100px 1400px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 1150px 1600px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 1200px 1800px, #fff, rgba(0,0,0,0)),
+                /* 超大星星群7 */
+                radial-gradient(4px 4px at 1300px 300px, #fff, rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 1350px 600px, #fff, rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 1400px 900px, #fff, rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 1450px 1200px, #fff, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 2000px 2000px;
+            opacity: 1;
+            pointer-events: none;
+            z-index: 0;
+            animation: moveStars 300s linear infinite;
+        }
+        
+        /* 闪烁的星星层 - 增加密度 */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            background-image: 
+                radial-gradient(2px 2px at 50px 150px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 150px 350px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 250px 550px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 350px 750px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 450px 950px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 550px 1150px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 650px 1350px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 750px 1550px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 850px 250px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 950px 450px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 1050px 650px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 1150px 850px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 1250px 1050px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 1350px 1250px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 1450px 1450px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 1550px 1650px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+                /* 彩色闪烁星星 */
+                radial-gradient(3px 3px at 200px 200px, #ffd700, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 400px 400px, #87cefa, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 600px 600px, #ffa07a, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 800px 800px, #98fb98, rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 1000px 1000px, #dda0dd, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 1200px 1200px, #f0e68c, rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 2000px 2000px;
+            opacity: 1;
+            pointer-events: none;
+            z-index: 0;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+        
+        /* 第三层缓慢闪烁的星星 */
+        .stars-slow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            background-image: 
+                radial-gradient(2px 2px at 120px 280px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 320px 480px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 520px 680px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 720px 880px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 920px 1080px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+                radial-gradient(3px 3px at 1120px 1280px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 1320px 1480px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+                radial-gradient(4px 4px at 1520px 1680px, rgba(255,255,255,0.7), rgba(0,0,0,0));
+            background-repeat: repeat;
+            background-size: 2000px 2000px;
+            pointer-events: none;
+            z-index: 0;
+            animation: slowTwinkle 6s ease-in-out infinite;
+        }
+        
+        /* 主容器 - 添加半透明效果 */
+        .home-container, .main-nav, .main-footer, .page-container, .card, .feature-card, .stat-item, .link-card, .tutorial-card, .update-card, .bug-card, .qq-group-card {
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(5px);
+        }
+        
+        .main-nav {
+            background: rgba(10, 15, 26, 0.9) !important;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .card, .feature-card, .stat-item, .link-card, .tutorial-card, .update-card, .qq-group-card, .version, .feature-item, .home-server-card, .server-status-detail {
+            background: var(--bg-card) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 基础样式 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* 加载弹窗 - 无头像版 */
+        .welcome-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        
+        .welcome-modal.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, rgba(18, 25, 40, 0.95) 0%, rgba(30, 35, 50, 0.95) 100%);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            box-shadow: 0 0 50px rgba(76, 175, 80, 0.3);
+            animation: modalFloat 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient);
+        }
+        
+        @keyframes modalFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .modal-content h2 {
+            color: white;
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .modal-content p {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        
+        .backup-link {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 15px 0;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .backup-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.4);
+        }
+        
+        .loading-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin: 25px 0 15px;
+            overflow: hidden;
+        }
+        
+        .loading-progress {
+            width: 0%;
+            height: 100%;
+            background: var(--gradient);
+            animation: loading 2s ease-in-out forwards;
+        }
+        
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        .modal-footer {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .modal-footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .modal-footer a:hover {
+            text-decoration: underline;
         }
         
         /* 加载动画 */
@@ -69,7 +404,6 @@
             color: var(--text-light);
             font-size: 1.1rem;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
         
         /* 主容器 */
         .home-container { 
@@ -404,6 +738,10 @@
         }
         
         /* 更新日志页 */
+        #updates .card {
+            padding: 35px;
+        }
+        
         .timeline { position: relative; margin-left: 30px; padding-left: 40px; }
         .timeline::before { 
             content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 2px; 
@@ -431,26 +769,6 @@
         .category-new { background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%); color: var(--primary); border: 1px solid rgba(76, 175, 80, 0.3); }
         .category-fix { background: linear-gradient(135deg, rgba(231, 76, 60, 0.2) 0%, rgba(231, 76, 60, 0.1) 100%); color: #ff6b6b; border: 1px solid rgba(231, 76, 60, 0.3); }
         .category-improve { background: linear-gradient(135deg, rgba(241, 196, 15, 0.2) 0%, rgba(241, 196, 15, 0.1) 100%); color: #ffd93d; border: 1px solid rgba(241, 196, 15, 0.3); }
-        
-        /* Bug列表页 */
-        .bug-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 30px; }
-        .bug-card { 
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); border-radius: var(--border-radius); padding: 25px; 
-            border-left: 4px solid; position: relative; border: 1px solid var(--border-light); box-shadow: var(--shadow); transition: var(--transition);
-        }
-        .bug-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
-        .bug-critical { border-left-color: #E53935; }
-        .bug-major { border-left-color: #FF7043; }
-        .bug-minor { border-left-color: #FFB74D; }
-        .bug-level { 
-            display: inline-block; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; color: white; margin-bottom: 15px; 
-        }
-        .level-critical { background: linear-gradient(135deg, #E53935 0%, #c62828 100%); }
-        .level-major { background: linear-gradient(135deg, #FF7043 0%, #f4511e 100%); }
-        .level-minor { background: linear-gradient(135deg, #FFB74D 0%, #ff9800 100%); }
-        .bug-title { font-weight: bold; margin-bottom: 12px; color: white; font-size: 1.2rem; }
-        .bug-desc { font-size: 0.95rem; color: var(--text-light); margin-bottom: 15px; line-height: 1.6; }
-        .bug-status { font-size: 0.9rem; color: var(--primary); display: flex; align-items: center; gap: 8px; font-weight: 500; }
         
         /* QQ群页 */
         .qq-group-card { 
@@ -537,8 +855,14 @@
         
         /* 页脚 */
         .main-footer { 
-            background: linear-gradient(to top, var(--bg-dark) 0%, #0a0a0a 100%); color: rgba(255, 255, 255, 0.8); 
-            padding: 80px 0 30px; margin-top: 80px; border-top: 1px solid var(--border-light);
+            background: linear-gradient(to top, rgba(10, 15, 26, 0.9) 0%, rgba(5, 8, 15, 0.9) 100%);
+            backdrop-filter: blur(10px);
+            color: rgba(255, 255, 255, 0.8); 
+            padding: 80px 0 30px; 
+            margin-top: 80px; 
+            border-top: 1px solid var(--border-light);
+            position: relative;
+            z-index: 2;
         }
         .footer-content { 
             max-width: 1400px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 2fr; 
@@ -585,7 +909,7 @@
             .hero-subtitle { font-size: 1.2rem; }
             .section-title { font-size: 2.2rem; }
             .section-subtitle { font-size: 1.1rem; }
-            .features-grid, .features-grid-detail, .tutorial-container, .link-grid-detail, .bug-list, .links-grid { grid-template-columns: 1fr; }
+            .features-grid, .features-grid-detail, .tutorial-container, .link-grid-detail, .links-grid { grid-template-columns: 1fr; }
             .footer-links { grid-template-columns: 1fr; gap: 30px; }
             .stats-section { gap: 25px; }
             .stat-item { min-width: 160px; padding: 25px; }
@@ -594,6 +918,19 @@
             .version { min-width: 100%; }
             .page-header h2 { font-size: 2.4rem; }
             .hero-section { padding: 60px 0 30px; }
+            
+            .modal-content {
+                padding: 30px 20px;
+                width: 95%;
+            }
+            
+            .modal-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .modal-content p {
+                font-size: 1rem;
+            }
         }
         
         @media (max-width: 576px) {
@@ -612,16 +949,50 @@
             .stats-section { gap: 15px; }
             .stat-item { min-width: calc(50% - 15px); padding: 20px; }
             .stat-number { font-size: 2.2rem; }
+            
+            .modal-content h2 {
+                font-size: 1.5rem;
+            }
         }
         
         @media (max-width: 400px) {
             .hero-title { font-size: 1.8rem; }
             .stat-item { min-width: 100%; }
             .qq-group-icon { width: 120px; height: 120px; font-size: 4rem; }
+            
+            .backup-link {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- 第三层缓慢闪烁的星星 -->
+    <div class="stars-slow"></div>
+    
+    <!-- 欢迎弹窗 - 无头像版 -->
+    <div class="welcome-modal" id="welcomeModal">
+        <div class="modal-content">
+            <h2>欢迎来到 Chizhu</h2>
+            <p>我的世界生存服务器</p>
+            <p style="font-size: 1rem; color: rgba(255,255,255,0.7);">✨ 探索 · 生存 · 冒险 ✨</p>
+            
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            
+            <a href="https://www.chizhudream.top" class="backup-link" target="_blank">
+                <i class="fa fa-globe"></i> 备用官网 www.chizhudream.top
+            </a>
+            
+            <div class="modal-footer">
+                <p>如果官网加载缓慢，请点击上方备用链接</p>
+                <p>页面加载完成后自动关闭</p>
+            </div>
+        </div>
+    </div>
+    
     <!-- 加载动画 -->
     <div class="loader">
         <div class="loader-icon"></div>
@@ -656,9 +1027,6 @@
                 <a href="#" class="nav-link" data-page="updates">
                     <i class="fa fa-history"></i> 更新日志
                 </a>
-                <a href="#" class="nav-link" data-page="known-bugs">
-                    <i class="fa fa-bug"></i> 已知Bug
-                </a>
                 <a href="#" class="nav-link" data-page="qq-group">
                     <i class="fa fa-comments"></i> QQ群
                 </a>
@@ -669,8 +1037,9 @@
         </div>
     </nav>
 
-    <!-- 首页内容 -->
+    <!-- 主内容容器 -->
     <main class="home-container">
+        <!-- 首页 -->
         <div id="home" class="page-container active">
             <!-- 英雄区域 -->
             <section class="hero-section">
@@ -748,7 +1117,7 @@
                     <h2 class="section-title">服务器核心特色</h2>
                     <p class="section-subtitle">探索我们独特的游戏体验</p>
                     
-                        
+                    <div class="features-grid">
                         <div class="feature-card">
                             <div class="feature-icon">
                                 <i class="fa fa-shield-alt"></i>
@@ -813,14 +1182,6 @@
                             <p>购买道具和权限</p>
                         </a>
                         
-                        <a href="#" class="link-card" data-page="known-bugs">
-                            <div class="link-icon">
-                                <i class="fa fa-bug"></i>
-                            </div>
-                            <h3>已知Bug</h3>
-                            <p>查看当前存在的问题</p>
-                        </a>
-                        
                         <a href="#" class="link-card" data-page="qq-group">
                             <div class="link-icon">
                                 <i class="fa fa-comments"></i>
@@ -854,8 +1215,7 @@
                     <h3>服务器实时状态</h3>
                     <div class="domain-tabs">
                         <div class="domain-tab active" data-domain="chizhudream.top" data-port="25565">chizhudream.top</div>
-                        <div class="domain-tab" data-domain="chizhu.asia" data-port="25565">chizhu.asia (加速)</div>
-                        <div class="domain-tab" data-domain="s1.52mc.cc" data-port="26078">s1.52mc.cc</div>
+                        <div class="domain-tab" data-domain="s1.52mc.cc" data-port="26078">s1.52mc.cc (备用)</div>
                     </div>
                     
                     <div class="status-item-detail">
@@ -898,7 +1258,6 @@
                             <h3>Java版服务器</h3>
                             <p>版本: 1.12~1.21.x</p>
                             <p>主用地址: <strong>chizhudream.top</strong></p>
-                            <p>加速地址: <strong>chizhu.asia</strong> (推荐网络卡顿时使用)</p>
                             <p>备用地址: <strong>s1.52mc.cc:26078</strong></p>
                             <p>支持正版与离线模式</p>
                             <a href="#" data-page="tutorial" class="btn">查看加入教程</a>
@@ -922,26 +1281,26 @@
                     <p class="page-description">独特的玩法与系统</p>
                 </div>
                 
-                        <div class="feature-item">
-                            <h3>经济系统</h3>
-                            <p>不完善的商店和经济系统，玩家可以自由交易。</p>
-                        </div>
-                        <div class="feature-item">
-                            <h3>领地保护</h3>
-                            <p>领地系统保护你的建筑和物品，防止被破坏。</p>
-                        </div>
-                        <div class="feature-item">
-                            <h3>活跃社区</h3>
-                            <p>不友好的玩家社区，不可能定期举办建筑比赛等活动。</p>
-                        </div>
-                        <div class="feature-item">
-                            <h3>多版本支持</h3>
-                            <p>同时支持不同版本进入。</p>
-                        </div>
-                        <div class="feature-item">
-                            <h3>不稳定运行</h3>
-                            <p>低性能服务器，24小时不稳定运行，超级高延迟。</p>
-                        </div>
+                <div class="features-grid-detail">
+                    <div class="feature-item">
+                        <h3>经济系统</h3>
+                        <p>完善的商店和经济系统，玩家可以自由交易。</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>领地保护</h3>
+                        <p>领地系统保护你的建筑和物品，防止被破坏。</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>活跃社区</h3>
+                        <p>友好的玩家社区，定期举办建筑比赛等活动。</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>多版本支持</h3>
+                        <p>同时支持不同版本进入。</p>
+                    </div>
+                    <div class="feature-item">
+                        <h3>稳定运行</h3>
+                        <p>高性能服务器，24小时稳定运行，低延迟。</p>
                     </div>
                 </div>
             </div>
@@ -978,7 +1337,7 @@
                                 <p>1. 启动游戏，进入主菜单</p>
                                 <p>2. 点击「多人游戏」→「添加服务器」</p>
                                 <p>3. 服务器名称随便填（比如「chizhu服务器」）</p>
-                                <p>4. 服务器地址填写：<strong>chizhudream.top</strong>、<strong>chizhu.asia</strong> 或 <strong>s1.52mc.cc:26078</strong></p>
+                                <p>4. 服务器地址填写：<strong>chizhudream.top</strong> 或 <strong>s1.52mc.cc:26078</strong></p>
                                 <p>5. 点击「完成」，服务器就添加好了</p>
                             </div>
                             <div class="tutorial-step">
@@ -1015,7 +1374,7 @@
                             </div>
                             <div class="tutorial-step">
                                 <h4>第四步：加入服务器</h4>
-                                <p>1. 服务器地址填写：<strong>chizhudream.top</strong>、<strong>chizhu.asia</strong> 或 <strong>s1.52mc.cc:26078</strong></p>
+                                <p>1. 服务器地址填写：<strong>chizhudream.top</strong> 或 <strong>s1.52mc.cc:26078</strong></p>
                                 <p>2. 名称随意填写，点击「保存」</p>
                                 <p>3. 点击服务器名称，等待连接成功即可</p>
                             </div>
@@ -1029,7 +1388,7 @@
                         <p style="color: white; font-weight: 600; margin-bottom: 15px;"><i class="fa fa-question-circle"></i> 常见问题：如果连接超时/无法加入，可尝试以下方法</p>
                         <p>1. 检查网络是否正常，关闭VPN或代理</p>
                         <p>2. 更换游戏版本（推荐1.19.x系列）</p>
-                        <p>3. 切换服务器地址：主用地址 <strong>chizhudream.top</strong>、加速地址 <strong>chizhu.asia</strong> 或备用地址 <strong>s1.52mc.cc:26078</strong></p>
+                        <p>3. 切换服务器地址：主用地址 <strong>chizhudream.top</strong> 或备用地址 <strong>s1.52mc.cc:26078</strong></p>
                         <p>4. 加入QQ群（915281565）寻求帮助</p>
                     </div>
                 </div>
@@ -1135,14 +1494,6 @@
                             </div>
                             
                             <div class="link-item-detail">
-                                <div class="link-icon-detail" style="background: linear-gradient(135deg, #E53935 0%, #c62828 100%);">
-                                    <i class="fa fa-bug"></i>
-                                </div>
-                                <a href="#" data-page="known-bugs">已知Bug列表</a>
-                                <p>查看已发现问题</p>
-                            </div>
-                            
-                            <div class="link-item-detail">
                                 <div class="link-icon-detail" style="background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);">
                                     <i class="fa fa-comments"></i>
                                 </div>
@@ -1161,6 +1512,7 @@
                 <div class="page-header">
                     <h2>更新日志</h2>
                     <p class="page-description">版本更新与修复记录</p>
+                </div>
                 
                 <div class="card">
                     <div class="timeline">
@@ -1177,9 +1529,7 @@
                                 </ul>
                             </div>
                         </div>
-                                        
-                <div class="card">
-                    <div class="timeline">
+                        
                         <div class="update-card">
                             <div class="update-header">
                                 <span class="update-version">Release-v1.1.0</span>
@@ -1398,74 +1748,6 @@
             </div>
         </div>
 
-        <!-- 已知Bug页 -->
-        <div id="known-bugs" class="page-container">
-            <div class="container" style="max-width: 1200px; margin: 0 auto;">
-                <div class="page-header">
-                    <h2>已知Bug列表</h2>
-                    <p class="page-description">当前已知问题与修复状态</p>
-                </div>
-                
-                <div class="card">
-                    <p style="margin-bottom: 25px; color: var(--text-light); font-size: 1.1rem;">以下是服务器当前已知的问题，我们会持续跟踪并修复。若发现新Bug，欢迎通过QQ群反馈！</p>
-                    
-                    <h3 style="color: #E53935; margin: 40px 0 25px; padding-bottom: 15px; border-bottom: 2px solid rgba(229, 57, 53, 0.3); font-size: 1.6rem;">严重Bug（影响游戏正常运行）</h3>
-                    <div class="bug-list">
-                        <div class="bug-card bug-critical">
-                            <span class="bug-level level-critical">严重</span>
-                            <div class="bug-title">基岩版玩家BE.前缀常常无法显示</div>
-                            <div class="bug-desc">玩家快速进入退出服务器导致无法显示</div>
-                            <div class="bug-status"><i class="fa fa-clock-o"></i> 暂时无法处理</div>
-                        </div>
-                        
-                        <div class="bug-card bug-critical">
-                            <span class="bug-level level-critical">严重</span>
-                            <div class="bug-title">网络过于卡顿</div>
-                            <div class="bug-desc">玩家常常需要使用加速地址才能保持网络稳定</div>
-                            <div class="bug-status"><i class="fa fa-clock-o"></i> 暂时无法处理（资源问题）</div>
-                        </div>
-                    </div>
-                    
-                    <h3 style="color: #FF7043; margin: 40px 0 25px; padding-bottom: 15px; border-bottom: 2px solid rgba(255, 112, 67, 0.3); font-size: 1.6rem;">重要Bug（影响游戏体验）</h3>
-                    <div class="bug-list">
-                        <div class="bug-card bug-major">
-                            <span class="bug-level level-major">重要</span>
-                            <div class="bug-title">反作弊过于敏感</div>
-                            <div class="bug-desc">网络卡顿好久强制回拉</div>
-                            <div class="bug-status"><i class="fa fa-clock-o"></i> 待修复（已收录反馈）</div>
-                        </div>
-                    </div>
-                    
-                    <h3 style="color: #FFB74D; margin: 40px 0 25px; padding-bottom: 15px; border-bottom: 2px solid rgba(255, 183, 77, 0.3); font-size: 1.6rem;">轻微Bug（不影响核心玩法）</h3>
-                    <div class="bug-list">
-                        <div class="bug-card bug-minor">
-                            <span class="bug-level level-minor">轻微</span>
-                            <div class="bug-title">鞘翅飞行时空中换甲会被踢出游戏</div>
-                            <div class="bug-desc">踢出提示"系统检测到异常飞行行为！请遵守规则。"</div>
-                            <div class="bug-status"><i class="fa fa-minus-circle"></i> 2025/12/28已经修复</div>
-                        </div>
-                        
-                        <div class="bug-card bug-minor">
-                            <span class="bug-level level-minor">轻微</span>
-                            <div class="bug-title">服务器地图部分区块加载缓慢</div>
-                            <div class="bug-desc">箱子或矿车等物品过多时玩家进入区块会严重卡顿</div>
-                            <div class="bug-status"><i class="fa fa-clock-o"></i> 无法优化</div>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-top: 50px; padding: 25px; background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(45, 45, 45, 0.9) 100%); border-radius: var(--border-radius); border: 1px solid rgba(76, 175, 80, 0.2);">
-                        <h4 style="color: var(--primary); margin-bottom: 15px; font-size: 1.3rem;">如何反馈新Bug？</h4>
-                        <p style="margin-bottom: 10px; color: var(--text-light);">1. 加入官方QQ群：<strong style="color: white;">915281565</strong></p>
-                        <p style="margin-bottom: 10px; color: var(--text-light);">2. 提供详细信息：Bug出现场景、游戏版本、截图/视频证据</p>
-                        <p style="margin-bottom: 20px; color: var(--text-light);">3. 我们会在24小时内回复并跟踪处理进度</p>
-                        <a href="#" data-page="qq-group" class="btn btn-forum" style="margin-top: 10px; padding: 12px 25px;">
-                            <i class="fa fa-comments"></i> 立即加入QQ群反馈
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- QQ群页 -->
         <div id="qq-group" class="page-container">
             <div class="container" style="max-width: 1200px; margin: 0 auto;">
@@ -1529,7 +1811,6 @@
                 
                 <div class="footer-column">
                     <h4>资源</h4>
-                    <a href="#" data-page="known-bugs">已知Bug</a>
                     <a href="http://210.16.168.53:5201/" target="_blank">服务器地图</a>
                     <a href="https://mp.minepay.top/#/shop?id=7659" target="_blank">充值商店</a>
                 </div>
@@ -1551,6 +1832,14 @@
         
         // 页面加载完成
         window.addEventListener('load', function() {
+            // 3秒后自动关闭欢迎弹窗
+            setTimeout(function() {
+                const modal = document.getElementById('welcomeModal');
+                if (modal) {
+                    modal.classList.add('hidden');
+                }
+            }, 3000);
+            
             // 移动端菜单切换
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const navLinks = document.getElementById('navLinks');
@@ -1585,10 +1874,19 @@
                 document.querySelectorAll('.nav-link').forEach(navLink => {
                     navLink.classList.remove('active');
                 });
-                link.classList.add('active');
                 
-                // 如果是导航链接，关闭移动菜单
-                if (link.classList.contains('nav-link')) {
+                // 找到对应的导航链接并激活
+                const activeNavLink = Array.from(document.querySelectorAll('.nav-link')).find(
+                    navLink => navLink.getAttribute('data-page') === targetPage
+                );
+                if (activeNavLink) {
+                    activeNavLink.classList.add('active');
+                } else if (link.classList.contains('nav-link')) {
+                    link.classList.add('active');
+                }
+                
+                // 关闭移动菜单
+                if (navLinks) {
                     navLinks.classList.remove('show');
                     if (mobileMenuBtn) {
                         mobileMenuBtn.innerHTML = '<i class="fa fa-bars"></i>';
@@ -1747,19 +2045,16 @@
                     const maxPlayers = document.getElementById('max-players');
                     const serverAddress = document.getElementById('server-address');
                     const serverVersion = document.getElementById('server-version');
-                    const serverPing = document.getElementById('server-ping');
                     
                     if (!data.error) {
                         // 服务器在线
                         if (statusDot) {
                             statusDot.style.background = '#4CAF50';
-                            statusDot.classList.add('pulse-dot');
                         }
                         if (statusText) statusText.textContent = '在线';
                         if (onlinePlayers) onlinePlayers.textContent = data.players?.online || 0;
                         if (maxPlayers) maxPlayers.textContent = data.players?.max || 0;
                         if (serverVersion) serverVersion.textContent = data.version?.name || '1.20.1+';
-                        if (serverPing) serverPing.textContent = '50'; // 模拟延迟
                         
                         // 如果有服务器图标，更新缓存
                         if (data.favicon) {
@@ -1777,10 +2072,8 @@
                         // 服务器离线
                         if (statusDot) {
                             statusDot.style.background = '#F44336';
-                            statusDot.classList.remove('pulse-dot');
                         }
                         if (statusText) statusText.textContent = '离线';
-                        if (serverPing) serverPing.textContent = '--';
                     }
                 } catch (error) {
                     console.error('首页状态更新失败:', error);
