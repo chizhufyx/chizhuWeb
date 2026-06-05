@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>chizhu - 我的世界生存服务器</title>
+    <title>Chizhu - 我的世界生存服务器</title>
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"></noscript>
     <style>
@@ -30,7 +30,7 @@
             --gradient: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
         }
         
-        /* 星空背景动画 - 增加星星密度 */
+        /* 星空背景动画 */
         @keyframes moveStars {
             from { transform: translateY(0); }
             to { transform: translateY(-2000px); }
@@ -58,7 +58,7 @@
             font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
         }
         
-        /* 星空层 - 大幅增加星星数量 */
+        /* 星空层 */
         body::before {
             content: '';
             position: fixed;
@@ -68,96 +68,17 @@
             height: 100%;
             background: transparent;
             background-image: 
-                /* 小星星群1 */
                 radial-gradient(1px 1px at 10px 10px, #fff, rgba(0,0,0,0)),
                 radial-gradient(1px 1px at 30px 40px, #fff, rgba(0,0,0,0)),
                 radial-gradient(1px 1px at 50px 80px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 70px 120px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 90px 160px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 110px 200px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 130px 240px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 150px 280px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 170px 320px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 190px 360px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 210px 400px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 230px 440px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 250px 480px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 270px 520px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 290px 560px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 310px 600px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 330px 640px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 350px 680px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 370px 720px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 390px 760px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 410px 800px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 430px 840px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 450px 880px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 470px 920px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 490px 960px, #fff, rgba(0,0,0,0)),
-                /* 中星星群2 */
                 radial-gradient(2px 2px at 520px 20px, #fff, rgba(0,0,0,0)),
                 radial-gradient(2px 2px at 550px 70px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 580px 120px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 610px 170px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 640px 220px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 670px 270px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 700px 320px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 730px 370px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 760px 420px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 790px 470px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 820px 520px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 850px 570px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 880px 620px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 910px 670px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 940px 720px, #fff, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 970px 770px, #fff, rgba(0,0,0,0)),
-                /* 大星星群3 */
                 radial-gradient(3px 3px at 1000px 30px, #fff, rgba(0,0,0,0)),
                 radial-gradient(3px 3px at 1040px 90px, #fff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 1080px 150px, #fff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 1120px 210px, #fff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 1160px 270px, #fff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 1200px 330px, #fff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 1240px 390px, #fff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 1280px 450px, #fff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 1320px 510px, #fff, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 1360px 570px, #fff, rgba(0,0,0,0)),
-                /* 更多小星星群4 */
                 radial-gradient(1px 1px at 20px 500px, #fff, rgba(0,0,0,0)),
                 radial-gradient(1px 1px at 60px 550px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 100px 600px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 140px 650px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 180px 700px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 220px 750px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 260px 800px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 300px 850px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 340px 900px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 380px 950px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 420px 1000px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 460px 1050px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 500px 1100px, #fff, rgba(0,0,0,0)),
-                /* 彩色星星群5 */
                 radial-gradient(2px 2px at 150px 200px, #ffd700, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 250px 400px, #87cefa, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 350px 600px, #ffa07a, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 450px 800px, #98fb98, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 550px 1000px, #dda0dd, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 650px 1200px, #f0e68c, rgba(0,0,0,0)),
-                /* 更多星星群6 */
-                radial-gradient(1px 1px at 800px 200px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 850px 400px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 900px 600px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 950px 800px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 1000px 1000px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 1050px 1200px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 1100px 1400px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 1150px 1600px, #fff, rgba(0,0,0,0)),
-                radial-gradient(1px 1px at 1200px 1800px, #fff, rgba(0,0,0,0)),
-                /* 超大星星群7 */
-                radial-gradient(4px 4px at 1300px 300px, #fff, rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 1350px 600px, #fff, rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 1400px 900px, #fff, rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 1450px 1200px, #fff, rgba(0,0,0,0));
+                radial-gradient(2px 2px at 250px 400px, #87cefa, rgba(0,0,0,0));
             background-repeat: repeat;
             background-size: 2000px 2000px;
             opacity: 1;
@@ -166,7 +87,6 @@
             animation: moveStars 300s linear infinite;
         }
         
-        /* 闪烁的星星层 - 增加密度 */
         body::after {
             content: '';
             position: fixed;
@@ -178,36 +98,16 @@
             background-image: 
                 radial-gradient(2px 2px at 50px 150px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
                 radial-gradient(3px 3px at 150px 350px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 250px 550px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
                 radial-gradient(4px 4px at 350px 750px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 450px 950px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 550px 1150px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 650px 1350px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 750px 1550px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 850px 250px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 950px 450px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 1050px 650px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 1150px 850px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 1250px 1050px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 1350px 1250px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 1450px 1450px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 1550px 1650px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-                /* 彩色闪烁星星 */
                 radial-gradient(3px 3px at 200px 200px, #ffd700, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 400px 400px, #87cefa, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 600px 600px, #ffa07a, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 800px 800px, #98fb98, rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 1000px 1000px, #dda0dd, rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 1200px 1200px, #f0e68c, rgba(0,0,0,0));
+                radial-gradient(2px 2px at 400px 400px, #87cefa, rgba(0,0,0,0));
             background-repeat: repeat;
             background-size: 2000px 2000px;
-            opacity: 1;
             pointer-events: none;
             z-index: 0;
             animation: twinkle 4s ease-in-out infinite;
         }
         
-        /* 第三层缓慢闪烁的星星 */
         .stars-slow {
             position: fixed;
             top: 0;
@@ -217,13 +117,7 @@
             background: transparent;
             background-image: 
                 radial-gradient(2px 2px at 120px 280px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 320px 480px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 520px 680px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 720px 880px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 920px 1080px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
-                radial-gradient(3px 3px at 1120px 1280px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
-                radial-gradient(2px 2px at 1320px 1480px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
-                radial-gradient(4px 4px at 1520px 1680px, rgba(255,255,255,0.7), rgba(0,0,0,0));
+                radial-gradient(3px 3px at 320px 480px, rgba(255,255,255,0.7), rgba(0,0,0,0));
             background-repeat: repeat;
             background-size: 2000px 2000px;
             pointer-events: none;
@@ -231,8 +125,7 @@
             animation: slowTwinkle 6s ease-in-out infinite;
         }
         
-        /* 主容器 - 添加半透明效果 */
-        .home-container, .main-nav, .main-footer, .page-container, .card, .feature-card, .stat-item, .link-card, .tutorial-card, .update-card, .bug-card, .qq-group-card {
+        .home-container, .main-nav, .main-footer, .page-container, .card, .feature-card, .stat-item, .link-card, .tutorial-card, .qq-group-card {
             position: relative;
             z-index: 2;
             backdrop-filter: blur(5px);
@@ -244,16 +137,15 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        .card, .feature-card, .stat-item, .link-card, .tutorial-card, .update-card, .qq-group-card, .version, .feature-item, .home-server-card, .server-status-detail {
+        .card, .feature-card, .stat-item, .link-card, .tutorial-card, .qq-group-card, .version, .feature-item {
             background: var(--bg-card) !important;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        /* 基础样式 */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        /* 加载弹窗 - 无头像版 */
+        /* 欢迎弹窗 */
         .welcome-modal {
             position: fixed;
             top: 0;
@@ -319,7 +211,6 @@
             color: var(--text-light);
             font-size: 1.2rem;
             margin-bottom: 25px;
-            line-height: 1.6;
         }
         
         .backup-link {
@@ -366,15 +257,6 @@
             font-size: 0.9rem;
         }
         
-        .modal-footer a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-        
-        .modal-footer a:hover {
-            text-decoration: underline;
-        }
-        
         /* 加载动画 */
         .loader { 
             position: fixed; 
@@ -404,6 +286,7 @@
             color: var(--text-light);
             font-size: 1.1rem;
         }
+        @keyframes spin { to { transform: rotate(360deg); } }
         
         /* 主容器 */
         .home-container { 
@@ -447,13 +330,11 @@
             align-items: center; 
             justify-content: center; 
             color: white; 
-            font-size: 1.3rem; 
-            background-size: cover !important; 
-            background-position: center !important; 
-            background-repeat: no-repeat !important;
+            font-size: 1.3rem;
             border: 2px solid var(--primary);
             box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
             overflow: hidden;
+            position: relative;
         }
         .logo-icon i {
             position: absolute;
@@ -510,9 +391,9 @@
             padding: 10px; 
         }
         
-        /* 首页特定样式 */
+        /* 首页样式 */
         .hero-section { 
-            min-height: 85vh; 
+            min-height: 75vh; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -548,72 +429,7 @@
             background-clip: text; 
         }
         
-        /* 首页服务器状态卡片 */
-        .home-server-card { 
-            background: linear-gradient(135deg, rgba(30, 30, 30, 0.9) 0%, rgba(45, 45, 45, 0.9) 100%);
-            backdrop-filter: blur(20px); 
-            border-radius: var(--border-radius); 
-            padding: 35px; 
-            box-shadow: var(--shadow-lg); 
-            margin: 50px auto; 
-            max-width: 550px; 
-            border: 1px solid rgba(76, 175, 80, 0.2);
-            transform-style: preserve-3d; 
-            animation: float 6s ease-in-out infinite; 
-            position: relative;
-            overflow: hidden;
-        }
-        .home-server-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient);
-        }
-        @keyframes float { 
-            0%, 100% { transform: translateY(0px); } 
-            50% { transform: translateY(-15px); } 
-        }
-        
-        .status-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        .status-indicator { display: flex; align-items: center; gap: 10px; }
-        .pulse-dot { 
-            width: 12px; height: 12px; background: var(--primary); border-radius: 50%; position: relative; 
-            box-shadow: 0 0 10px var(--primary);
-        }
-        .pulse-dot::before { 
-            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-            width: 20px; height: 20px; border-radius: 50%; background: var(--primary); opacity: 0.3; 
-            animation: pulse 2s infinite; 
-        }
-        @keyframes pulse { 
-            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; } 
-            50% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.1; } 
-            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; } 
-        }
-        
-        .player-count { display: flex; align-items: center; gap: 8px; color: var(--primary); font-weight: 600; }
-        .status-details { margin-bottom: 25px; }
-        .status-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-light); }
-        .status-item:last-child { border-bottom: none; }
-        .status-value { font-weight: 600; color: var(--primary); }
-        
-        /* 首页按钮 */
-        .hero-buttons { display: flex; gap: 20px; justify-content: center; margin-top: 50px; flex-wrap: wrap; }
-        .hero-btn { 
-            display: inline-flex; align-items: center; gap: 10px; padding: 15px 35px; 
-            border-radius: 50px; font-weight: 600; text-decoration: none; transition: var(--transition); 
-            font-size: 1.1rem; border: none; cursor: pointer;
-        }
-        .btn-primary { background: var(--gradient); color: white; }
-        .btn-secondary { background: rgba(255, 255, 255, 0.1); color: white; border: 2px solid rgba(255, 255, 255, 0.2); }
-        .hero-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
-        .btn-primary:hover { box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4); }
-        .btn-secondary:hover { border-color: var(--primary); background: rgba(76, 175, 80, 0.1); }
-        
-        /* 首页统计 */
+        /* 统计信息 */
         .stats-section { display: flex; justify-content: center; gap: 40px; margin: 70px 0; flex-wrap: wrap; }
         .stat-item { 
             text-align: center; padding: 30px 25px; background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
@@ -625,7 +441,7 @@
         .stat-number { font-size: 3rem; font-weight: 800; color: var(--primary); display: block; margin-bottom: 10px; text-shadow: 0 0 10px rgba(76, 175, 80, 0.3); }
         .stat-label { color: var(--text-light); font-size: 1rem; }
         
-        /* 首页特色 */
+        /* 特色区域 */
         .features-section { padding: 100px 0; }
         .section-title { 
             color: white; font-size: 2.8rem; margin-bottom: 20px; text-align: center; position: relative; 
@@ -648,7 +464,7 @@
         .feature-card h3 { color: white; margin-bottom: 15px; font-size: 1.6rem; }
         .feature-card p { color: var(--text-light); font-size: 1rem; line-height: 1.7; }
         
-        /* 首页快速链接 */
+        /* 快速链接 */
         .quick-links-section { padding: 100px 0; background: linear-gradient(to bottom, transparent 0%, rgba(30, 30, 30, 0.5) 100%); }
         .links-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px; margin-top: 40px; }
         .link-card { 
@@ -666,7 +482,7 @@
         .link-card p { color: var(--text-light); font-size: 0.95rem; line-height: 1.6; }
         
         /* 其他页面通用样式 */
-        .page-container { display: none; contain: layout paint; min-height: 80vh; padding: 60px 0; }
+        .page-container { display: none; min-height: 80vh; padding: 60px 0; }
         .page-container.active { display: block; animation: fadeIn 0.5s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
@@ -677,36 +493,29 @@
         }
         .page-description { color: var(--text-light); font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
         
-        /* 卡片样式 */
         .card { 
             background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); border-radius: var(--border-radius); box-shadow: var(--shadow); 
             padding: 35px; margin-bottom: 35px; border: 1px solid var(--border-light); position: relative; overflow: hidden;
         }
         .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); }
         
-        /* 按钮 */
         .btn { 
             display: inline-flex; align-items: center; gap: 10px; padding: 12px 25px; background: var(--gradient); color: white; 
             text-decoration: none; border-radius: var(--border-radius-sm); font-weight: 600; border: none; cursor: pointer; 
             transition: var(--transition); font-size: 1rem;
         }
         .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(76, 175, 80, 0.3); }
-        .btn-forum { background: linear-gradient(135deg, var(--secondary) 0%, #FF5722 100%); }
-        .btn-forum:hover { box-shadow: 0 8px 25px rgba(255, 152, 0, 0.3); }
+        .btn-forum { background: linear-gradient(135deg, var(--secondary) 0%, #FF5722 100()); }
         
-        /* 服务器信息页 */
         .version-box { display: flex; gap: 30px; margin: 40px 0; flex-wrap: wrap; }
         .version { 
             flex: 1; min-width: 300px; background: linear-gradient(135deg, rgba(45, 45, 45, 0.8) 0%, rgba(30, 30, 30, 0.8) 100%);
             padding: 30px; border-radius: var(--border-radius); border-top: 4px solid var(--primary); border: 1px solid var(--border-light); box-shadow: var(--shadow);
         }
-        .version:nth-child(2) { border-top-color: #F44336; }
         .version h3 { margin-bottom: 20px; color: white; font-size: 1.5rem; }
         .version p { margin-bottom: 10px; color: var(--text-light); }
         .version strong { color: var(--primary); font-weight: 600; }
-        .version:nth-child(2) strong { color: #F44336; }
         
-        /* 特色页 */
         .features-grid-detail { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 30px; }
         .feature-item { 
             background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); padding: 25px; border-radius: var(--border-radius); 
@@ -714,79 +523,22 @@
         }
         .feature-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
         .feature-item h3 { color: var(--primary); margin-bottom: 15px; font-size: 1.4rem; }
-        .feature-item p { color: var(--text-light); line-height: 1.7; }
         
-        /* 教程页 */
         .tutorial-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 35px; margin-top: 30px; }
         .tutorial-card { 
             background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); border-radius: var(--border-radius); padding: 30px; 
             border-top: 4px solid var(--primary); border: 1px solid var(--border-light); box-shadow: var(--shadow);
         }
-        .tutorial-card h3 { 
-            color: var(--primary-dark); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; 
-            font-size: 1.5rem; color: white;
-        }
+        .tutorial-card h3 { color: white; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; font-size: 1.5rem; }
         .tutorial-step { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px solid var(--border-light); }
-        .tutorial-step:last-child { border-bottom: none; }
         .tutorial-step h4 { margin-bottom: 12px; color: white; font-size: 1.2rem; }
         .tutorial-step p { color: var(--text-light); margin-bottom: 8px; line-height: 1.7; }
         .tutorial-step a { color: var(--primary); text-decoration: none; }
-        .tutorial-step a:hover { text-decoration: underline; }
         .tutorial-note { 
             background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(45, 45, 45, 0.9) 100%); padding: 20px; 
-            border-radius: var(--border-radius-sm); margin-top: 25px; border-left: 4px solid var(--secondary); border: 1px solid rgba(255, 152, 0, 0.2);
+            border-radius: var(--border-radius-sm); margin-top: 25px; border-left: 4px solid var(--secondary); 
         }
         
-        /* 更新日志页 */
-        #updates .card {
-            padding: 35px;
-        }
-        
-        .timeline { position: relative; margin-left: 30px; padding-left: 40px; }
-        .timeline::before { 
-            content: ''; position: absolute; left: 0; top: 0; height: 100%; width: 2px; 
-            background: linear-gradient(to bottom, var(--primary) 0%, var(--accent) 100%);
-        }
-        .update-card { 
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); border-radius: var(--border-radius); padding: 25px; 
-            margin-bottom: 30px; position: relative; border: 1px solid var(--border-light); box-shadow: var(--shadow); transition: var(--transition);
-        }
-        .update-card:hover { transform: translateX(10px); box-shadow: var(--shadow-lg); }
-        .update-card::before { 
-            content: ''; position: absolute; left: -46px; top: 30px; width: 16px; height: 16px; border-radius: 50%; 
-            background: var(--primary); border: 3px solid var(--bg-dark); box-shadow: 0 0 10px var(--primary);
-        }
-        .update-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
-        .update-version { font-weight: bold; color: var(--primary); font-size: 1.2rem; }
-        .date { color: var(--text-light); font-size: 0.95rem; }
-        .update-content h3 { color: var(--primary); margin: 20px 0 15px; font-size: 1.2rem; }
-        .update-content ul { padding-left: 25px; margin-bottom: 15px; color: var(--text-light); }
-        .update-content li { margin-bottom: 8px; line-height: 1.6; }
-        .category { 
-            display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; margin-right: 10px; 
-            margin-top: 10px; font-weight: 600;
-        }
-        .category-new { background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%); color: var(--primary); border: 1px solid rgba(76, 175, 80, 0.3); }
-        .category-fix { background: linear-gradient(135deg, rgba(231, 76, 60, 0.2) 0%, rgba(231, 76, 60, 0.1) 100%); color: #ff6b6b; border: 1px solid rgba(231, 76, 60, 0.3); }
-        .category-improve { background: linear-gradient(135deg, rgba(241, 196, 15, 0.2) 0%, rgba(241, 196, 15, 0.1) 100%); color: #ffd93d; border: 1px solid rgba(241, 196, 15, 0.3); }
-        
-        /* QQ群页 */
-        .qq-group-card { 
-            text-align: center; padding: 50px 20px; background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%);
-            border-radius: var(--border-radius); border: 1px solid var(--border-light); box-shadow: var(--shadow);
-        }
-        .qq-group-icon { 
-            width: 180px; height: 180px; margin: 0 auto 30px; background: var(--gradient); border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center; font-size: 6rem; color: white; 
-            border: 4px solid rgba(255, 255, 255, 0.2); box-shadow: 0 0 30px rgba(76, 175, 80, 0.4);
-            background-size: cover !important; background-position: center !important; background-repeat: no-repeat !important;
-            overflow: hidden;
-        }
-        .qq-group-icon i { position: absolute; opacity: 0.3; }
-        .qq-group-info h3 { color: white; font-size: 1.8rem; margin-bottom: 15px; }
-        .qq-group-info p { color: var(--text-light); margin-bottom: 10px; font-size: 1.1rem; }
-        
-        /* 链接页 */
         .link-grid-detail { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin-top: 30px; }
         .link-item-detail { 
             background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); border-radius: var(--border-radius); padding: 30px; 
@@ -794,64 +546,24 @@
             position: relative; overflow: hidden;
         }
         .link-item-detail::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); }
-        .link-item-detail:hover { 
-            transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary);
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, var(--bg-gray) 100%);
-        }
+        .link-item-detail:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
         .link-icon-detail { 
             width: 60px; height: 60px; margin: 0 auto 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            color: white; font-size: 1.5rem; background: var(--gradient); border: 2px solid rgba(255, 255, 255, 0.2);
+            color: white; font-size: 1.5rem; background: var(--gradient);
         }
-        .link-item-detail a { 
-            color: white; text-decoration: none; font-weight: 600; display: flex; align-items: center; justify-content: center; 
-            gap: 10px; font-size: 1.1rem;
-        }
+        .link-item-detail a { color: white; text-decoration: none; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; }
         .link-item-detail a:hover { color: var(--primary); }
-        .link-item-detail p { font-size: 0.95rem; color: var(--text-light); margin-top: 12px; line-height: 1.6; }
         
-        /* 实时状态 */
-        .server-status-detail { 
-            background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-gray) 100%); border-radius: var(--border-radius); padding: 30px; 
-            margin-bottom: 40px; box-shadow: var(--shadow); border: 1px solid var(--border-light); position: relative; overflow: hidden;
+        .qq-group-card { text-align: center; padding: 50px 20px; border-radius: var(--border-radius); }
+        .qq-group-icon { 
+            width: 180px; height: 180px; margin: 0 auto 30px; background: var(--gradient); border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; font-size: 6rem; color: white; 
+            border: 4px solid rgba(255, 255, 255, 0.2); box-shadow: 0 0 30px rgba(76, 175, 80, 0.4);
+            position: relative;
+            overflow: hidden;
         }
-        .server-status-detail::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient); }
-        .server-status-detail h3 { 
-            color: white; margin-bottom: 25px; font-size: 1.8rem; display: flex; align-items: center; justify-content: center; gap: 12px;
-        }
-        .server-status-detail h3::before { content: "🟢"; animation: blink 2s infinite; }
-        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
-        
-        .status-item-detail { 
-            color: var(--text-light); font-size: 1.1rem; margin: 15px 0; padding: 12px 0; border-bottom: 1px solid var(--border-light); 
-            display: flex; justify-content: space-between; align-items: center; 
-        }
-        .domain-tabs { 
-            margin-bottom: 25px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; 
-        }
-        .domain-tab { 
-            padding: 10px 20px; border-radius: 25px; background: linear-gradient(135deg, rgba(43, 108, 176, 0.2) 0%, rgba(43, 108, 176, 0.1) 100%);
-            color: #4dabf7; font-weight: 600; cursor: pointer; transition: all 0.3s; font-size: 0.95rem; border: 1px solid rgba(43, 108, 176, 0.3);
-        }
-        .domain-tab.active { 
-            background: linear-gradient(135deg, #2b6cb0 0%, #1e4d8c 100%); color: #fff; box-shadow: 0 4px 15px rgba(43,108,176,0.4); border-color: #2b6cb0;
-        }
-        .error-tip { margin-top: 20px; color: #a0aec0; font-size: 0.95rem; line-height: 1.6; text-align: center; }
-        
-        .players-list { 
-            margin-top: 20px; background: linear-gradient(135deg, rgba(45, 45, 45, 0.8) 0%, rgba(30, 30, 30, 0.8) 100%); 
-            border-radius: var(--border-radius-sm); padding: 20px; border: 1px solid var(--border-light); 
-        }
-        .players-title { font-weight: 600; color: var(--text-light); margin-bottom: 15px; display: flex; align-items: center; gap: 10px; font-size: 1.1rem; }
-        .players-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
-        .player-item { 
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%); padding: 10px 12px; 
-            border-radius: var(--border-radius-sm); border: 1px solid var(--border-light); font-size: 0.95rem; text-align: center; 
-            transition: all 0.2s; color: white;
-        }
-        .player-item:hover { 
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2) 0%, rgba(76, 175, 80, 0.1) 100%); transform: translateY(-2px); border-color: var(--primary);
-        }
-        .no-players { text-align: center; color: #a0aec0; font-style: italic; padding: 20px; }
+        .qq-group-icon i { position: absolute; opacity: 0.3; }
+        .qq-group-info h3 { color: white; font-size: 1.8rem; margin-bottom: 15px; }
         
         /* 页脚 */
         .main-footer { 
@@ -861,8 +573,6 @@
             padding: 80px 0 30px; 
             margin-top: 80px; 
             border-top: 1px solid var(--border-light);
-            position: relative;
-            z-index: 2;
         }
         .footer-content { 
             max-width: 1400px; margin: 0 auto; padding: 0 20px; display: grid; grid-template-columns: 1fr 2fr; 
@@ -870,333 +580,109 @@
         }
         .footer-logo { display: flex; align-items: flex-start; gap: 25px; }
         .footer-logo .logo-icon { width: 60px; height: 60px; font-size: 1.8rem; flex-shrink: 0; }
-        .footer-text h3 { color: white; margin-bottom: 15px; font-size: 1.4rem; }
-        .footer-text p { color: rgba(255, 255, 255, 0.6); line-height: 1.7; }
+        .footer-text h3 { color: white; margin-bottom: 15px; }
         .footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
-        .footer-column h4 { color: white; margin-bottom: 25px; font-size: 1.2rem; position: relative; display: inline-block; }
-        .footer-column h4::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 40px; height: 3px; background: var(--gradient); border-radius: 2px; }
-        .footer-column a { display: block; color: rgba(255, 255, 255, 0.6); text-decoration: none; margin-bottom: 12px; transition: var(--transition); font-size: 0.95rem; }
+        .footer-column h4 { color: white; margin-bottom: 25px; position: relative; display: inline-block; }
+        .footer-column h4::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 40px; height: 3px; background: var(--gradient); }
+        .footer-column a { display: block; color: rgba(255, 255, 255, 0.6); text-decoration: none; margin-bottom: 12px; transition: var(--transition); }
         .footer-column a:hover { color: var(--primary); transform: translateX(8px); }
-        .footer-column p { color: rgba(255, 255, 255, 0.6); margin-bottom: 8px; font-size: 0.95rem; }
-        .footer-bottom { 
-            text-align: center; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.5); 
-            font-size: 0.9rem; max-width: 1400px; margin: 0 auto; padding-left: 20px; padding-right: 20px;
-        }
-        .footer-bottom a { color: var(--primary); text-decoration: none; transition: var(--transition); }
-        .footer-bottom a:hover { text-decoration: underline; }
-        .footer-bottom p { margin-bottom: 8px; }
-        
-        /* 响应式设计 */
-        @media (max-width: 1200px) {
-            .footer-content { grid-template-columns: 1fr; gap: 40px; }
-            .footer-links { grid-template-columns: repeat(2, 1fr); }
-        }
-        
-        @media (max-width: 992px) {
-            .hero-title { font-size: 3rem; }
-            .section-title { font-size: 2.4rem; }
-        }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.5); }
         
         @media (max-width: 768px) {
             .mobile-menu-btn { display: block; }
-            .nav-links { 
-                display: none; position: absolute; top: 70px; left: 0; width: 100%; background: rgba(30, 30, 30, 0.98); 
-                backdrop-filter: blur(10px); flex-direction: column; padding: 20px; transform: translateY(-100%); opacity: 0; 
-                transition: var(--transition); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); border-top: 1px solid rgba(255, 255, 255, 0.1);
-            }
-            .nav-links.show { transform: translateY(0); opacity: 1; display: flex; }
+            .nav-links { display: none; position: absolute; top: 70px; left: 0; width: 100%; background: rgba(30, 30, 30, 0.98); flex-direction: column; padding: 20px; }
+            .nav-links.show { display: flex; }
             .hero-title { font-size: 2.5rem; }
-            .hero-subtitle { font-size: 1.2rem; }
-            .section-title { font-size: 2.2rem; }
-            .section-subtitle { font-size: 1.1rem; }
-            .features-grid, .features-grid-detail, .tutorial-container, .link-grid-detail, .links-grid { grid-template-columns: 1fr; }
-            .footer-links { grid-template-columns: 1fr; gap: 30px; }
             .stats-section { gap: 25px; }
-            .stat-item { min-width: 160px; padding: 25px; }
-            .stat-number { font-size: 2.5rem; }
-            .version-box { flex-direction: column; }
-            .version { min-width: 100%; }
-            .page-header h2 { font-size: 2.4rem; }
-            .hero-section { padding: 60px 0 30px; }
-            
-            .modal-content {
-                padding: 30px 20px;
-                width: 95%;
-            }
-            
-            .modal-content h2 {
-                font-size: 1.8rem;
-            }
-            
-            .modal-content p {
-                font-size: 1rem;
-            }
+            .stat-item { min-width: 160px; }
+            .footer-content { grid-template-columns: 1fr; }
+            .footer-links { grid-template-columns: 1fr; }
         }
-        
         @media (max-width: 576px) {
             .hero-title { font-size: 2rem; }
-            .hero-subtitle { font-size: 1rem; }
-            .section-title { font-size: 1.8rem; }
-            .card { padding: 25px; }
-            .hero-btn { padding: 12px 25px; font-size: 1rem; }
-            .qq-group-icon { width: 150px; height: 150px; font-size: 5rem; }
-            .domain-tab { padding: 8px 16px; font-size: 0.9rem; }
-            .footer-content { gap: 30px; }
-            .nav-container { padding: 0 15px; }
-            .home-container { padding: 0 15px; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .hero-btn { width: 100%; max-width: 300px; justify-content: center; }
-            .stats-section { gap: 15px; }
-            .stat-item { min-width: calc(50% - 15px); padding: 20px; }
-            .stat-number { font-size: 2.2rem; }
-            
-            .modal-content h2 {
-                font-size: 1.5rem;
-            }
-        }
-        
-        @media (max-width: 400px) {
-            .hero-title { font-size: 1.8rem; }
-            .stat-item { min-width: 100%; }
-            .qq-group-icon { width: 120px; height: 120px; font-size: 4rem; }
-            
-            .backup-link {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
+            .stat-item { min-width: calc(50% - 15px); }
         }
     </style>
 </head>
 <body>
-    <!-- 第三层缓慢闪烁的星星 -->
     <div class="stars-slow"></div>
     
-    <!-- 欢迎弹窗 - 无头像版 -->
+    <!-- 欢迎弹窗 -->
     <div class="welcome-modal" id="welcomeModal">
         <div class="modal-content">
             <h2>欢迎来到 Chizhu</h2>
             <p>我的世界生存服务器</p>
-            <p style="font-size: 1rem; color: rgba(255,255,255,0.7);">✨ 探索 · 生存 · 冒险 ✨</p>
-            
-            <div class="loading-bar">
-                <div class="loading-progress"></div>
-            </div>
-            
-            <a href="https://www.chizhudream.top" class="backup-link" target="_blank">
-                <i class="fa fa-globe"></i> 备用官网 www.chizhudream.top
-            </a>
-            
-            <div class="modal-footer">
-                <p>如果官网加载缓慢，请点击上方备用链接</p>
-                <p>页面加载完成后自动关闭</p>
-            </div>
+            <p style="font-size: 1rem;">✨ 探索 · 生存 · 冒险 ✨</p>
+            <div class="loading-bar"><div class="loading-progress"></div></div>
+            <a href="https://www.chizhudream.top" class="backup-link" target="_blank"><i class="fa fa-globe"></i> 备用官网 www.chizhudream.top</a>
+            <div class="modal-footer"><p>页面加载完成后自动关闭</p></div>
         </div>
     </div>
     
-    <!-- 加载动画 -->
-    <div class="loader">
-        <div class="loader-icon"></div>
-        <div class="loader-text">正在加载服务器信息...</div>
-    </div>
+    <div class="loader"><div class="loader-icon"></div><div class="loader-text">正在加载...</div></div>
     
-    <!-- 导航栏 -->
     <nav class="main-nav">
         <div class="nav-container">
-            <div class="nav-logo">
-                <div class="logo-icon" id="nav-logo-icon">
-                    <i class="fa fa-cube"></i>
-                </div>
-                <h1>Chizhu <span style="color: var(--primary);">服务器</span></h1>
-            </div>
+            <div class="nav-logo"><div class="logo-icon"><i class="fa fa-cube"></i></div><h1>Chizhu <span style="color: var(--primary);">服务器</span></h1></div>
             <div class="nav-links" id="navLinks">
-                <a href="#" class="nav-link active" data-page="home">
-                    <i class="fa fa-home"></i> 首页
-                </a>
-                <a href="#" class="nav-link" data-page="server-info">
-                    <i class="fa fa-server"></i> 服务器信息
-                </a>
-                <a href="#" class="nav-link" data-page="features">
-                    <i class="fa fa-star"></i> 服务器特色
-                </a>
-                <a href="#" class="nav-link" data-page="tutorial">
-                    <i class="fa fa-graduation-cap"></i> 新手教程
-                </a>
-                <a href="#" class="nav-link" data-page="links">
-                    <i class="fa fa-link"></i> 快捷链接
-                </a>
-                <a href="#" class="nav-link" data-page="updates">
-                    <i class="fa fa-history"></i> 更新日志
-                </a>
-                <a href="#" class="nav-link" data-page="qq-group">
-                    <i class="fa fa-comments"></i> QQ群
-                </a>
+                <a href="#" class="nav-link active" data-page="home"><i class="fa fa-home"></i> 首页</a>
+                <a href="#" class="nav-link" data-page="server-info"><i class="fa fa-server"></i> 服务器信息</a>
+                <a href="#" class="nav-link" data-page="features"><i class="fa fa-star"></i> 服务器特色</a>
+                <a href="#" class="nav-link" data-page="tutorial"><i class="fa fa-graduation-cap"></i> 新手教程</a>
+                <a href="#" class="nav-link" data-page="links"><i class="fa fa-link"></i> 快捷链接</a>
+                <a href="#" class="nav-link" data-page="qq-group"><i class="fa fa-comments"></i> QQ群</a>
+                <!-- 官方文档链接 (外部) -->
+                <a href="https://docs.qq.com/doc/DS0t4QkhZU0p3WENp" target="_blank" class="nav-link"><i class="fa fa-book"></i> 官方文档</a>
             </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fa fa-bars"></i>
-            </button>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fa fa-bars"></i></button>
         </div>
     </nav>
 
-    <!-- 主内容容器 -->
     <main class="home-container">
         <!-- 首页 -->
         <div id="home" class="page-container active">
-            <!-- 英雄区域 -->
             <section class="hero-section">
                 <div class="hero-content">
-                    <h1 class="hero-title">
-                        欢迎来到<br><span class="gradient-text">Chizhu Minecraft服务器</span>
-                    </h1>
-                    <p class="hero-subtitle">
-                        一个充满季节变化与冒险的生存世界，体验独特的生存乐趣！
-                    </p>
-                    
-                    <!-- 服务器状态卡片 -->
-                    <div class="home-server-card">
-                        <div class="status-header">
-                            <div class="status-indicator">
-                                <div class="pulse-dot" id="status-dot"></div>
-                                <span id="status-text">查询状态...</span>
-                            </div>
-                            <div class="player-count">
-                                <i class="fa fa-users"></i>
-                                <span id="online-players">0</span>/<span id="max-players">0</span>
-                            </div>
-                        </div>
-                        <div class="status-details">
-                            <div class="status-item">
-                                <span>服务器地址:</span>
-                                <span class="status-value" id="server-address">chizhudream.top</span>
-                            </div>
-                            <div class="status-item">
-                                <span>游戏版本:</span>
-                                <span class="status-value" id="server-version">1.20.1+</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 统计信息 -->
+                    <h1 class="hero-title">欢迎来到<br><span class="gradient-text">Chizhu Minecraft服务器</span></h1>
+                    <p class="hero-subtitle">一个充满季节变化与冒险的生存世界，体验独特的生存乐趣！</p>
                     <div class="stats-section">
-                        <div class="stat-item">
-                            <span class="stat-number">1200+</span>
-                            <span class="stat-label">累计玩家</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">24/7</span>
-                            <span class="stat-label">全天运行</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">1.8-1.21</span>
-                            <span class="stat-label">多版本支持</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">7月+</span>
-                            <span class="stat-label">稳定开服</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">60+</span>
-                            <span class="stat-label">特色插件</span>
-                        </div>
+                        <div class="stat-item"><span class="stat-number">1200+</span><span class="stat-label">累计玩家</span></div>
+                        <div class="stat-item"><span class="stat-number">24/7</span><span class="stat-label">全天运行</span></div>
+                        <div class="stat-item"><span class="stat-number">1.8-1.21</span><span class="stat-label">多版本支持</span></div>
+                        <div class="stat-item"><span class="stat-number">7月+</span><span class="stat-label">稳定开服</span></div>
+                        <div class="stat-item"><span class="stat-number">60+</span><span class="stat-label">特色插件</span></div>
                     </div>
-                    
-                    <!-- 行动按钮 -->
                     <div class="hero-buttons">
-                        <a href="#" class="hero-btn btn-primary" data-page="tutorial">
-                            <i class="fa fa-play-circle"></i> 立即加入
-                        </a>
-                        <a href="#" class="hero-btn btn-secondary" data-page="features">
-                            <i class="fa fa-info-circle"></i> 了解特色
-                        </a>
+                        <a href="#" class="hero-btn btn-primary" data-page="tutorial"><i class="fa fa-play-circle"></i> 立即加入</a>
+                        <a href="#" class="hero-btn btn-secondary" data-page="features"><i class="fa fa-info-circle"></i> 了解特色</a>
                     </div>
                 </div>
             </section>
 
-            <!-- 特色展示区 -->
             <section class="features-section">
                 <div class="container" style="max-width: 1200px; margin: 0 auto;">
                     <h2 class="section-title">服务器核心特色</h2>
                     <p class="section-subtitle">探索我们独特的游戏体验</p>
-                    
                     <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fa fa-shield-alt"></i>
-                            </div>
-                            <h3>完善领地保护</h3>
-                            <p>强大的领地系统，保护你的建筑和物品安全，防止他人破坏</p>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fa fa-store"></i>
-                            </div>
-                            <h3>经济交易系统</h3>
-                            <p>完整的商店和经济体系，支持玩家间自由交易，打造繁荣经济</p>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fa fa-users"></i>
-                            </div>
-                            <h3>活跃玩家社区</h3>
-                            <p>友好的玩家社区，定期举办建筑比赛和活动，结交新朋友</p>
-                        </div>
+                        <div class="feature-card"><div class="feature-icon"><i class="fa fa-shield-alt"></i></div><h3>完善领地保护</h3><p>强大的领地系统，保护你的建筑和物品安全</p></div>
+                        <div class="feature-card"><div class="feature-icon"><i class="fa fa-store"></i></div><h3>经济交易系统</h3><p>完整的商店和经济体系，支持玩家间自由交易</p></div>
+                        <div class="feature-card"><div class="feature-icon"><i class="fa fa-users"></i></div><h3>活跃玩家社区</h3><p>友好的玩家社区，定期举办建筑比赛和活动</p></div>
                     </div>
-                    
-                    <div style="text-align: center; margin-top: 40px;">
-                        <a href="#" class="btn" data-page="features" style="padding: 14px 35px; font-size: 1.1rem;">
-                            <i class="fa fa-arrow-right"></i> 查看更多特色
-                        </a>
-                    </div>
+                    <div style="text-align: center;"><a href="#" class="btn" data-page="features"><i class="fa fa-arrow-right"></i> 查看更多特色</a></div>
                 </div>
             </section>
 
-            <!-- 快速链接区 -->
             <section class="quick-links-section">
                 <div class="container" style="max-width: 1200px; margin: 0 auto;">
                     <h2 class="section-title">快速导航</h2>
                     <p class="section-subtitle">快速访问常用页面和资源</p>
-                    
                     <div class="links-grid">
-                        <a href="#" class="link-card" data-page="tutorial">
-                            <div class="link-icon">
-                                <i class="fa fa-graduation-cap"></i>
-                            </div>
-                            <h3>新手教程</h3>
-                            <p>从零开始学习如何加入服务器</p>
-                        </a>
-                        
-                        <a href="#" class="link-card" data-page="updates">
-                            <div class="link-icon">
-                                <i class="fa fa-history"></i>
-                            </div>
-                            <h3>更新日志</h3>
-                            <p>查看最新的改动与修复</p>
-                        </a>
-                        
-                        <a href="#" class="link-card" data-page="links">
-                            <div class="link-icon">
-                                <i class="fa fa-shopping-cart"></i>
-                            </div>
-                            <h3>充值商店</h3>
-                            <p>购买道具和权限</p>
-                        </a>
-                        
-                        <a href="#" class="link-card" data-page="qq-group">
-                            <div class="link-icon">
-                                <i class="fa fa-comments"></i>
-                            </div>
-                            <h3>加入QQ群</h3>
-                            <p>获取帮助与玩家交流</p>
-                        </a>
-                        
-                        <a href="#" class="link-card" data-page="server-info">
-                            <div class="link-icon">
-                                <i class="fa fa-server"></i>
-                            </div>
-                            <h3>服务器信息</h3>
-                            <p>连接地址与版本要求</p>
-                        </a>
+                        <a href="#" class="link-card" data-page="tutorial"><div class="link-icon"><i class="fa fa-graduation-cap"></i></div><h3>新手教程</h3><p>从零开始学习如何加入服务器</p></a>
+                        <a href="#" class="link-card" data-page="links"><div class="link-icon"><i class="fa fa-shopping-cart"></i></div><h3>充值商店</h3><p>购买道具和权限</p></a>
+                        <a href="#" class="link-card" data-page="qq-group"><div class="link-icon"><i class="fa fa-comments"></i></div><h3>加入QQ群</h3><p>获取帮助与玩家交流</p></a>
+                        <a href="#" class="link-card" data-page="server-info"><div class="link-icon"><i class="fa fa-server"></i></div><h3>服务器信息</h3><p>连接地址与版本要求</p></a>
+                        <!-- 官方文档快速链接卡片 -->
+                        <a href="https://docs.qq.com/doc/DS0t4QkhZU0p3WENp" target="_blank" class="link-card"><div class="link-icon"><i class="fa fa-book"></i></div><h3>官方文档</h3><p>服务器详细规则与帮助文档</p></a>
                     </div>
                 </div>
             </section>
@@ -1205,69 +691,11 @@
         <!-- 服务器信息页 -->
         <div id="server-info" class="page-container">
             <div class="container" style="max-width: 1200px; margin: 0 auto;">
-                <div class="page-header">
-                    <h2>服务器信息</h2>
-                    <p class="page-description">连接地址与版本要求</p>
-                </div>
-                
-                <!-- 实时状态 -->
-                <div class="server-status-detail">
-                    <h3>服务器实时状态</h3>
-                    <div class="domain-tabs">
-                        <div class="domain-tab active" data-domain="chizhudream.top" data-port="25565">chizhudream.top</div>
-                        <div class="domain-tab" data-domain="s1.52mc.cc" data-port="26078">s1.52mc.cc (备用)</div>
-                    </div>
-                    
-                    <div class="status-item-detail">
-                        <span>当前连接：</span>
-                        <span class="status-value" id="current-domain">chizhudream.top</span>
-                    </div>
-                    
-                    <div class="status-item-detail">
-                        <span>游戏版本：</span>
-                        <span class="status-value" id="server-version-detail">查询中...</span>
-                    </div>
-                    
-                    <div class="status-item-detail">
-                        <span>在线状态：</span>
-                        <span class="status-value" id="server-status-detail">查询中...</span>
-                    </div>
-                    
-                    <div class="status-item-detail">
-                        <span>在线人数：</span>
-                        <span class="status-value">
-                            <span id="player-online-detail">0</span>/<span id="player-max-detail">0</span>
-                        </span>
-                    </div>
-                    
-                    <div class="players-list" id="players-list" style="display: none;">
-                        <div class="players-title">
-                            <i class="fa fa-users"></i>
-                            <span>当前在线玩家：</span>
-                        </div>
-                        <div class="players-grid" id="players-grid"></div>
-                    </div>
-                    
-                    <div class="error-tip" id="error-tip"></div>
-                </div>
-                
-                <!-- 版本信息 -->
+                <div class="page-header"><h2>服务器信息</h2><p class="page-description">连接地址与版本要求</p></div>
                 <div class="card">
                     <div class="version-box">
-                        <div class="version">
-                            <h3>Java版服务器</h3>
-                            <p>版本: 1.12~1.21.x</p>
-                            <p>主用地址: <strong>chizhudream.top</strong></p>
-                            <p>备用地址: <strong>s1.52mc.cc:26078</strong></p>
-                            <p>支持正版与离线模式</p>
-                            <a href="#" data-page="tutorial" class="btn">查看加入教程</a>
-                        </div>
-                        <div class="version">
-                            <h3>基岩版服务器（不再提供保障）</h3>
-                            <p>版本: 1.21+</p>
-                            <p>地址: <strong>be.chizhudream.top</strong></p>
-                            <p>端口: <strong>5212</strong></p>
-                        </div>
+                        <div class="version"><h3>Java版服务器</h3><p>版本: 1.12~1.21.x</p><p>主用地址: <strong>chizhudream.top</strong></p><p>备用地址: <strong>s2.52mc.cc:26023</strong></p><p>支持正版与离线模式</p><a href="#" data-page="tutorial" class="btn">查看加入教程</a></div>
+                        <div class="version"><h3>基岩版服务器（不再提供保障）</h3><p>版本: 1.21+</p><p>地址: <strong>be.chizhudream.top</strong></p><p>端口: <strong>5212</strong></p></div>
                     </div>
                 </div>
             </div>
@@ -1275,836 +703,105 @@
 
         <!-- 服务器特色页 -->
         <div id="features" class="page-container">
-            <div class="container" style="max-width: 1200px; margin: 0 auto;">
-                <div class="page-header">
-                    <h2>服务器特色</h2>
-                    <p class="page-description">独特的玩法与系统</p>
-                </div>
-                
-                <div class="features-grid-detail">
-                    <div class="feature-item">
-                        <h3>经济系统</h3>
-                        <p>完善的商店和经济系统，玩家可以自由交易。</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>领地保护</h3>
-                        <p>领地系统保护你的建筑和物品，防止被破坏。</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>活跃社区</h3>
-                        <p>友好的玩家社区，定期举办建筑比赛等活动。</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>多版本支持</h3>
-                        <p>同时支持不同版本进入。</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>稳定运行</h3>
-                        <p>高性能服务器，24小时稳定运行，低延迟。</p>
-                    </div>
-                </div>
-            </div>
+            <div class="container" style="max-width: 1200px;"><div class="page-header"><h2>服务器特色</h2><p class="page-description">独特的玩法与系统</p></div>
+            <div class="features-grid-detail">
+                <div class="feature-item"><h3>经济系统</h3><p>完善的商店和经济系统，玩家可以自由交易。</p></div>
+                <div class="feature-item"><h3>领地保护</h3><p>领地系统保护你的建筑和物品，防止被破坏。</p></div>
+                <div class="feature-item"><h3>活跃社区</h3><p>友好的玩家社区，定期举办建筑比赛等活动。</p></div>
+                <div class="feature-item"><h3>多版本支持</h3><p>同时支持不同版本进入。</p></div>
+                <div class="feature-item"><h3>稳定运行</h3><p>高性能服务器，24小时稳定运行，低延迟。</p></div>
+            </div></div>
         </div>
 
         <!-- 新手教程页 -->
         <div id="tutorial" class="page-container">
-            <div class="container" style="max-width: 1200px; margin: 0 auto;">
-                <div class="page-header">
-                    <h2>傻瓜教学：Java版加入教程</h2>
-                    <p class="page-description">专为新手设计，一步步教你加入服务器</p>
-                </div>
-                
-                <div class="card">
-                    <p style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 30px;">本教程专为新手设计，详细讲解电脑端和手机端如何安装Java版并加入服务器，一步一步跟着做就能成功！</p>
-                    
-                    <div class="tutorial-container">
-                        <div class="tutorial-card">
-                            <h3><i class="fa fa-desktop"></i> 电脑端（Windows/Mac）</h3>
-                            <div class="tutorial-step">
-                                <h4>第一步：下载Java版启动器</h4>
-                                <p>1. 推荐使用PCL启动器（简单易用）</p>
-                                <p>2. 下载地址：<a href="https://www.123684.com/s/8sySjv-tq2c" target="_blank">点击下载PCL启动器</a></p>
-                                <p>3. 下载完成后安装，打开启动器</p>
-                            </div>
-                            <div class="tutorial-step">
-                                <h4>第二步：安装游戏版本</h4>
-                                <p>1. 打开PCL启动器，点击左侧「版本列表」</p>
-                                <p>2. 选择1.12~1.21之间的任意版本（推荐1.20.1）</p>
-                                <p>3. 点击「安装」，等待下载完成（需联网）</p>
-                            </div>
-                            <div class="tutorial-step">
-                                <h4>第三步：添加服务器</h4>
-                                <p>1. 启动游戏，进入主菜单</p>
-                                <p>2. 点击「多人游戏」→「添加服务器」</p>
-                                <p>3. 服务器名称随便填（比如「chizhu服务器」）</p>
-                                <p>4. 服务器地址填写：<strong>chizhudream.top</strong> 或 <strong>s1.52mc.cc:26078</strong></p>
-                                <p>5. 点击「完成」，服务器就添加好了</p>
-                            </div>
-                            <div class="tutorial-step">
-                                <h4>第四步：进入服务器</h4>
-                                <p>1. 在服务器列表中找到刚刚添加的服务器</p>
-                                <p>2. 点击「加入服务器」，等待连接成功</p>
-                                <p>3. 连接成功后即可开始游戏！</p>
-                            </div>
-                            <div class="tutorial-note">
-                                <p style="color: var(--secondary);"><i class="fa fa-lightbulb"></i> 提示：如果连接失败，检查网络是否正常，或尝试更换游戏版本和服务器地址</p>
-                            </div>
-                        </div>
-                        
-                        <div class="tutorial-card">
-                            <h3><i class="fa fa-mobile"></i> 手机端（Android）</h3>
-                            <div class="tutorial-step">
-                                <h4>第一步：下载Java版启动器</h4>
-                                <p>1. 推荐使用FCL启动器（支持手机运行Java版）</p>
-                                <p>2. 下载地址：<a href="https://foldcraftlauncher.cn" target="_blank">点击下载FCL启动器</a></p>
-                                <p>3. Android直接安装APK</p>
-                            </div>
-                            <div class="tutorial-step">
-                                <h4>第二步：安装游戏核心</h4>
-                                <p>1. 打开FCL启动器，同意用户协议</p>
-                                <p>2. 点击「版本管理」→「下载版本」</p>
-                                <p>3. 选择1.12~1.21之间的版本（推荐1.20.1，兼容性好）</p>
-                                <p>4. 等待下载完成（手机需有足够存储空间）</p>
-                            </div>
-                            <div class="tutorial-step">
-                                <h4>第三步：配置并启动游戏</h4>
-                                <p>1. 回到启动页，选择已下载的版本</p>
-                                <p>2. 点击「启动游戏」，首次启动会下载必要文件</p>
-                                <p>3. 游戏启动后，点击「多人游戏」→「添加服务器」</p>
-                            </div>
-                            <div class="tutorial-step">
-                                <h4>第四步：加入服务器</h4>
-                                <p>1. 服务器地址填写：<strong>chizhudream.top</strong> 或 <strong>s1.52mc.cc:26078</strong></p>
-                                <p>2. 名称随意填写，点击「保存」</p>
-                                <p>3. 点击服务器名称，等待连接成功即可</p>
-                            </div>
-                            <div class="tutorial-note">
-                                <p style="color: var(--secondary);"><i class="fa fa-lightbulb"></i> 提示：手机配置较低可能会卡顿，建议关闭高画质设置</p>
-                            </div>
-                        </div>
+            <div class="container" style="max-width: 1200px;"><div class="page-header"><h2>傻瓜教学：Java版加入教程</h2><p class="page-description">专为新手设计，一步步教你加入服务器</p></div>
+            <div class="card">
+                <div class="tutorial-container">
+                    <div class="tutorial-card"><h3><i class="fa fa-desktop"></i> 电脑端</h3>
+                        <div class="tutorial-step"><h4>第一步：下载启动器</h4><p>推荐PCL启动器，下载地址：<a href="https://www.123684.com/s/8sySjv-tq2c" target="_blank">点击下载</a></p></div>
+                        <div class="tutorial-step"><h4>第二步：安装版本</h4><p>选择1.12~1.21.11之间版本（推荐1.20.1）</p></div>
+                        <div class="tutorial-step"><h4>第三步：添加服务器</h4><p>地址填写：<strong>chizhudream.top</strong> 或 <strong>s2.52mc.cc:26023</strong></p></div>
+                        <div class="tutorial-step"><h4>第四步：进入游戏</h4><p>点击加入服务器即可游玩</p></div>
                     </div>
-                    
-                    <div class="tutorial-note" style="margin-top: 40px;">
-                        <p style="color: white; font-weight: 600; margin-bottom: 15px;"><i class="fa fa-question-circle"></i> 常见问题：如果连接超时/无法加入，可尝试以下方法</p>
-                        <p>1. 检查网络是否正常，关闭VPN或代理</p>
-                        <p>2. 更换游戏版本（推荐1.19.x系列）</p>
-                        <p>3. 切换服务器地址：主用地址 <strong>chizhudream.top</strong> 或备用地址 <strong>s1.52mc.cc:26078</strong></p>
-                        <p>4. 加入QQ群（915281565）寻求帮助</p>
+                    <div class="tutorial-card"><h3><i class="fa fa-mobile"></i> 手机端</h3>
+                        <div class="tutorial-step"><h4>第一步：下载FCL启动器</h4><p><a href="https://foldcraftlauncher.cn" target="_blank">foldcraftlauncher.cn</a></p></div>
+                        <div class="tutorial-step"><h4>第二步：安装版本</h4><p>推荐1.21.4版本</p></div>
+                        <div class="tutorial-step"><h4>第三步：添加服务器</h4><p>地址：<strong>chizhudream.top</strong></p></div>
+                        <div class="tutorial-step"><h4>第四步：连接服务器</h4><p>点击加入即可</p></div>
                     </div>
                 </div>
-            </div>
+                <div class="tutorial-note"><p><i class="fa fa-question-circle"></i> 遇到问题请加入QQ群（915281565）寻求帮助</p></div>
+            </div></div>
         </div>
 
         <!-- 快捷链接页 -->
         <div id="links" class="page-container">
-            <div class="container" style="max-width: 1200px; margin: 0 auto;">
-                <div class="page-header">
-                    <h2>快捷导航</h2>
-                    <p class="page-description">快速访问相关服务和资源</p>
+            <div class="container" style="max-width: 1200px;"><div class="page-header"><h2>快捷导航</h2><p class="page-description">快速访问相关服务和资源</p></div>
+            <div class="card">
+                <div class="link-grid-detail">
+                    <div class="link-item-detail"><div class="link-icon-detail" style="background: linear-gradient(135deg, #42A5F5 0%, #2196F3 100%);"><i class="fa fa-shopping-cart"></i></div><a href="https://mp.minepay.top/#/shop?id=7659" target="_blank">充值商店 <i class="fa fa-external-link"></i></a></div>
+                    <div class="link-item-detail"><div class="link-icon-detail" style="background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%);"><i class="fa fa-comments"></i></div><a href="https://www.wdsjfwq.com/server-1578.html" target="_blank">苦力怕论坛 <i class="fa fa-external-link"></i></a></div>
+                    <div class="link-item-detail"><div class="link-icon-detail" style="background: linear-gradient(135deg, #FF5722 0%, #E64A19 100%);"><i class="fa fa-music"></i></div><a href="https://www.douyin.com/user/MS4wLjABAAAA-CrDPDUX-s6oxsmNrtBP07qfmrKGd5iK5KV3WKVlejWNyd52lPK8KhIriDwwYbp8" target="_blank">抖音账号 <i class="fa fa-external-link"></i></a></div>
+                    <div class="link-item-detail"><div class="link-icon-detail" style="background: linear-gradient(135deg, #26C6DA 0%, #00BCD4 100%);"><i class="fa fa-download"></i></div><a href="https://www.123684.com/s/8sySjv-tq2c" target="_blank">PCL启动器 <i class="fa fa-external-link"></i></a></div>
+                    <div class="link-item-detail"><div class="link-icon-detail" style="background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%);"><i class="fa fa-mobile"></i></div><a href="https://foldcraftlauncher.cn" target="_blank">FCL启动器 <i class="fa fa-external-link"></i></a></div>
+                    <div class="link-item-detail"><div class="link-icon-detail" style="background: linear-gradient(135deg, #FFA726 0%, #FF9800 100%);"><i class="fa fa-map"></i></div><a href="http://210.16.168.53:4567/" target="_blank">服务器地图 <i class="fa fa-external-link"></i></a></div>
+                    <!-- 官方文档链接卡片 -->
+                    <div class="link-item-detail"><div class="link-icon-detail" style="background: linear-gradient(135deg, #1E88E5 0%, #0D47A1 100%);"><i class="fa fa-book-open"></i></div><a href="https://docs.qq.com/doc/DS0t4QkhZU0p3WENp" target="_blank">官方文档 <i class="fa fa-external-link"></i></a></div>
                 </div>
-                
-                <div class="card">
-                    <p style="margin-bottom: 25px; color: var(--text-light); font-size: 1.1rem;">点击以下链接快速访问相关服务，外部链接将在新窗口打开</p>
-                    
-                    <div class="link-grid-detail">
-                        <div class="link-item-detail">
-                            <div class="link-icon-detail" style="background: linear-gradient(135deg, #42A5F5 0%, #2196F3 100%);">
-                                <i class="fa fa-shopping-cart"></i>
-                            </div>
-                            <a href="https://mp.minepay.top/#/shop?id=7659" target="_blank">
-                                充值商店
-                                <i class="fa fa-external-link" style="font-size: 0.8rem;"></i>
-                            </a>
-                            <p>购买服务器道具、权限等增值服务</p>
-                        </div>
-                        
-                        <div class="link-item-detail">
-                            <div class="link-icon-detail" style="background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%);">
-                                <i class="fa fa-comments"></i>
-                            </div>
-                            <a href="https://www.wdsjfwq.com/server-1578.html" target="_blank">
-                                苦力怕论坛
-                                <i class="fa fa-external-link" style="font-size: 0.8rem;"></i>
-                            </a>
-                            <p>服务器官方宣传、玩家交流专区</p>
-                        </div>
-                        
-                        <div class="link-item-detail">
-                            <div class="link-icon-detail" style="background: linear-gradient(135deg, #FF5722 0%, #E64A19 100%);">
-                                <i class="fa fa-music"></i>
-                            </div>
-                            <a href="https://www.douyin.com/user/MS4wLjABAAAA-CrDPDUX-s6oxsmNrtBP07qfmrKGd5iK5KV3WKVlejWNyd52lPK8KhIriDwwYbp8?from_tab_name=main" target="_blank">
-                                抖音账号
-                                <i class="fa fa-external-link" style="font-size: 0.8rem;"></i>
-                            </a>
-                            <p>关注获取服务器动态、活动预告</p>
-                        </div>
-                        
-                        <div class="link-item-detail">
-                            <div class="link-icon-detail" style="background: linear-gradient(135deg, #26C6DA 0%, #00BCD4 100%);">
-                                <i class="fa fa-download"></i>
-                            </div>
-                            <a href="https://www.123684.com/s/8sySjv-tq2c" target="_blank">
-                                PCL启动器
-                                <i class="fa fa-external-link" style="font-size: 0.8rem;"></i>
-                            </a>
-                            <p>电脑端Java版专用启动器，稳定兼容</p>
-                        </div>
-                        
-                        <div class="link-item-detail">
-                            <div class="link-icon-detail" style="background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%);">
-                                <i class="fa fa-mobile"></i>
-                            </div>
-                            <a href="https://foldcraftlauncher.cn" target="_blank">
-                                FCL启动器
-                                <i class="fa fa-external-link" style="font-size: 0.8rem;"></i>
-                            </a>
-                            <p>手机端Java版启动器，支持多版本</p>
-                        </div>
-                        
-                        <div class="link-item-detail">
-                            <div class="link-icon-detail" style="background: linear-gradient(135deg, #FFA726 0%, #FF9800 100%);">
-                                <i class="fa fa-map"></i>
-                            </div>
-                            <a href="http://210.16.168.53:4567/" target="_blank">
-                                服务器地图
-                                <i class="fa fa-external-link" style="font-size: 0.8rem;"></i>
-                            </a>
-                            <p>查看服务器全景地图，定位玩家位置</p>
-                        </div>
-                    </div>
-                    
-                    <div style="margin-top: 50px;">
-                        <h3 style="color: var(--primary); margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid var(--primary-light); font-size: 1.5rem;">内部快速导航</h3>
-                        <div class="link-grid-detail">
-                            <div class="link-item-detail">
-                                <div class="link-icon-detail" style="background: var(--gradient);">
-                                    <i class="fa fa-server"></i>
-                                </div>
-                                <a href="#" data-page="server-info">服务器信息</a>
-                                <p>查看连接地址与版本要求</p>
-                            </div>
-                            
-                            <div class="link-item-detail">
-                                <div class="link-icon-detail" style="background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);">
-                                    <i class="fa fa-graduation-cap"></i>
-                                </div>
-                                <a href="#" data-page="tutorial">新手教程</a>
-                                <p>快速上手服务器玩法</p>
-                            </div>
-                            
-                            <div class="link-item-detail">
-                                <div class="link-icon-detail" style="background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);">
-                                    <i class="fa fa-comments"></i>
-                                </div>
-                                <a href="#" data-page="qq-group">加入QQ群</a>
-                                <p>获取实时支持与玩家交流</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 更新日志页 -->
-        <div id="updates" class="page-container">
-            <div class="container" style="max-width: 1200px; margin: 0 auto;">
-                <div class="page-header">
-                    <h2>更新日志</h2>
-                    <p class="page-description">版本更新与修复记录</p>
-                </div>
-                
-                <div class="card">
-                    <div class="timeline">
-                        <div class="update-card">
-                            <div class="update-header">
-                                <span class="update-version">Release-v1.2.0</span>
-                                <span class="date">2026年3月1日</span>
-                            </div>
-                            <div class="update-content">
-                                <span class="category category-improve">优化</span>
-                                <h3>优化</h3>
-                                <ul>
-                                    <li>以后网页只会显示大更新~</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="update-card">
-                            <div class="update-header">
-                                <span class="update-version">Release-v1.1.0</span>
-                                <span class="date">2025年12月26日</span>
-                            </div>
-                            <div class="update-content">
-                                <span class="category category-improve">优化</span>
-                                <h3>优化</h3>
-                                <ul>
-                                    <li>将服务器升级到1.21.4</li>
-                                    <li>增加了很多bug</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="update-card">
-                            <div class="update-header">
-                                <span class="update-version">Release-v1.0.6</span>
-                                <span class="date">2025年11月28日</span>
-                            </div>
-                            <div class="update-content">
-                                <span class="category category-improve">优化</span>
-                                <h3>优化</h3>
-                                <ul>
-                                    <li>优化反矿透减少玩家宽带压力减少延时</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        
-                        <div class="update-card">
-                            <div class="update-header">
-                                <span class="update-version">Release-v1.8.0</span>
-                                <span class="date">2026年2月22日</span>
-                            </div>
-                            <div class="update-content">
-                                <span class="category category-improve">优化</span>
-                                <h3>优化</h3>
-                                <ul>
-                                    <li>增加了新的主城</li>
-                                    <li>增加了邮件系统</li>
-                                    <li>以后官网只会报大更新</li>
-                                </ul>
-                            </div>
-                        </div>
-                                                
-                        <div class="update-card">
-                            <div class="update-header">
-                                <span class="update-version">Release-v1.0.5</span>
-                                <span class="date">2025年11月28日</span>
-                            </div>
-                            <div class="update-content">
-                                <span class="category category-improve">优化</span>
-                                <h3>优化</h3>
-                                <ul>
-                                    <li>现在可以用co i来查询方块变动日志了或者使用菜单</li>
-                                    <li>我们增加了兑换码系统免费🆓兑换码/redeem code CHIZHUNB（每人仅限一次）</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="update-card">
-                            <div class="update-header">
-                                <span class="update-version">Release-v1.0.4-a3</span>
-                                <span class="date">2025年11月22日</span>
-                            </div>
-                            <div class="update-content">
-                                <span class="category category-improve">优化</span>
-                                <h3>优化</h3>
-                                <ul>
-                                    <li>修复加速地址因登录插件而无法进入游戏的bug</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="update-card">
-                            <div class="update-header">
-                                <span class="update-version">Release-v1.0.4-a2</span>
-                                <span class="date">2025年11月22日</span>
-                            </div>
-                            <div class="update-content">
-                                <span class="category category-improve">优化</span>
-                                <h3>优化</h3>
-                                <ul>
-                                    <li>商店优化（增加了侦测器）</li>
-                                    <li>将领地上线增加到20</li>
-                                    <li>单世界领地上线也增加到20</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="update-card">
-                            <div class="update-header">
-                                <span class="update-version">Release-v1.0.4-a1</span>
-                                <span class="date">2025年11月21日</span>
-                            </div>
-                            <div class="update-content">
-                                <span class="category category-improve">优化</span>
-                                <span class="category category-fix">修复</span>
-                                <h3>优化</h3>
-                                <ul>
-                                    <li>修复了刷地毯还能继续刷的问题</li>
-                                    <li>修复了未登录180天就会消除数据的bug</li>
-                                    <li>增加热加载</li>
-                                    <li>优化蘑菇消除机制主世界蘑菇不会被清除了awa</li>
-                                    <li>献祭一位玩家来增加服务器流畅度（bushi）</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="update-card">
-                            <div class="update-header">
-                                <span class="update-version">Release-v1.0.4</span>
-                                <span class="date">2025年11月16日</span>
-                            </div>
-                            <div class="update-content">
-                                <span class="category category-improve">优化</span>
-                                <h3>优化</h3>
-                                <ul>
-                                    <li>修复10+杂项问题</li>
-                                    <li>修复了飞天bug</li>
-                                    <li>增加tnt复制特性（可以做刷石机了）</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="update-card">
-                            <div class="update-header">
-                                <span class="update-version">Release-v1.0.3</span>
-                                <span class="date">2025年10月5日</span>
-                            </div>
-                            <div class="update-content">
-                                <span class="category category-new">新内容</span>
-                                <span class="category category-improve">优化</span>
-                                <h3>新增内容</h3>
-                                <ul>
-                                    <li>将res领地插件修改为dom简化版</li>
-                                    <li>尝试增加活动</li>
-                                    <li>修改反作弊增加容错</li>
-                                    <li>优化官网并重新增加了网页地图🚇</li>
-                                </ul>
-                                <h3>优化</h3>
-                                <ul>
-                                    <li>修复了领地插件无法生效bug</li>
-                                    <li>增加了加速地址chizhu.asia</li>
-                                    <li>优化反作弊</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="update-card">
-                            <div class="update-header">
-                                <span class="update-version">Release-v1.0.2-a</span>
-                                <span class="date">2025年9月17日</span>
-                            </div>
-                            <div class="update-content">
-                                <h3>新内容</h3>
-                                <ul>
-                                    <li>增加菜单</li>
-                                    <li>增加玩家pvp玩家商店等区域</li>
-                                    <li>暂停新玩法加大宣传</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="update-card">
-                            <div class="update-header">
-                                <span class="update-version">beta-v1.03-A</span>
-                                <span class="date">2025年9月10日</span>
-                            </div>
-                            <div class="update-content">
-                                <span class="category category-fix">修复</span>
-                                <h3>修复</h3>
-                                <ul>
-                                    <li>暂时ban掉了蘑菇由于末地全是蘑菇导致服务器卡顿</li>
-                                    <li>调整商店价格大幅降低铁价格从6➡️3.5</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="update-card">
-                            <div class="update-header">
-                                <span class="update-version">beta-v1.0</span>
-                                <span class="date">2025年8月23日</span>
-                            </div>
-                            <div class="update-content">
-                                <span class="category category-new">大更新</span>
-                                <h3>内容</h3>
-                                <ul>
-                                    <li>修复服务器玩家延时极高问题</li>
-                                    <li>增加区块预加载</li>
-                                    <li>强制修改玩家渲染距离来优化服务器性能内存</li>
-                                    <li>彻底清除服务器地图插件并关闭快速挖掘判定增加兼容性</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="update-card">
-                            <div class="update-header">
-                                <span class="update-version">alpha-v0.1</span>
-                                <span class="date">2025年7月23日</span>
-                            </div>
-                            <div class="update-content">
-                                <span class="category category-new">新内容</span>
-                                <span class="category category-improve">优化</span>
-                                <h3>新增内容</h3>
-                                <ul>
-                                    <li>服务器正式开始运营</li>
-                                    <li>增加了基岩版玩家进入方式</li>
-                                    <li>添加充值,称号等一系列消费娱乐</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </div></div>
         </div>
 
         <!-- QQ群页 -->
         <div id="qq-group" class="page-container">
-            <div class="container" style="max-width: 1200px; margin: 0 auto;">
-                <div class="page-header">
-                    <h2>加入我们的QQ群</h2>
-                    <p class="page-description">玩家交流与技术支持</p>
-                </div>
-                
-                <div class="card">
-                    <div class="qq-group-card">
-                        <div class="qq-group-icon" id="qq-group-logo">
-                            <i class="fa fa-qq"></i>
-                        </div>
-                        <div class="qq-group-info">
-                            <h3>服务器官方交流群</h3>
-                            <p>群号: <strong style="color: var(--primary); font-size: 1.2rem;">915281565</strong></p>
-                            <p style="margin-top: 15px;">加入群聊获取最新资讯、寻求帮助和认识其他玩家</p>
-                        </div>
-                        <a href="https://jq.qq.com/?_wv=1027&k=XXXXX" target="_blank" class="btn btn-forum" style="margin-top: 30px; padding: 15px 40px; font-size: 1.1rem;">
-                            <i class="fa fa-sign-in-alt"></i> 立即加入
-                        </a>
-                    </div>
-                    <div style="margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--border-light);">
-                        <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.5rem;">其他联系方式</h3>
-                        <p style="color: var(--text-light); margin-bottom: 10px; font-size: 1.1rem;">邮箱: <strong style="color: white;">chizhulove@qq.com</strong></p>
-                        <p style="color: var(--text-light);">有任何问题或建议，欢迎通过以上方式联系我们</p>
-                    </div>
-                </div>
-            </div>
+            <div class="container" style="max-width: 1200px;"><div class="page-header"><h2>加入我们的QQ群</h2><p class="page-description">玩家交流与技术支持</p></div>
+            <div class="card"><div class="qq-group-card"><div class="qq-group-icon"><i class="fa fa-qq"></i></div><div class="qq-group-info"><h3>服务器官方交流群</h3><p>群号: <strong style="color: var(--primary);">915281565</strong></p></div><a href="https://jq.qq.com/?_wv=1027&k=XXXXX" target="_blank" class="btn btn-forum" style="margin-top: 30px;"><i class="fa fa-sign-in-alt"></i> 立即加入</a></div></div></div>
         </div>
     </main>
 
-    <!-- 页脚 -->
     <footer class="main-footer">
         <div class="footer-content">
-            <div class="footer-logo">
-                <div class="logo-icon" id="footer-logo-icon">
-                    <i class="fa fa-cube"></i>
-                </div>
-                <div class="footer-text">
-                    <h3>Chizhu Minecraft服务器</h3>
-                    <p>一个充满乐趣的生存世界</p>
-                </div>
-            </div>
-            
+            <div class="footer-logo"><div class="logo-icon"><i class="fa fa-cube"></i></div><div class="footer-text"><h3>Chizhu Minecraft服务器</h3><p>一个充满乐趣的生存世界</p></div></div>
             <div class="footer-links">
-                <div class="footer-column">
-                    <h4>快速链接</h4>
-                    <a href="#" data-page="home">首页</a>
-                    <a href="#" data-page="server-info">服务器信息</a>
-                    <a href="#" data-page="tutorial">新手教程</a>
-                    <a href="#" data-page="features">服务器特色</a>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>社区</h4>
-                    <a href="#" data-page="qq-group">QQ群</a>
-                    <a href="#" data-page="links">快捷链接</a>
-                    <a href="#" data-page="updates">更新日志</a>
-                </div>
-                
-                <div class="footer-column">
-                    <h4>资源</h4>
-                    <a href="http://210.16.168.53:5201/" target="_blank">服务器地图</a>
-                    <a href="https://mp.minepay.top/#/shop?id=7659" target="_blank">充值商店</a>
-                </div>
+                <div class="footer-column"><h4>快速链接</h4><a href="#" data-page="home">首页</a><a href="#" data-page="server-info">服务器信息</a><a href="#" data-page="tutorial">新手教程</a><a href="#" data-page="features">服务器特色</a></div>
+                <div class="footer-column"><h4>社区</h4><a href="#" data-page="qq-group">QQ群</a><a href="#" data-page="links">快捷链接</a><a href="https://docs.qq.com/doc/DS0t4QkhZU0p3WENp" target="_blank">官方文档</a></div>
+                <div class="footer-column"><h4>资源</h4><a href="http://210.16.168.53:5201/" target="_blank">服务器地图</a><a href="https://mp.minepay.top/#/shop?id=7659" target="_blank">充值商店</a></div>
             </div>
         </div>
-        
-        <div class="footer-bottom">
-            <p>&copy; 2025 Chizhu Minecraft服务器 | 托管于 <a href="https://chizhufyx.github.io/ChizhuWeb" target="_blank">web.chizhudream.top</a></p>
-            <p>服务器状态查询API: <a href="https://api.minetools.eu" target="_blank">api.minetools.eu</a></p>
-        </div>
+        <div class="footer-bottom"><p>&copy; 2025 Chizhu Minecraft服务器 | 托管于 <a href="https://chizhufyx.github.io/ChizhuWeb" target="_blank">web.chizhudream.top</a></p></div>
     </footer>
 
     <script>
-        // 全局变量
-        let currentDomain = "chizhudream.top";
-        let currentPort = 25565;
-        const API_URL = "https://api.minetools.eu/ping/{domain}/{port}";
-        let serverIconCache = null;
-        
-        // 页面加载完成
         window.addEventListener('load', function() {
-            // 3秒后自动关闭欢迎弹窗
-            setTimeout(function() {
-                const modal = document.getElementById('welcomeModal');
-                if (modal) {
-                    modal.classList.add('hidden');
-                }
-            }, 3000);
+            setTimeout(() => { const modal = document.getElementById('welcomeModal'); if(modal) modal.classList.add('hidden'); }, 3000);
+            setTimeout(() => { const loader = document.querySelector('.loader'); if(loader) loader.classList.add('hidden'); }, 500);
             
-            // 移动端菜单切换
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const navLinks = document.getElementById('navLinks');
-            
-            if (mobileMenuBtn && navLinks) {
+            if(mobileMenuBtn && navLinks) {
                 mobileMenuBtn.addEventListener('click', () => {
                     navLinks.classList.toggle('show');
-                    mobileMenuBtn.innerHTML = navLinks.classList.contains('show') 
-                        ? '<i class="fa fa-times"></i>' 
-                        : '<i class="fa fa-bars"></i>';
+                    mobileMenuBtn.innerHTML = navLinks.classList.contains('show') ? '<i class="fa fa-times"></i>' : '<i class="fa fa-bars"></i>';
                 });
             }
             
-            // 页面切换功能
+            // 页面切换逻辑 (仅处理带有 data-page 的内部链接)
             document.addEventListener('click', function(e) {
                 const link = e.target.closest('a');
-                if (!link || !link.hasAttribute('data-page')) return;
-                if (link.target === '_blank') return; // 外部链接不处理
-                
+                // 外部链接或没有 data-page 的不处理
+                if(!link || !link.hasAttribute('data-page') || link.target === '_blank') return;
                 e.preventDefault();
                 const targetPage = link.getAttribute('data-page');
-                
-                // 隐藏所有页面
-                document.querySelectorAll('.page-container').forEach(page => {
-                    page.classList.remove('active');
-                });
-                
-                // 显示目标页面
+                document.querySelectorAll('.page-container').forEach(page => page.classList.remove('active'));
                 document.getElementById(targetPage).classList.add('active');
-                
-                // 更新导航激活状态
-                document.querySelectorAll('.nav-link').forEach(navLink => {
-                    navLink.classList.remove('active');
-                });
-                
-                // 找到对应的导航链接并激活
-                const activeNavLink = Array.from(document.querySelectorAll('.nav-link')).find(
-                    navLink => navLink.getAttribute('data-page') === targetPage
-                );
-                if (activeNavLink) {
-                    activeNavLink.classList.add('active');
-                } else if (link.classList.contains('nav-link')) {
-                    link.classList.add('active');
-                }
-                
-                // 关闭移动菜单
-                if (navLinks) {
-                    navLinks.classList.remove('show');
-                    if (mobileMenuBtn) {
-                        mobileMenuBtn.innerHTML = '<i class="fa fa-bars"></i>';
-                    }
-                }
-                
-                // 滚动到顶部
+                document.querySelectorAll('.nav-link').forEach(navLink => navLink.classList.remove('active'));
+                const activeNavLink = Array.from(document.querySelectorAll('.nav-link')).find(navLink => navLink.getAttribute('data-page') === targetPage);
+                if(activeNavLink) activeNavLink.classList.add('active');
+                else if(link.classList.contains('nav-link')) link.classList.add('active');
+                if(navLinks) navLinks.classList.remove('show');
+                if(mobileMenuBtn) mobileMenuBtn.innerHTML = '<i class="fa fa-bars"></i>';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
-                
-                // 如果切换到首页，更新首页状态
-                if (targetPage === 'home') {
-                    updateHomeStatus();
-                }
-                
-                // 如果切换到服务器信息页，更新状态
-                if (targetPage === 'server-info') {
-                    setTimeout(fetchServerStatusDetail, 100);
-                }
             });
-            
-            // 获取服务器图标
-            async function fetchServerIcon() {
-                if (serverIconCache) return serverIconCache;
-                
-                try {
-                    const url = API_URL.replace('{domain}', 'chizhudream.top').replace('{port}', '25565');
-                    const response = await fetch(url, { 
-                        headers: { 'Accept': 'application/json' }
-                    });
-                    const data = await response.json();
-                    
-                    if (data.favicon) {
-                        serverIconCache = data.favicon;
-                        return data.favicon;
-                    }
-                } catch (error) {
-                    console.error('获取服务器图标失败:', error);
-                }
-                return null;
-            }
-            
-            // 应用服务器图标
-            async function applyServerIcon() {
-                const serverIcon = await fetchServerIcon();
-                if (serverIcon) {
-                    const logoIcons = document.querySelectorAll('.logo-icon, .qq-group-icon');
-                    logoIcons.forEach(icon => {
-                        icon.style.backgroundImage = `url(${serverIcon})`;
-                        const fallbackIcon = icon.querySelector('i');
-                        if (fallbackIcon) {
-                            fallbackIcon.style.opacity = '0.3';
-                        }
-                    });
-                }
-                // 隐藏加载动画
-                const loader = document.querySelector('.loader');
-                setTimeout(() => {
-                    if (loader) loader.classList.add('hidden');
-                }, 500);
-            }
-            
-            // 服务器状态查询
-            async function fetchServerStatusDetail() {
-                const url = API_URL.replace('{domain}', currentDomain).replace('{port}', currentPort);
-                
-                // 更新显示
-                const versionEl = document.getElementById('server-version-detail');
-                const statusEl = document.getElementById('server-status-detail');
-                const onlineEl = document.getElementById('player-online-detail');
-                const maxEl = document.getElementById('player-max-detail');
-                const domainEl = document.getElementById('current-domain');
-                
-                if (versionEl) versionEl.textContent = '查询中...';
-                if (statusEl) {
-                    statusEl.textContent = '查询中...';
-                    statusEl.className = 'status-value';
-                }
-                if (onlineEl) onlineEl.textContent = '0';
-                if (maxEl) maxEl.textContent = '0';
-                if (domainEl) domainEl.textContent = currentDomain;
-                
-                try {
-                    const response = await fetch(url, { 
-                        headers: { 'Accept': 'application/json' }
-                    });
-                    const data = await response.json();
-                    
-                    if (data.error) {
-                        throw new Error(data.error);
-                    }
-                    
-                    // 更新服务器信息
-                    if (versionEl) versionEl.textContent = data.version?.name || '未知版本';
-                    if (statusEl) {
-                        statusEl.textContent = '✅ 在线';
-                        statusEl.className = 'status-value';
-                    }
-                    if (onlineEl) onlineEl.textContent = data.players?.online || 0;
-                    if (maxEl) maxEl.textContent = data.players?.max || 0;
-                    
-                    // 显示在线玩家
-                    const playersList = document.getElementById('players-list');
-                    const playersGrid = document.getElementById('players-grid');
-                    
-                    if (playersList && playersGrid) {
-                        if (data.players?.online > 0 && data.players?.sample) {
-                            playersGrid.innerHTML = '';
-                            data.players.sample.forEach(player => {
-                                const playerItem = document.createElement('div');
-                                playerItem.className = 'player-item';
-                                playerItem.textContent = player.name;
-                                playersGrid.appendChild(playerItem);
-                            });
-                            playersList.style.display = 'block';
-                        } else {
-                            playersGrid.innerHTML = '<div class="no-players">暂无玩家在线</div>';
-                            playersList.style.display = 'block';
-                        }
-                    }
-                    
-                    // 如果有服务器图标，更新缓存
-                    if (data.favicon) {
-                        serverIconCache = data.favicon;
-                        const logoIcons = document.querySelectorAll('.logo-icon, .qq-group-icon');
-                        logoIcons.forEach(icon => {
-                            icon.style.backgroundImage = `url(${data.favicon})`;
-                            const fallbackIcon = icon.querySelector('i');
-                            if (fallbackIcon) {
-                                fallbackIcon.style.opacity = '0.3';
-                            }
-                        });
-                    }
-                    
-                } catch (error) {
-                    console.error('服务器查询失败:', error);
-                    if (versionEl) versionEl.textContent = '无法获取';
-                    if (statusEl) {
-                        statusEl.textContent = '❌ 离线';
-                        statusEl.className = 'status-value';
-                    }
-                    if (onlineEl) onlineEl.textContent = '0';
-                    if (maxEl) maxEl.textContent = '0';
-                }
-            }
-            
-            // 首页状态更新
-            async function updateHomeStatus() {
-                try {
-                    const url = API_URL.replace('{domain}', 'chizhudream.top').replace('{port}', '25565');
-                    const response = await fetch(url);
-                    const data = await response.json();
-                    
-                    const statusDot = document.getElementById('status-dot');
-                    const statusText = document.getElementById('status-text');
-                    const onlinePlayers = document.getElementById('online-players');
-                    const maxPlayers = document.getElementById('max-players');
-                    const serverAddress = document.getElementById('server-address');
-                    const serverVersion = document.getElementById('server-version');
-                    
-                    if (!data.error) {
-                        // 服务器在线
-                        if (statusDot) {
-                            statusDot.style.background = '#4CAF50';
-                        }
-                        if (statusText) statusText.textContent = '在线';
-                        if (onlinePlayers) onlinePlayers.textContent = data.players?.online || 0;
-                        if (maxPlayers) maxPlayers.textContent = data.players?.max || 0;
-                        if (serverVersion) serverVersion.textContent = data.version?.name || '1.20.1+';
-                        
-                        // 如果有服务器图标，更新缓存
-                        if (data.favicon) {
-                            serverIconCache = data.favicon;
-                            const logoIcons = document.querySelectorAll('.logo-icon, .qq-group-icon');
-                            logoIcons.forEach(icon => {
-                                icon.style.backgroundImage = `url(${data.favicon})`;
-                                const fallbackIcon = icon.querySelector('i');
-                                if (fallbackIcon) {
-                                    fallbackIcon.style.opacity = '0.3';
-                                }
-                            });
-                        }
-                    } else {
-                        // 服务器离线
-                        if (statusDot) {
-                            statusDot.style.background = '#F44336';
-                        }
-                        if (statusText) statusText.textContent = '离线';
-                    }
-                } catch (error) {
-                    console.error('首页状态更新失败:', error);
-                }
-            }
-            
-            // 初始化
-            applyServerIcon();
-            updateHomeStatus();
-            
-            // 域名切换功能
-            document.querySelectorAll('.domain-tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    document.querySelectorAll('.domain-tab').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    currentDomain = tab.dataset.domain;
-                    currentPort = tab.dataset.port;
-                    fetchServerStatusDetail();
-                });
-            });
-            
-            // 定期更新服务器状态
-            setInterval(() => {
-                const activePage = document.querySelector('.page-container.active');
-                if (activePage && activePage.id === 'home') {
-                    updateHomeStatus();
-                }
-                if (activePage && activePage.id === 'server-info') {
-                    fetchServerStatusDetail();
-                }
-            }, 30000);
         });
     </script>
 </body>
