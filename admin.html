@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>服务器管理登录</title>
+    <title>服务器后台管理登录</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* 样式部分保持不变，未混淆 */
@@ -226,7 +226,7 @@
             <div class="icon">
                 <i class="fas fa-server"></i>
             </div>
-            <h1><i class="fas fa-shield-alt"></i> chizhu的生存服网页登录系统</h1>
+            <h1><i class="fas fa-shield-alt"></i> 管理登录</h1>
             <div class="subtitle">AUTHORIZED ACCESS ONLY</div>
         </div>
         <div class="slogan">
@@ -255,13 +255,13 @@
     </div>
 
     <script>
-        // 混淆后的 JavaScript 代码
+        // 混淆后的 JavaScript 代码（跳转地址已更新）
         (function() {
             // 密钥与关键数据经过 Base64 编码
             var _0xabc = {
-                'usr': 'YWRtaW4=',      // "admin"
-                'pwd': 'MTIzNDU2',      // "123456"
-                'url': 'aHR0cHM6Ly9jaGl6aHVkcmVhbS50b3AvY2hpemh1Lmh0bWw=' // "https://chizhudream.top/chizhu.html"
+                'usr': 'YWRtaW4=',      
+                'pwd': 'MTIzNDU2',      
+                'url': 'd2ViLmNoaXpodWRyZWFtLnRvcC9jaGl6aHU=' 
             };
 
             // 解码函数
@@ -282,7 +282,7 @@
                 var p = passwordInput.value.trim();
                 var validUser = _decode(_0xabc.usr);
                 var validPass = _decode(_0xabc.pwd);
-                var targetUrl = _decode(_0xabc.url);
+                var targetUrl = 'https://' + _decode(_0xabc.url); // 拼接协议
 
                 // 使用混乱的比较流程
                 var result = false;
