@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>服务器管理登录</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 样式部分保持不变，未混淆 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', system-ui, sans-serif;
+        }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #0a1a3a 0%, #1a3a6a 50%, #0d2b5e 100%);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(64, 164, 255, 0.15) 0%, transparent 70%);
+            top: -200px;
+            right: -200px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        body::after {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(30, 144, 255, 0.1) 0%, transparent 70%);
+            bottom: -150px;
+            left: -150px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 24px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+        .login-container:hover {
+            transform: translateY(-5px);
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        .login-header .icon {
+            font-size: 48px;
+            color: #6ab0ff;
+            background: rgba(64, 164, 255, 0.15);
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            border: 2px solid rgba(64, 164, 255, 0.3);
+            box-shadow: 0 0 30px rgba(64, 164, 255, 0.2);
+        }
+        .login-header h1 {
+            color: #ffffff;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(0, 20, 50, 0.5);
+        }
+        .login-header h1 i {
+            color: #6ab0ff;
+            margin-right: 8px;
+        }
+        .login-header .subtitle {
+            color: rgba(180, 210, 255, 0.8);
+            font-size: 14px;
+            margin-top: 8px;
+            letter-spacing: 6px;
+            font-weight: 300;
+        }
+        .slogan {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            padding: 12px 0;
+            margin-bottom: 28px;
+            border-top: 1px solid rgba(64, 164, 255, 0.2);
+            border-bottom: 1px solid rgba(64, 164, 255, 0.2);
+            background: rgba(64, 164, 255, 0.05);
+            border-radius: 8px;
+            text-shadow: 0 0 20px rgba(64, 164, 255, 0.3);
+        }
+        .slogan i {
+            color: #6ab0ff;
+            margin-right: 10px;
+        }
+        .input-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .input-group label {
+            display: block;
+            color: rgba(200, 220, 255, 0.8);
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .input-group label i {
+            margin-right: 8px;
+            color: #6ab0ff;
+            width: 18px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            color: #ffffff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+            backdrop-filter: blur(5px);
+        }
+        .input-group input:focus {
+            border-color: #4a9eff;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 4px rgba(64, 164, 255, 0.15), 0 0 20px rgba(64, 164, 255, 0.05);
+        }
+        .input-group input::placeholder {
+            color: rgba(180, 200, 230, 0.4);
+            font-weight: 300;
+        }
+        .input-group input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 30px rgba(20, 50, 100, 0.8) inset !important;
+            -webkit-text-fill-color: #fff !important;
+        }
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #3a8cff, #1a5fc7);
+            border: none;
+            border-radius: 14px;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 12px;
+            box-shadow: 0 6px 25px rgba(30, 100, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .login-btn:hover {
+            background: linear-gradient(135deg, #4a9cff, #2a6fd7);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(30, 100, 255, 0.5);
+        }
+        .login-btn:active {
+            transform: scale(0.98);
+        }
+        .error-message {
+            color: #ff6b7a;
+            background: rgba(255, 80, 80, 0.1);
+            border-left: 3px solid #ff6b7a;
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            display: none;
+            backdrop-filter: blur(5px);
+            align-items: center;
+            gap: 10px;
+        }
+        .error-message.show {
+            display: flex;
+        }
+        .footer-text {
+            text-align: center;
+            margin-top: 30px;
+            color: rgba(180, 210, 255, 0.3);
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 32px 20px;
+            }
+            .login-header h1 {
+                font-size: 24px;
+            }
+            .slogan {
+                font-size: 15px;
+                padding: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="icon">
+                <i class="fas fa-server"></i>
+            </div>
+            <h1><i class="fas fa-shield-alt"></i> chizhu的生存服网页登录系统</h1>
+            <div class="subtitle">AUTHORIZED ACCESS ONLY</div>
+        </div>
+        <div class="slogan">
+            <i class="fas fa-star"></i> 为人民服务 <i class="fas fa-star"></i>
+        </div>
+        <div class="error-message" id="errorMessage">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="errorText">用户名或密码错误，请重试。</span>
+        </div>
+        <form id="loginForm" onsubmit="return false;">
+            <div class="input-group">
+                <label for="username"><i class="fas fa-user"></i> 用户名</label>
+                <input type="text" id="username" placeholder="请输入管理员用户名" autofocus>
+            </div>
+            <div class="input-group">
+                <label for="password"><i class="fas fa-lock"></i> 密码</label>
+                <input type="password" id="password" placeholder="请输入密码">
+            </div>
+            <button type="button" class="login-btn" id="loginBtn">
+                <i class="fas fa-sign-in-alt"></i> 登 录
+            </button>
+        </form>
+        <div class="footer-text">
+            <i class="fas fa-lock"></i> 安全连接 · 内部管理系统
+        </div>
+    </div>
+
+    <script>
+        // 混淆后的 JavaScript 代码
+        (function() {
+            // 密钥与关键数据经过 Base64 编码
+            var _0xabc = {
+                'usr': 'YWRtaW4=',      // "admin"
+                'pwd': 'MTIzNDU2',      // "123456"
+                'url': 'aHR0cHM6Ly9jaGl6aHVkcmVhbS50b3AvY2hpemh1Lmh0bWw=' // "https://chizhudream.top/chizhu.html"
+            };
+
+            // 解码函数
+            function _decode(str) {
+                return atob(str);
+            }
+
+            // 获取 DOM 元素
+            var usernameInput = document.getElementById('username');
+            var passwordInput = document.getElementById('password');
+            var errorMsg = document.getElementById('errorMessage');
+            var errorText = document.getElementById('errorText');
+            var loginBtn = document.getElementById('loginBtn');
+
+            // 核心登录逻辑 (混淆变量名和控制流)
+            function _login() {
+                var u = usernameInput.value.trim();
+                var p = passwordInput.value.trim();
+                var validUser = _decode(_0xabc.usr);
+                var validPass = _decode(_0xabc.pwd);
+                var targetUrl = _decode(_0xabc.url);
+
+                // 使用混乱的比较流程
+                var result = false;
+                if (u === validUser) {
+                    if (p === validPass) {
+                        result = true;
+                    } else {
+                        result = false;
+                    }
+                } else {
+                    result = false;
+                }
+
+                if (result) {
+                    errorMsg.classList.remove('show');
+                    window.location.href = targetUrl;
+                } else {
+                    errorText.textContent = '用户名或密码错误，请重新输入。';
+                    errorMsg.classList.add('show');
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                }
+            }
+
+            // 绑定点击事件
+            loginBtn.addEventListener('click', _login);
+
+            // 支持回车键提交
+            document.getElementById('loginForm').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    _login();
+                }
+            });
+
+        })();
+    </script>
+</body>
+</html>
