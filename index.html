@@ -38,7 +38,6 @@
         @keyframes slowTwinkle { 0%,100% { opacity: .3; } 50% { opacity: .75; } }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
 
         body {
@@ -87,7 +86,6 @@
         .home-container, .main-nav, .main-footer, .page-container,
         .card, .feature-card, .stat-item, .link-card, .tutorial-card,
         .qq-group-card, .version, .feature-item { position: relative; z-index: 2; }
-
         .card, .feature-card, .stat-item, .link-card, .tutorial-card,
         .qq-group-card, .version, .feature-item {
             background: var(--bg-card);
@@ -204,17 +202,14 @@
             display: block; width: 100%; border: none;
             height: 400px;
         }
-        @media (max-width: 400px) {
-            .status-frame-wrap iframe { height: 320px; }
-        }
 
         /* ---------- 数据统计 ---------- */
         .stats-section {
-            display: flex; justify-content: center; gap: 22px;
-            margin: 56px 0 10px; flex-wrap: wrap;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px; margin: 50px 0 10px;
         }
         .stat-item {
-            text-align: center; padding: 26px 22px; min-width: 170px;
+            text-align: center; padding: 24px 16px;
             border-radius: var(--radius); box-shadow: var(--shadow); transition: var(--transition);
             position: relative; overflow: hidden;
         }
@@ -223,10 +218,10 @@
         }
         .stat-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: rgba(76,175,80,.5); }
         .stat-number {
-            font-size: 2.4rem; font-weight: 800; color: var(--primary);
+            font-size: 2.2rem; font-weight: 800; color: var(--primary);
             display: block; margin-bottom: 6px; text-shadow: 0 0 12px rgba(76,175,80,.35);
         }
-        .stat-label { color: var(--text-light); font-size: .95rem; }
+        .stat-label { color: var(--text-light); font-size: .92rem; }
 
         /* ---------- 区块通用 ---------- */
         .features-section, .quick-links-section { padding: 80px 0; }
@@ -422,27 +417,113 @@
         .footer-bottom a { color: var(--text-light); text-decoration: none; }
         .footer-bottom a:hover { color: var(--primary-light); }
 
-        /* ---------- 响应式 ---------- */
-        @media (max-width: 900px) {
-            .footer-content { grid-template-columns: 1fr; gap: 32px; }
-            .footer-links { grid-template-columns: 1fr 1fr; }
-        }
+        /* ============================================================
+           竖屏手机端优化（≤768px 竖屏）
+           ============================================================ */
         @media (max-width: 768px) {
+            /* 导航 */
             .mobile-menu-btn { display: block; }
             .nav-links {
                 display: none; position: absolute; top: 70px; left: 0; width: 100%;
                 background: rgba(10,15,26,.97); flex-direction: column;
-                padding: 16px; gap: 6px; border-bottom: 1px solid var(--border-light);
+                padding: 14px 16px; gap: 4px; border-bottom: 1px solid var(--border-light);
+                max-height: calc(100vh - 70px); overflow-y: auto;
             }
             .nav-links.show { display: flex; }
-            .nav-link { padding: 12px 16px; }
+            .nav-link { padding: 12px 14px; font-size: 1rem; }
             .nav-link.active::after { display: none; }
-            .stats-section { gap: 14px; }
-            .stat-item { min-width: 140px; padding: 20px 14px; }
-            .stat-number { font-size: 1.9rem; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .hero-btn { width: 100%; max-width: 320px; justify-content: center; }
-            .features-section, .quick-links-section { padding: 56px 0; }
+            .nav-logo h1 { font-size: 1.15rem; }
+            .logo-icon { width: 38px; height: 38px; }
+
+            /* Hero 收紧 */
+            .hero-section { padding: 36px 0 8px; }
+            .hero-title { font-size: 1.9rem; line-height: 1.3; }
+            .hero-subtitle { font-size: 1rem; margin-top: 10px; padding: 0 10px; }
+
+            /* 状态卡片收紧 */
+            .status-query-section { padding: 24px 0 4px; }
+            .status-query-card { padding: 18px 14px; }
+            .status-query-card h3 { font-size: 1.1rem; }
+            .status-query-card p { font-size: .85rem; margin-bottom: 12px; }
+            .status-frame-wrap iframe { height: 380px; }
+
+            /* 数据统计：2 列网格 */
+            .stats-section {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px; margin: 32px 0 6px;
+            }
+            .stat-item { padding: 18px 10px; }
+            .stat-number { font-size: 1.7rem; }
+            .stat-label { font-size: .82rem; }
+
+            /* 按钮竖排 */
+            .hero-buttons { flex-direction: column; align-items: center; gap: 12px; margin-top: 22px; }
+            .hero-btn { width: 100%; max-width: 340px; justify-content: center; padding: 13px 24px; font-size: 1rem; }
+
+            /* 区块间距收紧 */
+            .features-section, .quick-links-section { padding: 48px 0; }
+            .section-title { font-size: 1.6rem; padding-bottom: 10px; }
+            .section-subtitle { font-size: .95rem; margin-bottom: 32px; padding: 0 8px; }
+            .features-grid { gap: 18px; margin-bottom: 32px; }
+            .feature-card { padding: 26px 20px; }
+            .feature-icon { width: 62px; height: 62px; font-size: 1.5rem; margin-bottom: 16px; }
+            .feature-card h3 { font-size: 1.2rem; }
+            .feature-card p { font-size: .9rem; }
+
+            /* 快速链接单列更舒服 */
+            .links-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+            .link-card { padding: 20px 14px; }
+            .link-icon { width: 52px; height: 52px; font-size: 1.3rem; margin-bottom: 12px; }
+            .link-card h3 { font-size: 1.05rem; }
+            .link-card p { font-size: .82rem; }
+
+            /* 子页面 */
+            .page-container { padding: 30px 0; }
+            .page-header { margin-bottom: 28px; }
+            .page-header h2 { font-size: 1.7rem; }
+            .page-description { font-size: .95rem; }
+            .card { padding: 20px 16px; margin-bottom: 22px; }
+
+            /* 版本卡片竖排 */
+            .version-box { flex-direction: column; gap: 16px; margin: 18px 0; }
+            .version { min-width: 0; padding: 22px 18px; }
+
+            /* 特色/教程卡片 */
+            .features-grid-detail { grid-template-columns: 1fr; gap: 14px; }
+            .feature-item { padding: 18px; }
+            .tutorial-container { grid-template-columns: 1fr; gap: 16px; }
+            .tutorial-card { padding: 22px 18px; }
+            .tutorial-note { padding: 14px 16px; font-size: .88rem; }
+
+            /* 快捷链接详情页 2 列 */
+            .link-grid-detail { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .link-item-detail { padding: 18px 10px; }
+            .link-icon-detail { width: 46px; height: 46px; font-size: 1.2rem; margin-bottom: 12px; }
+            .link-item-detail a { font-size: .85rem; gap: 6px; flex-wrap: wrap; }
+
+            /* QQ群 */
+            .qq-group-card { padding: 30px 14px; }
+            .qq-group-icon { width: 120px; height: 120px; font-size: 4rem; margin-bottom: 20px; }
+
+            /* 页脚 */
+            .main-footer { padding: 44px 0 22px; margin-top: 50px; }
+            .footer-content { grid-template-columns: 1fr; gap: 28px; margin-bottom: 28px; }
+            .footer-links { grid-template-columns: 1fr 1fr; gap: 18px; }
+            .footer-bottom { font-size: .8rem; padding-top: 18px; }
+
+            /* 容器左右边距收窄 */
+            .home-container, .container { padding: 0 14px; }
+        }
+
+        /* 超小屏（≤380px，老款安卓/小屏 SE） */
+        @media (max-width: 380px) {
+            .hero-title { font-size: 1.65rem; }
+            .stats-section { gap: 10px; }
+            .stat-item { padding: 14px 8px; }
+            .stat-number { font-size: 1.45rem; }
+            .links-grid { grid-template-columns: 1fr; }
+            .link-grid-detail { grid-template-columns: 1fr; }
+            .status-frame-wrap iframe { height: 340px; }
         }
     </style>
 </head>
@@ -785,11 +866,9 @@
 
 <script>
     window.addEventListener('load', function () {
-        // 隐藏加载动画
         const loader = document.querySelector('.loader');
         setTimeout(() => loader && loader.classList.add('hidden'), 500);
 
-        // 移动端菜单
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
         mobileMenuBtn && navLinks && mobileMenuBtn.addEventListener('click', () => {
@@ -799,7 +878,6 @@
                 : '<i class="fa fa-bars"></i>';
         });
 
-        // 单页切换
         document.addEventListener('click', function (e) {
             const link = e.target.closest('a');
             if (!link || !link.hasAttribute('data-page') || link.target === '_blank') return;
@@ -807,15 +885,12 @@
             const target = link.getAttribute('data-page');
             const targetEl = document.getElementById(target);
             if (!targetEl) return;
-
             document.querySelectorAll('.page-container').forEach(p => p.classList.remove('active'));
             targetEl.classList.add('active');
-
             document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
             const activeNav = Array.from(document.querySelectorAll('.nav-link'))
                 .find(n => n.getAttribute('data-page') === target);
             activeNav && activeNav.classList.add('active');
-
             navLinks && navLinks.classList.remove('show');
             mobileMenuBtn && (mobileMenuBtn.innerHTML = '<i class="fa fa-bars"></i>');
             window.scrollTo({ top: 0, behavior: 'smooth' });
